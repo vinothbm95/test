@@ -1,0 +1,51 @@
+<div class="row col-md-12 login-main  my-row">
+   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 no-pad login-img">
+       <elpis-rms-cover-patch></elpis-rms-cover-patch>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 no-pad">
+      <div class="container col-md-8 offset-md-2">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="form col-md-12">
+           <div>
+              <img class="elpis-logo x-auto d-block " src="assets/images/elpis_logo.png" alt="Card image cap">
+           </div>
+           <p class="text-secondary">Please complete to create your account.</p>
+           <div class="row">
+              <mat-form-field class="example-full-width col-md-6">
+                <input matInput placeholder="First name" value="" formControlName="firstname">
+                <mat-error *ngIf="!firstname.valid && firstname.touched">{{ titleAlert }}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width col-md-6">
+                <input matInput placeholder="Last name" value="" formControlName="lastname">
+                <mat-error *ngIf="!lastname.valid && lastname.touched">{{ titleAlert }}</mat-error>
+              </mat-form-field>
+           </div>
+           <mat-form-field class="form-element">
+             <input matInput placeholder="Email" formControlName="email">
+             <mat-error *ngIf="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
+               {{ getErrorEmail() }}
+             </mat-error>
+           </mat-form-field>
+          <mat-form-field class="form-element">
+            <input matInput placeholder="Password" formControlName="password">
+            <mat-hint>Choose a password of at least eight characters, one uppercase letter and one number</mat-hint>
+            <mat-error *ngIf="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
+              {{ getErrorPassword() }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-element" *ngIf="signupForm.controls['password'].valid">
+              <input matInput placeholder="Confirm your password" formControlName="confirmPassword">
+              <mat-error *ngIf="signupForm.controls['confirmPassword'].pristine || signupForm.controls['confirmPassword'].errors?.MatchPassword">Password does not match</mat-error>
+          </mat-form-field>
+          <div class="form-element">
+            <mat-checkbox formControlName="validate" value="1" color='primary'>I agree with terms and conditions</mat-checkbox>
+          </div>
+          <div class="form-element registerPage pointer">
+            <button mat-raised-button color="primary" type="submit" class="button register_button " [disabled]="!signupForm.valid">Sign Up</button>
+          </div>
+        </form>
+        <div class="loginBack registerPage">
+          <a mat-button routerLink="/login">Already have an account? Sign In</a>
+        </div>
+    </div>
+  </div>
+</div>

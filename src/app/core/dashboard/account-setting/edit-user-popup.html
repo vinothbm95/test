@@ -1,0 +1,123 @@
+<div class="">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="popup-title">
+          Edit user
+        </h2>
+        <div class="delete-popup-close-icon" id="close-icon">
+          <mat-icon matDialogClose>close </mat-icon>
+        </div>
+      </div>
+      <div class="col-12 margin-bottom-10">
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+  
+  
+    <div class="form-fields-div col-12 no-pad">
+      <!-- <perfect-scrollbar >   -->
+      <form [formGroup]="userListEditForm">
+        <div class="row add-sigal-content-div-scroll">
+  
+          <div class="col-12 col-sm-12 col-md-6 col-xl-6 col-lg-6 margin-top-10">
+            <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="First Name"  formControlName="firstName" >
+                
+                <mat-error *ngIf="!firstName.valid && firstName.touched">
+                  firstname is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-xl-6 col-lg-6 margin-top-10">
+            <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Last Name" formControlName="lastName">
+                
+                <mat-error *ngIf="!lastName.valid && lastName.touched">
+                  lastname is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-xl-6 col-lg-6 margin-top-10">
+              <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Contact number</mat-label>
+                <input matInput placeholder="Contact number" formControlName="phoneNo">
+                <mat-error *ngIf="!phoneNo.valid && phoneNo.touched">
+                  Contact number is required
+                </mat-error>
+             
+              </mat-form-field>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-xl-6 col-lg-6 margin-top-10">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="user@gmail.com" formControlName="email">
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-error *ngIf="!userListEditForm.controls['email'].valid && userListEditForm.controls['email'].touched">
+                {{ getErrorEmail() }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+          <div class="col-12 col-sm-12 col-md-6 col-xl-6 col-lg-6 margin-top-10">
+             <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Designation</mat-label>
+                <input matInput placeholder="email" formControlName="designation">
+                <mat-error *ngIf="!designation.valid && designation.touched">
+                  User Designation required
+                </mat-error>
+              
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-6 col-xl-6 col-lg-6 margin-top-10">
+            <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="userRoleId">
+                  <mat-option [disabled]="getDisableRole(role)" *ngFor="let role of roleDropdown" [value]="role">
+                    {{getRoleName(role.userRoleName)}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!userRoleId.valid && userRoleId.touched">
+                 User role is required
+                </mat-error>
+              </mat-form-field>
+  
+            </div>
+          </div>
+ 
+    
+  
+  
+  
+          <div class=" col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10 pad-b-50 ">
+            <div class="add-signal-btn-div">
+                <button   matDialogClose mat-raised-button
+                class="buttoncolor my-mbl-select-device-btn  cancel-alarem add-signal-cancel-btn"
+                color="primary">Cancel</button>
+              <button  mat-raised-button [disabled]="!userListEditForm.valid"
+                class="buttoncolor my-mbl-select-device-btn add-device-btn add-signal-register-btn"
+                color="primary" (click)="updateEditUser()">Apply</button>
+            </div>
+  
+          </div>
+        </div>
+      </form>
+      <!-- </perfect-scrollbar>   -->
+    </div>
+    <ngx-loading [show]="show" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+  </div>
+  

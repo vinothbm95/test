@@ -1,0 +1,42 @@
+<div class=" ">
+
+    <div class="row">
+        <div class="col-10 col-sm-6 col-lg-6 col-xl-6">
+            <h2 class=" floatleft">Report data</h2>
+        </div>
+        <div class="col-2 col-sm-6 col-lg-6 col-xl-6">
+            <div class=" floatright">
+                <mat-icon matDialogClose>close </mat-icon>
+            </div>
+        </div>
+        <div class="col-12 ">
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+
+    <div class="form-fields-div col-12 no-pad" >
+        <!-- <perfect-scrollbar >   -->
+        <div class="row add-sigal-content-div-scroll">
+            <ng-container *ngFor="let header of data.headerViewModels">
+                <div *ngIf="header.isShow" class="col-12 col-sm-6 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+
+                    <p class="details-popup-title">{{header.headerTitle}}</p>
+                    <p class="details-popup-data-txt"> {{data.signalModel[header.headerName]}}</p>
+                </div>
+            </ng-container>
+
+
+       
+  
+
+    <div class=" col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10  pad-b-10 ">
+        <div class="add-signal-btn-div">
+            <button matDialogClose mat-raised-button
+                class="buttoncolor margintop15 details-close-btn-mbl my-mbl-select-device-btn add-device-btn edit-popup-apply-btn"
+                color="primary">Close</button>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>

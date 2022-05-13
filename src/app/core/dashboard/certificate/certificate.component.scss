@@ -1,0 +1,690 @@
+//dropdown and device list and etc dropdown css start
+.container-root{
+    margin: 20px 20px !important;
+}
+.float-right{
+    float: right;
+  }
+.float-left{
+    float: left;
+}
+.pad-0{
+    padding: 0px;
+}
+.bgcolorbutton{
+       color: #FFFFFF;
+      background-color: #3B86FF;
+ }
+ .buttoncolor{
+    background-color: #3B86FF;
+ }
+ .my-mbl-certificate-apply-btn{
+    width:140px !important;
+}
+
+.check-box-text{
+    font-size: 12px;
+}
+.text-white{
+    color: #ffffff !important;
+}
+.margin-top-20{
+    margin-top: 20px;
+}
+.margin-top-40{
+    margin-top: 40px;
+}
+.example-full-width{
+    width: 100% !important;
+}
+.siganl-ngx-picker-alignment{
+    position: relative;
+    top: 15px;
+}
+.dashboard{
+
+    color: #43425D;
+    opacity: 1;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.my-dashboard-title-div-height{
+    height: 60px !important;
+    padding: 12px !important;
+}
+.padding-head{
+    padding: 0px 10px;
+ }
+ 
+.select_print-btn {
+    color: #fff;
+    background-color: #3b86ff;
+    cursor: pointer;
+}
+.print-button-container{
+    position: fixed;
+    right: 20px;
+    top: 75px;
+    z-index: 2;
+}
+
+.print-button-container :focus {
+    outline: -webkit-focus-ring-color auto 0px !important;
+}
+.my-custom-btn :focus {
+    outline: -webkit-focus-ring-color auto 0px !important;
+}
+::ng-deep button:focus {
+
+    outline: 0px auto -webkit-focus-ring-color !important;
+    outline: 0px dotted !important;
+    outline: 0px auto -webkit-focus-ring-color !important; 
+    outline: -webkit-focus-ring-color auto 0px !important;
+}
+
+::ng-deep .mat-datepicker-toggle-default-icon {
+ 
+    font-size: 20px !important;
+    // color: #3b86ff;
+}
+.mat-datepicker-toggle-active {
+    color: #3b86ff !important;
+}
+
+.fields-width{
+    width: 94%;
+    position: relative;
+    left: 3%;
+    bottom: 5px;
+}
+.btn-width-100{
+    width: 100%;
+}
+
+ ::ng-deep .custom-mat-panel  {
+  width: 168px !important;
+}
+ ::ng-deep .mat-menu-content:not(:empty) {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+.edit-certificate-btn-div{
+    position: absolute;
+    right: 30px;
+    top: 15px;
+}
+//dropdown and device list and etc dropdown css end
+
+//timepicker css start
+
+.ngx-timepicker-field-example{
+    width: 70%;
+    float: left;
+    position: relative;
+    top: -2px;
+    height: 40px;
+    bottom: 5px;
+}
+.from-txt{
+    width: 20%;
+    float: left;
+    position: relative;
+    top: 7px;
+    left: 10px;
+    margin-left: 5%;
+}
+.signal-certificate-td-text{
+    text-align: center;
+}
+//timepicker css end
+
+// certificate main card css start
+.calender-div-pos{
+    position: relative;
+    bottom: 20px;
+}
+.readable-date-text{
+    padding-left: 50px;
+}
+.readable-heading-text{
+    font-size: 18px;
+    color: #0000009e;
+}
+.certificate-main-card{
+    min-height: 600px !important;
+    height: auto !important;
+    padding: 12px 12px 50px 12px !important;
+    border-radius: 15px;
+}
+.main-row{ 
+    margin: 30px 0px;
+}
+.mat-form-field {
+    width: 100% !important;
+}
+.img-responsive {
+    width: 100%;
+    max-width: 275px;
+    height: auto;
+    color: #505050;
+  }
+  .width-100{
+      width: 100%;
+  }
+  .elpis-img-div{
+      text-align: center;
+      margin-top: 25px;
+      color: #505050;
+  }
+  .certificate-title{
+    font-size: 20px;
+    font-weight: bold;
+    color: #505050;
+  }
+  .certificate-sub-txt{
+    width: 50%;
+    margin: 0 auto;
+    font-size: 15px;
+    color: #505050;
+  }
+  .general-data-row{
+    margin: 0px 30px;
+  }
+  .general-data-col-bg{
+      background-color: #f1f3f9;
+      color: #505050;
+  }
+  .general-data-heading{
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #505050;
+    margin-top: 20px;
+    margin-bottom: 20px
+  }
+  .general-data-title{
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px;
+    position: relative;
+    top: 5px;
+  }
+
+  .compressor-data-heading{
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #505050;
+    margin-top: 30px;
+    margin-bottom: 30px
+  }
+  .margin-bottom-50{
+    margin-bottom: 50px;
+  }
+  .incharge-data-row{
+    margin: 0px 30px;
+  }
+  .date-txt{
+    font-size: 18px;
+    font-weight: bold;
+    color: #505050;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .text-center{
+    text-align: center !important;
+  }
+
+  .decription-txt{
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left !important;
+  }
+//compressor table css staart
+.reusable-table table {
+	border: 0;
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	table-layout: fixed;
+
+	caption {
+		text-align: left;
+		font-size: 1.3em;
+		margin: .5em 0 .75em;
+	}
+
+	thead {
+		display: none;
+	}
+
+	tr {
+		display: block;
+		border: 1px solid #eee;
+		padding: 1em 1em .5em;
+
+		& + tr {
+			margin-top: .625em;
+		}
+    }
+    tr:nth-child(odd) { 
+        background-color: #F5F6FA; 
+    }
+
+	td {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		font-size: .8em;
+        line-height: 1.35em;
+        font-size: 14px;
+        color: #505050;
+
+		&:before {
+			content: attr(data-label);
+			font-size: .90em;
+			text-align: left;
+			font-weight: bold;
+			text-transform: uppercase;
+			max-width: 45%;
+			color: #545454;
+		}
+
+		& + td {
+			margin-top: .8em;
+		}
+
+		&:last-child {
+			border-bottom: 0;
+		}
+	}
+}
+
+@media screen and (min-width: 600px) {
+.reusable-table table {
+		caption {
+			font-size: 1.5em;
+		}
+
+		thead {
+			display: table-header-group;
+		}
+
+		tr {
+			display: table-row;
+			border: 0;
+        }
+        tr:nth-child(odd) { 
+            background-color: #F5F6FA; 
+        }
+
+		th, td {
+			// text-align: center;
+            // universal padding
+            padding: 12px;
+		}
+
+		th {
+            font-size: 13px;
+            font-weight: bold;
+            padding: 10px !important;
+            text-align: left !important;
+            background-color: #ffffff !important; 
+		}
+
+		td {
+			display: table-cell;
+
+			&:before {
+				display: none;
+			}
+
+		}
+    }
+
+}
+
+//compressor table css end
+// certificate main card css end
+
+//graph css start
+.my-dashboard-title-div-height-graph{
+    height: auto !important;
+    padding: 12px !important;
+}
+.signal-behaviour-txt{
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+    margin: 0px;
+    color: #4d4f5c;
+}
+.graph-sub-txt{
+    font-size: 14px;
+    padding: 0px 10px 10px 10px;
+    margin: 0px;
+}
+.graph-txt-div{
+    position: relative;
+    bottom: 20px;
+}
+.graph-txt-center{
+    margin: 0px;
+    text-align: center;
+    font-size: 14px;
+}
+.graph-txt-center-sub{
+    margin: 0;
+    text-align: center;
+    font-size: 12px;
+}
+::ng-deep .highcharts-title{
+    fill: transparent !important;
+}
+.chart-main-tag{
+    position: relative;
+    bottom: 22px;
+}
+//graph css end
+
+//signal report css start
+.spare-txt{
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+    margin: 0px;
+    color: #4d4f5c;
+    text-align: right;
+}
+.signal-report-export-icon{
+    position: relative;
+    top: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+//signal report css end
+.last-col-div-val{
+    width: 50%;
+    float: left;
+    position: relative;
+    top: 4px;
+}
+.last-col-div-icon{
+    width: 50%;
+    float: left;
+}
+.signal-add-icon {
+    color: #10ff00 !important;
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+    font-size: 24px;
+    left: 80%;
+    
+  
+   }
+   .signal-remove-icon {
+    color:red !important;
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+    font-size: 24px;
+    left: 80%;
+   }
+.input-width{
+    width: 30px;
+}
+
+
+  @media only screen and (max-width: 600px) {
+      //dropdown and device list and etc dropdown media query start
+    .my-dashboard-title-div-height{
+        height: auto !important;
+        padding: 12px !important;
+    }  
+    .my-mbl-certificate-apply-btn{
+        width:100% !important;
+    }
+    .my-custom-btn-mbl{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .print-button-container{
+        position: fixed;
+        right: 15px;
+        top: 65px;
+        z-index: 2;
+    }
+//dropdown and device list and etc dropdown media query end
+
+.decription-txt {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: right!important;
+}
+.graph-txt-center{
+    margin-top: 25px;
+}
+.graph-txt-center-sub{
+margin-bottom: 25px;
+}
+.dashboard {
+
+    text-align: center;
+}
+.mbl-card{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+.general-data-title {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 5px 0px;
+    position: relative;
+    top: 5px;
+}
+.display-block
+    {
+        display:block !important;
+    }
+
+  }
+  @media only screen and (max-width: 768px){
+    .save-mbl-btn{
+        margin: 15px 0px 25px 0px !important;
+        }
+      //dropdown and device list and etc dropdown media query start
+    .my-dashboard-title-div-height{
+        height: auto !important;
+        padding: 12px !important;
+    } 
+    .btn-mbl-full-width{
+        width: 100% !important;
+    }
+    //dropdown and device list and etc dropdown media query end
+
+    // certificate main card media query css start
+    .certificate-sub-txt {
+        width: 94%;
+        margin: 0 auto;
+        font-size: 15px;
+        text-align: justify;
+    }
+    .general-data-row {
+        margin: 0px 2px;
+    }
+
+
+   // certificate main card media query css end
+}    
+
+
+//alarm certificate css start
+.all-certificate-div-alarm
+{
+table, th, td {
+ border: 1px solid black;
+ }
+ 
+ .alarmtableheading
+ {
+ font-size: 13px;
+ font-weight: bold;
+ padding: 10px !important;
+ text-align: left !important;
+ }
+ .mt-20
+ {
+ margin-top:20px;
+ }
+ .pt-8
+ {
+ padding-top:8px;
+ padding-bottom:8px;
+ }
+ 
+ textarea {
+ border: 1px solid !important;
+ background-color: transparent;
+ resize: none;
+ outline: none;
+ box-shadow: none !important;
+ padding-left:5px;
+}
+ 
+}
+::ng-deep .obsevationtextarea
+  {
+    .mat-form-field-appearance-legacy .mat-form-field-underline
+    {
+      height:0px !important;
+      display:none !important;
+      opacity: 0 !important;
+    }
+  }
+
+//alarm certificate css end
+//signal certificate css start
+.all-certificate-div-signal 
+{
+    table, th, td {
+        border: 1px solid black;
+      }
+   
+      .alarmtableheading
+      {
+        font-size: 13px;
+        font-weight: bold;
+        padding: 10px !important;
+        text-align: left;
+      }
+      .textaligncenter
+{
+text-align: center !important;
+}
+.mt-20
+{
+    margin-top:20px;
+}
+}
+.btnproperties{
+    background-color: #3b86ff;
+    color: white;
+    margin: 5px;
+}
+.textalighcentre{
+    text-align: center;
+}
+//signal certificate css end
+
+@media only screen and (max-width: 425px) {
+    .fields-width
+    {
+        left:0px;
+    }
+    .display-block
+    {
+        display:block !important;
+    }
+    .margin-bottom-50
+    {
+        margin-bottom:0px !important;
+    }
+    .readable-date-text
+    {
+        padding-left:0px;
+        display: block;
+    }
+    .no-pad
+    {
+        padding-left:0px;
+        padding-right:0px;
+    }
+    .ngx-timepicker-field-example
+    {
+        width:100% !important;
+        top: -15px;
+    }
+    .mbl-margin
+    {
+        margin: 0px 0px;
+    }
+    .obsevationtextarea
+    {
+        margin-bottom:0px !important;
+    }
+    .mbl-pad0
+    {
+        padding:0px !important;
+    }
+    .mbl-plr0
+    {
+        padding-left:0px;
+        padding-right:0px;
+    }
+    
+    }
+    
+    @media only screen 
+      and (min-device-width: 768px) 
+      and (max-device-width: 1024px) 
+      and (-webkit-min-device-pixel-ratio: 1) {
+    .fields-width
+    {
+        left:0px;
+    }
+    .display-block
+    {
+        // display:block !important;
+    }
+    .incharge-data-row
+    {
+        margin: 0px 20px !important; 
+    }
+    .ipad-p0
+    {
+        padding:0px;
+    }
+    .from-txt
+    {
+        width:26% !important;
+    }
+    .margin-bottom-50
+    {
+        margin-bottom:0px;
+    }
+      }
+// bottom media query for iphone X landscape
+      @media only screen 
+  and (min-device-width: 769px) 
+  and (max-device-width: 992px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+.my-dashboard-title-div-height
+{
+height: auto !important; 
+ padding: 12px !important;
+}
+}

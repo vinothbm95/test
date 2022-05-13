@@ -1,0 +1,174 @@
+body{
+    background-color: #f0f0f7 !important;
+}
+.contaner-root{
+    margin: 20px 20px !important;
+}
+.dashboard{
+
+    color: #43425D;
+    opacity: 1;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+.mt-20{
+    margin-top: 20px;
+}
+
+.my-float-left{
+    float: left;
+}
+
+// abhi css style code start
+
+  .margtop1{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .spare_text1 {
+    letter-spacing: 0px;
+    color: #43425d;
+    font-size: 15px;
+    font-size: 12px;
+    float: left;
+    width: 90%;
+    position: relative;
+    z-index: 1;
+  }
+  .date_text1{
+    font-size: 15px;
+    letter-spacing: 0px;
+    color: #3cc480;
+    font-size: 12px;
+    position: absolute;
+    bottom: 20px;
+  }
+  
+  .buttoncolor{
+  background-color: #3B86FF;
+  }
+
+  .devis_card2 {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.07);
+    border-radius: 5px;
+    padding: 10px 15px 10px 15px;
+    margin-bottom: 10px;
+    min-height: 290px;
+}
+.my-padding-card{
+  padding: 0px 10px;
+  overflow-x: hidden;
+}
+
+
+@media only screen and (max-width: 4000px) and (min-width: 599px)  {
+  .buttoncolor{
+    display: block;
+  }
+  .Select_Devicemobile{
+    display: none;
+  }
+
+  
+}
+@media only screen and (max-width: 600px) and (min-width: 223px)  {
+
+  .buttoncolor{
+    display: none;
+  }
+  .Select_Devicemobile{
+    border-radius: 55px;
+    right: 0;
+    top: 310px;
+    z-index: 1000;
+    height: 62px;
+    position: fixed;
+
+  }
+}
+.bgcolorbutton{
+  color: #FFFFFF;
+  background-color: #3B86FF;
+}
+
+// abhi css style code end
+
+.padding-head{
+  padding: 0px 10px;
+}
+
+  .mat-menu-content {
+  padding-top: 0px !important;
+   padding-bottom: 0px !important;
+}
+button:focus {
+  outline: 0px dotted !important;
+  outline: 0px auto !important;
+}
+
+.card-dots{
+  width: 15px;
+}
+.no-devices{
+  font-size: 20px;
+    font-weight: 900;
+    position: relative;
+    top: 200px;
+    text-align: center;
+}
+.guge-pos{
+  position: relative;
+  top: -25px;
+}
+.float-right{
+  float: right;
+}
+.my-dashboard-title-div-height{
+  height: 60px !important;
+  padding: 12px !important;
+}
+
+.no-pad{
+  padding: 0px;
+}
+::ng-deep .mat-menu-content:not(:empty) {
+  padding-top: 0px;
+  padding-bottom: 0px;
+
+  }
+
+  .multi-range-cg-pos{
+    position: relative;
+    top: -25px;
+  }
+@media only screen and (max-width: 600px) {
+
+  .my-dashboard-title-div-height{
+     height: auto !important; 
+    padding: 12px !important;
+}
+  .my-mbl-select-device-btn{
+    width: 100% !important;
+  }
+
+}
+
+div.resizeCards{ 
+  width: 300px;
+  min-height: 300px;
+  min-width: 300px;
+  resize: both;
+  overflow: hidden;
+  margin:15px;
+  display: inline-block;
+}
+.dragDropHandle {
+  color:lightslategrey;
+  float: right;
+  position: relative;
+  z-index: 9;
+  opacity: 0.3;
+}
+

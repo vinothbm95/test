@@ -1,0 +1,1156 @@
+<!-- normal dashboard start -->
+<div class="contaner-root" *ngIf="rmsAct?.customerId != 5 && rmsAct?.customerId != 6  ">
+
+  <div class="Select_Devicemobile">
+    <!-- <button mat-raised-button routerLinkActive="list-item-active"
+        routerLink="/dashboard/selectdevice" class="float-right buttoncolor mobiel-select-device-btn" color="primary">
+        <mat-icon>library_add</mat-icon>
+      </button> -->
+    <button mat-fab routerLinkActive="list-item-active" routerLink="/dashboard/selectdevice"
+      class="float-right bgcolorbutton mobiel-select-device-btn" color="primary">
+      <mat-icon>library_add</mat-icon>
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 padding-head" [ngClass]="gridLayout == 5 ?'grid-5-virtual-scroll-header-alignment':'virtual-scroll-header-alignment'">
+      <mat-card class="card_heicht_dashbord" [ngClass]="gridLayout == 5 ?'grid-5-my-dashboard-title-div-height':'my-dashboard-title-div-height'">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-xl-4 col-lg-4 my-float-left ipad-displayflex">  
+            <!-- <button *ngIf="hydacBackShow" (click)="backHydac()"><mat-icon class="back-arrow">keyboard_backspace</mat-icon></button>
+                    -->
+            <mat-icon *ngIf="hydacBackShow" (click)="backHydac()" class="back-arrow">keyboard_backspace</mat-icon>
+            <p *ngIf="parameterDashboard" class="dashboard   float-left">{{userdDashboard ? 'User Dashboard' : dashboardName}}</p>  
+          
+                <div class="start-stop-test-toggle" *ngIf="rmsAct?.customerId == 11 &&  rmsAct.userRoleId == 4">    
+                <mat-slide-toggle #pumpB (click)="pumpClickHydac($event,pumpB)" (change)="pumpSlideHydac($event)">Start/Stop Test</mat-slide-toggle>
+               
+                 <span *ngIf="exportIconHydac" [matMenuTriggerFor]="menu" matTooltip="Export" class="material-icons pointer card-dots hydac-export-data-dots">
+                  more_horiz
+                </span>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item [matMenuTriggerFor]="exportMenu " class="outline-none">Export </button>
+                </mat-menu>
+                <mat-menu #exportMenu="matMenu">
+                  <button mat-menu-item (click)="exportToHydac('csv')" class="outline-none">Csv</button>
+                  <button mat-menu-item (click)="exportToHydac('xlsx')" class="outline-none">Excel</button>
+                </mat-menu>
+
+               </div>
+           
+            <div class="adminRoleSelect float-left ml-5 ipad-width100 ipad-ml0" *ngIf="userdDashboard && users?.length > 0">
+              <button *ngIf="backShow" (click)="back()">back</button>
+              <mat-form-field *ngIf="!backShow" class="mbl-width100 ipad-width100 ipad-ml17">
+                <mat-label>Select User</mat-label>
+                <mat-select disableOptionCentering  panelClass="myPanelClass" [(ngModel)]="selectedUser" (ngModelChange)="onUserSelection()">
+                  <mat-option *ngFor="let user of users" [value]="user?.userAccountId">
+                    {{user?.firstName }}  {{user?.email}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="adminRoleSelect float-right mbl-floatleft ipad-width100 ipad-ml30" *ngIf="userdDashboard">
+              <mat-form-field class="mbl-width100 ipad-width100 ipad-ml17">
+                <mat-label>Select Dashboard</mat-label>
+                <mat-select [(ngModel)]="selectedDashboard" (ngModelChange)="onDashboardSelection()">
+                  <mat-option *ngFor="let dash of dashboardList" [value]="dash.dashboardId" routerLinkActive="list-item-active" [routerLink]="dash.routeLink">
+                    {{dash.DashbordName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-xl-8 col-lg-8 my-float-left pad-b-15 ">
+            <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left no-pad bottom-3">
+              <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 "> -->
+                <!-- [ngClass]="parameterDashboard ? 'my-float-left':' dashboard-btn'" -->
+
+                <mat-form-field class="top-5" [ngClass]="rmsAct.userRoleId == 4  ? ' hydac-dashboard-btn-roll-4 ':'my-float-left'">
+                  <mat-label>{{rmsAct?.customerId == 11 ? 'Please Select Project':'Please select Dashboard'}}</mat-label>
+                  <mat-select [(ngModel)]="dashboardTitle">
+                    <mat-option (click)="deviceStatusDashboard()" [value]="'Device Status Dashboard'">
+                      Device Status Dashboard
+                    </mat-option>
+                    <mat-option *ngFor="let dashboard of selectDashboardData"  (click)="getDashboardName(dashboard)" [value]="dashboard?.dashboardName">
+                      {{dashboard?.dashboardName}}
+                    </mat-option>
+                  </mat-select>
+                  </mat-form-field>
+                <!-- <button mat-raised-button color="primary" *ngIf="!userdDashboard"
+                     [matMenuTriggerFor]="menu" [ngClass]="rmsAct.userRoleId == 4  ? ' hydac-dashboard-btn-roll-4 ':'my-float-left'"
+                      class="select_report dashboard-type-btn expand_more custom-report-dropdown  my-float-left" >
+                      {{dashboardTitle}}
+                      <mat-icon>expand_more</mat-icon>
+                </button>
+                
+                 <mat-menu #menu="matMenu">
+                     <button mat-menu-item (click)="deviceStatusDashboard()"> Device Status Dashboard </button>
+                     <button mat-menu-item *ngFor="let dashboard of selectDashboardData"  (click)="getDashboardName(dashboard)">{{dashboard?.dashboardName}}</button>
+                 </mat-menu> -->
+                 <!-- <div *ngIf="(rmsAct?.customerId == 5 || rmsAct?.customerId == 11) && ( selectDashboardData?.length == 0 && parameterDashboard)">
+                      there is no dashboards
+                 </div>                -->
+        
+                  <button *ngIf="!userdDashboard && parameterDashboard && (rmsAct.userRoleId == 1 || rmsAct.userRoleId == 2 || rmsAct.userRoleId == 3 || rmsAct.userRoleId == 4) "
+                          mat-raised-button routerLinkActive="list-item-active" routerLink="/dashboard/selectdevice"
+                          class="float-right buttoncolor select-device-cng-btn my-mbl-select-device-btn select-device-btn-margin-r"
+                          color="primary">
+                        <span *ngIf="rmsAct?.customerId != 11"> Configure Dashboard</span>
+                        <span *ngIf="rmsAct?.customerId == 11" class="hydac-create-project-btn"> Configure Project</span>
+                           <mat-icon>library_add</mat-icon>
+                  </button>
+                  <button *ngIf="!userdDashboard && parameterDashboard && (rmsAct?.customerId == 11 && rmsAct.userRoleId == 4) "
+                  mat-raised-button routerLinkActive="list-item-active" (click)="releaseAssetPopup()"
+                  class="float-right buttoncolor select-device-cng-btn my-mbl-select-device-btn select-device-btn-margin-r"
+                  color="primary">
+                  <span  class="hydac-create-project-btn">Release Assets</span>
+                   <!-- <mat-icon>library_add</mat-icon> -->
+                  </button>
+                  <button *ngIf="userdDashboard && parameterDashboard" mat-raised-button routerLinkActive="list-item-active"
+                           (click)="navigateUser()" class="float-right buttoncolor select-device-cng-btn my-mbl-select-device-btn select-device-btn-margin-r" color="primary"
+                           [disabled]="selectedUser == undefined||selectedUser == ''">Select Device<mat-icon>library_add</mat-icon>
+                  </button>
+              <!----grid layout selection html start-->
+              <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu" *ngIf="parameterDashboard">
+              <label (click)="gridMenu()" for="openSidebarMenu" class="sidebarIconToggle" matTooltip="Select Layout" *ngIf="parameterDashboard">
+                <img src="../../../../assets/images/grid-menu-icon.png" class="grid-menu-icon" *ngIf="parameterDashboard">
+              </label>
+              <div id="sidebarMenu" *ngIf="parameterDashboard">
+                  <div class="select-grid-heading-div">
+                    <p class="select-grid-heading">Select Layout</p>
+                     <label (click)="closeGrid()" for="openSidebarMenu" class="sidebarIconToggle" matTooltip="Close">
+                      <mat-icon class="close-icon">close</mat-icon>
+                     </label>
+                  </div>
+                <ul class="sidebarMenuInner">
+                  <perfect-scrollbar>
+                    <li [ngClass]="gridLayout == 5 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_01.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Small grids</p>
+                        <button (click)="layoutsfun(5)" mat-button class="btn-primary apply-btn">Apply</button>
+                      </div>
+                    </li>
+                    <li [ngClass]="gridLayout == 0 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_01.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Layout 1</p>
+                        <button id="apply-btn" (click)="layoutsfun(0)" mat-button
+                          class="btn-primary apply-btn">Apply</button>
+                      </div>
+                    </li>
+                    <li [ngClass]="gridLayout == 1 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_02.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Layout 2</p>
+                        <button (click)="layoutsfun(1)" mat-button class="btn-primary apply-btn">Apply</button>
+                      </div>
+                    </li>
+                    <li [ngClass]="gridLayout == 2 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_03.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Layout 3</p>
+                        <button (click)="layoutsfun(2)" mat-button class="btn-primary apply-btn">Apply</button>
+                      </div>
+                    </li>
+                    <li [ngClass]="gridLayout == 3 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_04.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Layout 4</p>
+                        <button (click)="layoutsfun(3)" mat-button class="btn-primary apply-btn">Apply</button>
+                      </div>
+                    </li>   
+                    <li [ngClass]="gridLayout == 4 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_05.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Layout 5</p>
+                        <button (click)="layoutsfun(4)" mat-button class="btn-primary apply-btn">Apply</button>
+                      </div>
+                    </li>
+                  </perfect-scrollbar>
+                </ul>
+              </div>
+              <!--grid layout selection html end-->
+            </div>
+
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+
+<div *ngIf="parameterDashboard && (devicedata != null || devicedata?.length > 0)" class="search-results"
+infinite-scroll
+[infiniteScrollDistance]="scrollDistance"
+[infiniteScrollUpDistance]="scrollUpDistance"
+[infiniteScrollThrottle]="throttle"
+(scrolled)="onScrollDown($event)"
+(scrolledUp)="onUp($event)">
+  <div *ngIf="gridLayout == 0">
+    <elpis-rms-chart-card-reusable  [devicedata]="devicedata"></elpis-rms-chart-card-reusable>
+  </div>
+  <div *ngIf="gridLayout == 1">
+    <elpis-rms-grid-layout1 [devicedata]="devicedata"></elpis-rms-grid-layout1>
+  </div>
+
+  <elpis-rms-grid-layout2 *ngIf="gridLayout == 2" [devicedata]="devicedata"></elpis-rms-grid-layout2>
+  <elpis-rms-grid-layout3 *ngIf="gridLayout == 3" [devicedata]="devicedata"></elpis-rms-grid-layout3>
+  <elpis-rms-grid-layout4 *ngIf="gridLayout == 4" [devicedata]="devicedata"></elpis-rms-grid-layout4>
+  <elpis-rms-custom-size-layout *ngIf="gridLayout == 5" [devicedata]="devicedata"></elpis-rms-custom-size-layout>
+</div>
+<div *ngIf="!parameterDashboard">
+  <elpis-rms-device-status></elpis-rms-device-status>
+</div>
+  <ngx-loading [show]="dashboardLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+  <div class="no-devices" *ngIf="userdDashboard && selectedUser == undefined||selectedUser == ''">
+    Please select user {{selectedUser}}
+  </div>
+
+  <div >
+    <!-- *ngIf="selectedUser" -->
+  <div class="no-devices" *ngIf="devicedata?.length == 0 || devicedata == null">
+  <p >{{rmsAct?.customerId == 11 ? 'Please Create Project':'Please Select Device'}}</p>  
+  
+  </div>
+</div>
+  
+
+</div>
+<!-- normal dashboard ending -->
+
+<!--petronash container dashboard start--->
+<div class="contaner-root" *ngIf="rmsAct?.customerId == 5">
+  <!-----------petronash new card html start-->
+
+  <!---------------------- pump status start here --------------->
+  <div *ngIf="_dashboardservice.pumpStatus && !petronashLoading">
+    <div class="row mr-b-12">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-padding-card">
+        <mat-card class="card_heicht_dashbord my-dashboard-title-div-height">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 my-float-left">
+               <p class="dashboard float-left dashboard-heading">Pump status</p>
+             </div>
+             <div class="col-12 col-sm-12 col-md-8 col-xl-8 col-lg-8 my-float-left">
+                <div class="pump-a-slide-toggle-div mr-t-5" >
+                  <mat-slide-toggle (click)="pumpClick($event, pumpA)" (change)="pumpASlide($event)" [labelPosition]="'before'"
+                [checked]='pumpAData?.signalDataModels[0].dataValue == 1' #pumpA>Pump A</mat-slide-toggle>
+                </div>
+              <div class="pump-b-slide-toggle-div mr-t-5" >
+                <mat-slide-toggle (click)="pumpClick($event, pumpB)" (change)="pumpBSlide($event)"
+                 [labelPosition]="'before'"
+                  [checked]='pumpBData?.signalDataModels[0].dataValue == 1' #pumpB>Pump B</mat-slide-toggle>
+             </div>
+              <div class="pump-a-slide-toggle-btn-div " >
+                <button mat-raised-button class=" pupm-reset-btn buttoncolor my-mbl-select-device-btn" color="primary">
+                  Pump A Reset</button>
+                  <button mat-raised-button class=" pupm-reset-btn buttoncolor my-mbl-select-device-btn" color="primary">
+                    Pump B Reset</button>
+                    <button (click)="petronashConfigPopup()" class="float-rt pupm-reset-btn buttoncolor my-mbl-select-device-btn mat-focus-indicator mat-raised-button mat-button-base mat-primary" >
+                      Configure
+                    </button>
+              </div>
+           </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 my-padding-card">
+        <div class="petronash_card">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card-menu-dots">
+             <p class="patronash-signal-name">{{pumpAData?.deviceModel?.deviceName}} </p>
+          </div>
+        </div>
+        </div>
+         <div class="row  ">
+           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+            <div class="pupm-digital-image">
+              <img *ngIf="(pumpAData?.signalDataModels[0].dataValue == 1)"  class="img-width" src="../../../../assets/images/Petronash__Dashboard_Images/rms__running.png">
+              <img *ngIf="(PumpATrippedData?.signalDataModels[0].dataValue == 1)" class="img-width" src="../../../../assets/images/Petronash__Dashboard_Images/tripped.png">
+              <img *ngIf="(pumpAData?.signalDataModels[0].dataValue == 0 && PumpATrippedData?.signalDataModels[0].dataValue == 0)" class="img-width" src="../../../../assets/images/Petronash__Dashboard_Images/rms__off.png">             
+            </div>
+            <!-- rms__off.png rms__running.png-->
+            <div class="card-pump-name-date-div">
+             <!-- pump A start here -->
+                <p *ngIf="(pumpAData?.signalDataModels[0].dataValue == 0 && PumpATrippedData?.signalDataModels[0].dataValue == 0)" class="patronash-pump-name-sub"> Pump A 
+                    <span class="patronash-pump-name-sub off-txt " >
+                      Stopped
+                    </span>
+                </p>
+            <!-- pump A start end -->
+
+            <!-- pump A stop start here -->
+            <p *ngIf="(pumpAData?.signalDataModels[0].dataValue == 1)" class="patronash-pump-name-sub"> Pump A
+               <span class="patronash-pump-name-sub on-txt" > Running </span>
+            </p>
+            <!-- pump A  stop end here -->
+
+            <!-- pump A tripped here -->
+            <p *ngIf="(PumpATrippedData?.signalDataModels[0].dataValue == 1)" class="patronash-pump-name-sub"> Pump A 
+              <span class="patronash-pump-name-sub tripped-txt" >Tripped</span>
+            </p>
+            <!-- pump A tripped end here -->
+              <p class="patronash-card-date-time my-patronash-card-date-time date-time-opacity">Last Updated Date: {{getDateSplit(pumpAData?.signalDataModels[0]?.timeReceived)}}</p>
+              <p class="patronash-card-date-time date-time-opacity">Last Updated Time: {{getTimeSplit(pumpAData?.signalDataModels[0]?.timeReceived)}}</p>
+            </div>
+           </div>
+         </div>
+         <div class="row card-row-pad">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pump-card-row-bg1">
+               <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pad float-l">
+                   <p class="margin-b-0 card-left-txt">Start time</p>
+               </div>
+               <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-pad float-l">
+                 <div class="float-r">
+                   <div class="h-m-s-div">
+                   <p class="margin-b-0 h-m-s-txt">HH</p>
+                   <p class="margin-b-0 h-m-s-sub-txt">
+                     <span class="h-m-s-span-txt">{{getHoursData(testingPumpAData?.lastStartDateTime)?getHoursData(testingPumpAData?.lastStartDateTime):"--"}}</span>
+                    </p>
+                   </div>
+                   <div class="h-m-s-div">
+                  <p class="margin-b-0 h-m-s-txt">MM</p>
+                  <p class="margin-b-0 h-m-s-sub-txt">
+                    <span class="h-m-s-span-txt">{{getMinutesData(testingPumpAData?.lastStartDateTime)?getMinutesData(testingPumpAData?.lastStartDateTime):"--"}}</span>
+                   </p>
+                   </div>
+                   <div class="h-m-s-div">
+                  <p class="margin-b-0 h-m-s-txt">SS</p>
+                  <p class="margin-b-0 h-m-s-sub-txt">
+                    <span class="h-m-s-span-txt">{{getSecondsData(testingPumpAData?.lastStartDateTime)?getSecondsData(testingPumpAData?.lastStartDateTime):"--"}}</span>
+                   </p>
+                   </div>
+                   <div class="creative-date-div">
+                     <p class="margin-b-0 creative-date-txt">{{getDateData(testingPumpAData?.lastStartDateTime)?getDateData(testingPumpAData?.lastStartDateTime):"--"}} {{getMonthData(testingPumpAData?.lastStartDateTime)?getMonthData(testingPumpAData?.lastStartDateTime):"--"}}</p>
+                     <div class="creative-date-line"></div>
+                     <p class="margin-b-0 creative-date-txt">{{getYearData(testingPumpAData?.lastStartDateTime)?getYearData(testingPumpAData?.lastStartDateTime):"--"}}</p>
+                   </div>
+                 </div>
+             </div>
+          </div>
+         </div>
+         <div class="row card-row-pad ">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pump-card-row-bg2">
+               <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pad float-l">
+                   <p class="margin-b-0 card-left-txt">Stop time</p>
+               </div>
+               <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-pad float-l">
+                <div class="float-r">
+                  <div class="h-m-s-div">
+                  <p class="margin-b-0 h-m-s-txt">HH</p>
+                  <p class="margin-b-0 h-m-s-sub-txt">
+                    <span class="h-m-s-span-txt">{{getHoursData(testingPumpAData?.lastStopDateTime)?getHoursData(testingPumpAData?.lastStopDateTime):"--"}}</span>
+                   </p>
+                  </div>
+                  <div class="h-m-s-div">
+                 <p class="margin-b-0 h-m-s-txt">MM</p>
+                 <p class="margin-b-0 h-m-s-sub-txt">
+                   <span class="h-m-s-span-txt">{{getMinutesData(testingPumpAData?.lastStopDateTime)?getMinutesData(testingPumpAData?.lastStopDateTime):"--"}}</span>
+                  </p>
+                  </div>
+                  <div class="h-m-s-div">
+                 <p class="margin-b-0 h-m-s-txt">SS</p>
+                 <p class="margin-b-0 h-m-s-sub-txt">
+                   <span class="h-m-s-span-txt">{{getSecondsData(testingPumpAData?.lastStopDateTime)?getSecondsData(testingPumpAData?.lastStopDateTime):"--"}}</span>
+                  </p>
+                  </div>
+                  <div class="creative-date-div">
+                    <p class="margin-b-0 creative-date-txt">{{getDateData(testingPumpAData?.lastStopDateTime)?getDateData(testingPumpAData?.lastStopDateTime):"--"}} {{getMonthData(testingPumpAData?.lastStopDateTime)?getMonthData(testingPumpAData?.lastStopDateTime):"--"}}</p>
+                    <div class="creative-date-line"></div>
+                    <p class="margin-b-0 creative-date-txt">{{getYearData(testingPumpAData?.lastStopDateTime)?getYearData(testingPumpAData?.lastStopDateTime):"--"}}</p>
+                  </div>
+                </div>
+               </div>
+          </div>
+         </div>
+         <div class="row card-row-pad">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pump-card-row-bg1">
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                   <p class="margin-b-0 card-left-txt">Running interval</p>
+               </div>
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                  <div class="float-r">
+                    <p class="card-right-txt">{{testingPumpAData?.runTime ? testingPumpAData?.runTime : "--"}} Hrs</p>
+              </div>
+             </div>
+          </div>
+         </div>
+         <div class="row card-row-pad ">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pump-card-row-bg1">
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                   <p class="margin-b-0 card-left-txt">Total run time</p>
+               </div>
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                <div class="float-r ">
+                  <p class="card-right-txt width-100-percent pad-t-7">{{testingPumpAData?.pumpTotalRun ? testingPumpAData?.pumpTotalRun : "--"}} Hrs</p>
+                 </div>
+             </div>
+          </div>
+         </div>
+         <div class="row card-row-pad ">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pump-card-row-bg2">
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                   <p class="margin-b-0 card-left-txt-2">Idle time since last stop  </p>
+               </div>
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                 <div class="float-r">
+                 <p class="card-right-txt">{{testingPumpAData?.idleTimeLastStop ? testingPumpAData?.idleTimeLastStop : "--" }} Hrs</p>
+                </div>
+               </div>
+          </div>
+         </div>
+       </div><!--petronash card end tag-->
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 my-padding-card">
+        <div class="petronash_card">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card-menu-dots">
+             <p class="patronash-signal-name">{{pumpBData?.deviceModel?.deviceName}}</p>
+          </div>
+        </div>
+        </div>
+         <div class="row">
+           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+            <div class="pupm-digital-image">
+              <img *ngIf="(pumpBData?.signalDataModels[0].dataValue == 1)"  class="img-width" src="../../../../assets/images/Petronash__Dashboard_Images/rms__running.png">
+              <img *ngIf="(pumpBTrippedData?.signalDataModels[0].dataValue == 1)" class="img-width" src="../../../../assets/images/Petronash__Dashboard_Images/tripped.png">
+              <img *ngIf="(pumpBData?.signalDataModels[0].dataValue == 0 && pumpBTrippedData?.signalDataModels[0].dataValue == 0)" class="img-width" src="../../../../assets/images/Petronash__Dashboard_Images/rms__off.png">
+            </div>
+            <div class="card-pump-name-date-div">
+              <!-- pump A start here -->
+               <p *ngIf="(pumpBData?.signalDataModels[0].dataValue == 0 && pumpBTrippedData?.signalDataModels[0].dataValue == 0)" class="patronash-pump-name-sub"> Pump B 
+                <span class="patronash-pump-name-sub off-txt" > Stopped</span>
+               </p>
+              <!-- pump A start end -->
+
+              <!-- pump A stop start here -->
+               <p *ngIf="(pumpBData?.signalDataModels[0].dataValue == 1)" class="patronash-pump-name-sub"> Pump B 
+                  <span class="patronash-pump-name-sub on-txt " >Running</span>
+               </p>
+              <!-- pump A  stop end here -->
+
+              <!-- pump A tripped here -->
+               <p *ngIf="(pumpBTrippedData?.signalDataModels[0].dataValue == 1)" class="patronash-pump-name-sub"> Pump B 
+                  <span class="patronash-pump-name-sub tripped-txt " >Tripped</span>
+               </p>
+              <!-- pump A tripped end here -->
+               <p class="patronash-card-date-time my-patronash-card-date-time date-time-opacity">Last Updated Date: {{getDateSplit(pumpBData?.signalDataModels[0]?.timeReceived)}}</p>
+               <p class="patronash-card-date-time date-time-opacity">Last Updated Time: {{getTimeSplit(pumpBData?.signalDataModels[0]?.timeReceived)}}</p>
+            </div>
+           </div>
+         </div>
+         <div class="row card-row-pad">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pump-card-row-bg1">
+               <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pad float-l">
+                   <p class="margin-b-0 card-left-txt">Start time</p>
+               </div>
+               <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-pad float-l">
+                 <div class="float-r">
+                   <div class="h-m-s-div">
+                   <p class="margin-b-0 h-m-s-txt">HH</p>
+                   <p class="margin-b-0 h-m-s-sub-txt">
+                     <span class="h-m-s-span-txt">{{getHoursData(testingPumpBData?.lastStartDateTime)?getHoursData(testingPumpBData?.lastStartDateTime):"--"}}</span>
+                    </p>
+                   </div>
+                   <div class="h-m-s-div">
+                  <p class="margin-b-0 h-m-s-txt">MM</p>
+                  <p class="margin-b-0 h-m-s-sub-txt">
+                    <span class="h-m-s-span-txt">{{getMinutesData(testingPumpBData?.lastStartDateTime)?getMinutesData(testingPumpBData?.lastStartDateTime):"--"}}</span>
+                   </p>
+                   </div>
+                   <div class="h-m-s-div">
+                  <p class="margin-b-0 h-m-s-txt">SS</p>
+                  <p class="margin-b-0 h-m-s-sub-txt">
+                    <span class="h-m-s-span-txt">{{getSecondsData(testingPumpBData?.lastStartDateTime)?getSecondsData(testingPumpBData?.lastStartDateTime):"--"}}</span>
+                   </p>
+                   </div>
+                   <div class="creative-date-div">
+                     <p class="margin-b-0 creative-date-txt">{{getDateData(testingPumpBData?.lastStartDateTime)?getDateData(testingPumpBData?.lastStartDateTime):"--"}} {{getMonthData(testingPumpBData?.lastStartDateTime)?getMonthData(testingPumpBData?.lastStartDateTime):"--"}}</p>
+                     <div class="creative-date-line"></div>
+                     <p class="margin-b-0 creative-date-txt">{{getYearData(testingPumpBData?.lastStartDateTime)?getYearData(testingPumpBData?.lastStartDateTime):"--"}}</p>
+                   </div>
+                 </div>
+             </div>
+          </div>
+         </div>
+         <div class="row card-row-pad ">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pump-card-row-bg2">
+               <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-pad float-l">
+                   <p class="margin-b-0 card-left-txt">Stop time</p>
+               </div>
+               <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-pad float-l">
+                <div class="float-r">
+                  <div class="h-m-s-div">
+                  <p class="margin-b-0 h-m-s-txt">HH</p>
+                  <p class="margin-b-0 h-m-s-sub-txt">
+                    <span class="h-m-s-span-txt">{{getHoursData(testingPumpBData?.lastStopDateTime)?getHoursData(testingPumpBData?.lastStopDateTime):"--"}}</span>
+                   </p>
+                  </div>
+                  <div class="h-m-s-div">
+                 <p class="margin-b-0 h-m-s-txt">MM</p>
+                 <p class="margin-b-0 h-m-s-sub-txt">
+                   <span class="h-m-s-span-txt">{{getMinutesData(testingPumpBData?.lastStopDateTime)?getMinutesData(testingPumpBData?.lastStopDateTime):"--"}}</span>
+                  </p>
+                  </div>
+                  <div class="h-m-s-div">
+                 <p class="margin-b-0 h-m-s-txt">SS</p>
+                 <p class="margin-b-0 h-m-s-sub-txt">
+                   <span class="h-m-s-span-txt">{{getSecondsData(testingPumpBData?.lastStopDateTime)?getSecondsData(testingPumpBData?.lastStopDateTime):"--"}}</span>
+                  </p>
+                  </div>
+                  <div class="creative-date-div">
+                    <p class="margin-b-0 creative-date-txt">{{getDateData(testingPumpBData?.lastStopDateTime)?getDateData(testingPumpBData?.lastStopDateTime):"--"}} {{getMonthData(testingPumpBData?.lastStopDateTime)?getMonthData(testingPumpBData?.lastStopDateTime):"--"}}</p>
+                    <div class="creative-date-line"></div>
+                    <p class="margin-b-0 creative-date-txt">{{getYearData(testingPumpBData?.lastStopDateTime)?getYearData(testingPumpBData?.lastStopDateTime):"--"}}</p>
+                  </div>
+                </div>
+               </div>
+          </div>
+         </div>
+         <div class="row card-row-pad">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pump-card-row-bg1">
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                   <p class="margin-b-0 card-left-txt">Running interval</p>
+               </div>
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                  <div class="float-r">
+                    <p class="card-right-txt">{{testingPumpBData?.runTime ? testingPumpBData?.runTime : "--"}} Hrs</p>
+              </div>
+             </div>
+          </div>
+         </div>
+         <div class="row card-row-pad ">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pump-card-row-bg1">
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                   <p class="margin-b-0 card-left-txt">Total run time</p>
+               </div>
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                <div class="float-r ">
+                  <p class="card-right-txt width-100-percent pad-t-7">{{testingPumpBData?.pumpTotalRun ? testingPumpBData?.pumpTotalRun : "--"}} Hrs</p>
+                 </div>
+             </div>
+          </div>
+         </div>
+         <div class="row card-row-pad ">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pump-card-row-bg2">
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                   <p class="margin-b-0 card-left-txt-2">Idle time since last stop </p>
+               </div>
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 no-pad float-l">
+                 <div class="float-r">
+                 <p class="card-right-txt">{{testingPumpBData?.idleTimeLastStop ? testingPumpBData?.idleTimeLastStop : "--" }} Hrs</p>
+                </div>
+               </div>
+          </div>
+         </div>
+       </div><!--petronash card end tag-->
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 my-padding-card">
+        <div class="petronash_card pump-status-tank-level-bg">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card-menu-dots">
+             <p class="patronash-signal-name">{{TankLevelData?.deviceModel?.deviceName}}</p>
+          </div>
+        </div>
+        </div>
+         <div class="margtop1 vertical-progress-center">
+          <p class="patronash-pump-name-sub tank-level-num tank-level-num">{{TankLevelData?.signalDataModels[0].dataValue |number}} litre
+            </p>
+              <div class="progress progress-bar-vertical">
+                <div class="progress-bar" role="progressbar" [style.background-color]="TankLevelData?.signalThresholdModels[0]?.thresholdColor"
+                    [style.height]="datasize" aria-valuenow="coursesPercentage"  aria-valuemin="0" aria-valuemax="100">
+                </div>
+              </div>
+         </div>
+         <div class="signal-date-div">
+            <p class="patronash-pump-name-sub">{{TankLevelData?.signalModel?.signalName}}</p>
+            <p class="patronash-card-date-time date-time-opacity">Last Updated Date: {{getDateSplit(TankLevelData?.signalDataModels[0]?.timeReceived)}}</p>
+            <p class="patronash-card-date-time date-time-opacity">Last Updated Time: {{getTimeSplit(TankLevelData?.signalDataModels[0]?.timeReceived)}}</p>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 my-padding-card">
+        <div class="petronash_card petronash_card-row-2 pump-status-signal-strength-bg">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card-menu-dots">
+             <p class="patronash-signal-name">{{signalStrength?.deviceModel?.deviceName}}</p>
+          </div>
+        </div>
+        </div>
+         <div class="margtop1 num-card txt-center">
+            <img src="../../../../assets/images/Petronash__Dashboard_Images/Icons/signal_full.png " alt="Signal strength image"  class="signal-img-width" >
+            <p class="signal-digital-num-txt">{{signalStrength?.signalDataModels[0].dataValue |number}}
+         </div>
+         <div class="signal-date-div">
+            <p class="patronash-pump-name-sub">{{signalStrength?.signalModel?.signalName}}</p>
+            <p class="patronash-card-date-time date-time-opacity">Last Updated Date: {{getDateSplit(signalStrength?.signalDataModels[0]?.timeReceived)}}</p>
+            <p class="patronash-card-date-time date-time-opacity">Last Updated Time: {{getTimeSplit(signalStrength?.signalDataModels[0]?.timeReceived)}}</p>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 my-padding-card">
+        <div class="petronash_card petronash_card-row-2 pump-status-network-strength-bg">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card-menu-dots">
+             <p class="patronash-signal-name">{{rtdData?.deviceModel?.deviceName}}</p>
+          </div>
+        </div>
+        </div>
+         <div class="margtop1 num-card txt-center">
+          <img src="../../../../assets/images/Petronash__Dashboard_Images/Icons/temp_icon.png" alt="Network strength image"  class="signal-img-width" >
+           <p class="signal-digital-num-txt">{{rtdData?.signalDataModels[0].dataValue }}°C
+         </div>
+         <div class="signal-date-div">
+            <p class="patronash-pump-name-sub">{{rtdData?.signalModel?.signalName}}</p>
+            <p class="patronash-card-date-time date-time-opacity">Last Updated Date:{{getDateSplit(rtdData?.signalDataModels[0]?.timeReceived)}}</p>
+            <p class="patronash-card-date-time date-time-opacity">Last Updated Time: {{getTimeSplit(rtdData?.signalDataModels[0]?.timeReceived)}}</p>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-padding-card">
+        <div class="petronash_card petronash_card-row-2">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+               <div class="card-menu-dots">
+                  <p class="patronash-signal-name">Pump A Start Stop Trend ({{PumpAStartStopContent}})
+                   <span [matMenuTriggerFor]="pumpaMenu" class="material-icons pointer card-dots float-r">
+                     more_horiz
+                   </span>
+                   <mat-menu #pumpaMenu="matMenu">
+                     <button mat-menu-item [matMenuTriggerFor]="pumpa"> date range </button>
+                   </mat-menu>
+                   <mat-menu #pumpa="matMenu">
+                      <button mat-menu-item (click)="getTimePeriodPumpA('Today')"> Today </button>
+                      <button mat-menu-item (click)="getTimePeriodPumpA('Current Month')"> Current Month  </button>
+                      <button mat-menu-item (click)="getTimePeriodPumpA('Current Year')"> Current Year  </button>
+                      <button mat-menu-item (click)="dateRangeConfigure('292')"> Custom range </button>
+                   </mat-menu>
+                 </p>
+               </div>
+             </div>
+         </div>
+         <div class="margtop1 num-card txt-center">
+            <div class="chart-div" *ngIf="isSignalDataPresnet && pumpAStartStopCategories?.length > 0">
+               <elpis-rms-step-line-chart [yAxisLabel]="'Pump Status'" [categories]="pumpAStartStopCategories" 
+               [data]="pumpAStartStopData"></elpis-rms-step-line-chart>
+            </div>
+          <div class="chart-div" *ngIf="isSignalDataPresnet && pumpAStartStopCategories?.length === 0">
+            <h2 class="pump-status-trend-empty-txt">No data as of {{PumpAStartStopContent}}</h2>
+          </div>
+         </div>
+       </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-padding-card">
+        <div class="petronash_card petronash_card-row-2">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <div class="card-menu-dots">
+                 <p class="patronash-signal-name">Pump B Start Stop Trend ({{PumpBStartStopContent}})
+                   <span [matMenuTriggerFor]="pumpbMenu" class="material-icons pointer card-dots float-r">
+                     more_horiz
+                   </span>
+                  <mat-menu #pumpbMenu="matMenu">
+                     <button mat-menu-item [matMenuTriggerFor]="pumpb"> date range </button>
+                  </mat-menu>
+                  <mat-menu #pumpb="matMenu">
+                    <button mat-menu-item (click)="getTimePeriodPumpB('Today')"> Today </button>
+                    <button mat-menu-item (click)="getTimePeriodPumpB('Current Month')"> Current Month  </button>
+                    <button mat-menu-item (click)="getTimePeriodPumpB('Current Year')"> Current Year  </button>
+                    <button mat-menu-item (click)="dateRangeConfigure('294')"> Custom range </button>
+                 </mat-menu>
+               </p>
+             </div>
+           </div>
+         </div>
+         <div class="margtop1 num-card txt-center">
+            <div class="chart-div" *ngIf="isSignalDataPresnet && pumpBStartStopCategories?.length > 0">
+               <elpis-rms-step-line-chart [yAxisLabel]="'Pump Status'" [categories]="pumpBStartStopCategories"
+                  [data]="pumpBStartStopData"></elpis-rms-step-line-chart>
+            </div>
+          <div class="chart-div" *ngIf="isSignalDataPresnet && pumpBStartStopCategories?.length === 0">
+            <h2 class="pump-status-trend-empty-txt">No data as of {{PumpBStartStopContent}}</h2>
+          </div>
+         </div>
+       </div>
+      </div>
+    </div>
+  </div>
+<!-- pump status end here -->
+<!-- process start here -->
+<div *ngIf="_dashboardservice.process && !petronashLoading">
+  <div class="row mr-b-12">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-padding-card">
+       <mat-card class="card_heicht_dashbord my-dashboard-title-div-height">
+         <div class="row">
+           <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 my-float-left">
+              <p class="dashboard float-left dashboard-heading">Process</p>
+           </div>
+           <div class="col-12 col-sm-12 col-md-8 col-xl-8 col-lg-8 my-float-left">
+              <div class="pump-a-slide-toggle-btn-div width-full " >
+                  <button (click)="petronashConfigPopup()" class="float-rt pupm-reset-btn buttoncolor my-mbl-select-device-btn mat-focus-indicator mat-raised-button mat-button-base mat-primary" >
+                    Configure
+                  </button>
+              </div>
+           </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 my-padding-card">
+      <div class="petronash_card pump-status-tank-level-bg">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card-menu-dots">
+            <p class="patronash-signal-name">{{TankLevelData?.deviceModel?.deviceName}}</p>
+            </div>
+          </div>
+        </div>
+       <div class="margtop1 vertical-progress-center">
+        <p class="patronash-pump-name-sub tank-level-num tank-level-num">{{TankLevelData?.signalDataModels[0].dataValue |number}} litre
+          </p>
+            <div class="progress progress-bar-vertical">
+              <div class="progress-bar" role="progressbar" [style.background-color]="TankLevelData?.signalThresholdModels[0]?.thresholdColor"
+              [style.height]="datasize" aria-valuenow="coursesPercentage"  aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+       </div>
+       <div class="signal-date-div">
+        <p class="patronash-pump-name-sub">{{TankLevelData?.signalModel?.signalName}}</p>
+        <p class="patronash-card-date-time date-time-opacity">Last Updated Date: {{getDateSplit(TankLevelData?.signalDataModels[0]?.timeReceived)}}</p>
+            <p class="patronash-card-date-time date-time-opacity">Last Updated Time: {{getTimeSplit(TankLevelData?.signalDataModels[0]?.timeReceived)}}</p>
+      </div>
+     </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 my-padding-card">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-l my-padding-card">      
+      <div class="petronash_card process-dashboard-small-card process-refill-tank-bg ">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card-menu-dots">
+        </div>
+      </div>
+      </div>
+       <div class="margtop1 num-card txt-center">
+         <p class="signal-digital-num-txt process-data-4 management-value-center">{{setFlowRateData?.daysToRefillTank}} days
+       </div>
+       <div class="signal-date-div">
+        <p class="patronash-pump-name-sub ">No.of days to refill the tank</p>
+      </div>
+     </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-l my-padding-card">
+        <div class="petronash_card process-dashboard-small-card process-flow-rate-bg ">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card-menu-dots">
+          </div>
+        </div>
+        </div>
+         <div class="margtop1 num-card txt-center">
+           <p class="signal-digital-num-txt process-data-4 management-value-center">{{this.petronashInputModel[0]["value"]}} Litre/Hr
+         </div>
+         <div class="signal-date-div">
+          <p class="patronash-pump-name-sub ">Flow rate</p>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-l my-padding-card">    
+        <div class="petronash_card process-dashboard-small-card  pump-status-signal-strength-bg">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="card-menu-dots">
+          </div>
+        </div>
+        </div>
+         <div class="margtop1 num-card txt-center">
+           <p class="signal-digital-num-txt process-data-5">{{getDateSplit(setFlowRateData?.dateToRefillTank)}}
+            <p class="signal-digital-num-txt ">{{getTimeSplit(setFlowRateData?.dateToRefillTank)}}
+         </div>
+         <div class="signal-date-div">
+          <p class="patronash-pump-name-sub">Estimated date to refill the tank</p>
+        </div>
+       </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-l my-padding-card">
+          <div class="petronash_card process-dashboard-small-card  process-injection-flow-rate-bg">
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card-menu-dots">
+            </div>
+          </div>
+          </div>
+           <div class="margtop1 num-card txt-center">
+             <p class="signal-digital-num-txt process-data-4">{{setFlowRateData?.injectionFlowRateVariation}}
+           </div>
+           <div class="signal-date-div">
+            <p class="patronash-pump-name-sub">Injection flow rate variation</p>
+          </div>
+         </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-padding-card">
+      <div class="petronash_card petronash_card-row-2">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+           <div class="card-menu-dots process-trend-dots-width">
+             <p class="patronash-signal-name">Discharge flow rate trend ({{TotalDischargeContent}})
+              <span [matMenuTriggerFor]="totalDischargeMenu" class="material-icons pointer card-dots float-r">
+                more_horiz
+              </span>
+             <mat-menu #totalDischargeMenu="matMenu">
+               <button mat-menu-item [matMenuTriggerFor]="totalDischarge"> date range </button>
+             </mat-menu>
+             <mat-menu #totalDischarge="matMenu">
+             <button mat-menu-item (click)="getTimePeriodTotalDischarge('Today')"> Today </button>
+             <button mat-menu-item (click)="getTimePeriodTotalDischarge('Current Month')"> Current Month  </button>
+             <button mat-menu-item (click)="getTimePeriodTotalDischarge('Current Year')"> Current Year  </button>
+             <button mat-menu-item (click)="dateRangeConfigure('277')"> Custom range </button>
+           </mat-menu>
+         </p>
+        </div>
+      </div>
+      </div>
+       <div class="margtop1 num-card txt-center">
+        <div class="chart-div" *ngIf="isSignalDataPresnet && totalDischargecategories?.length > 0">
+          <elpis-rms-areaspline-chart [yAxisLabel]="'Liter/Hr'" [categories]="totalDischargecategories" [data]="totalDischargeData"></elpis-rms-areaspline-chart>
+        </div>
+        <div class="chart-div" *ngIf="isSignalDataPresnet && totalDischargecategories?.length === 0">
+          <h2 class="pump-status-trend-empty-txt">No data as of {{TotalDischargeContent}} </h2>
+        </div>
+       </div>
+     </div>
+    </div>
+  </div>
+</div>
+<!-- process end here -->
+<!-- management start here -->
+<div *ngIf="_dashboardservice.mangagement && !petronashLoading">
+  <div class="row mr-b-12">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-padding-card">
+      <mat-card class="card_heicht_dashbord my-dashboard-title-div-height">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+            <p class="dashboard float-left dashboard-heading">Management</p>
+            <button (click)="petronashConfigPopup()" class="float-rt pupm-reset-btn buttoncolor my-mbl-select-device-btn mat-focus-indicator mat-raised-button mat-button-base mat-primary" >
+              Configure
+            </button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 my-padding-card">
+      <div class="petronash_card petronash_card-row-2 management-current-month-injection-rate">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card-menu-dots">
+         </div>
+      </div>
+      </div>
+       <div class="margtop1 num-card txt-center">
+         <p class="signal-digital-num-txt management-card-txt-clr-white management-value-center">{{chemicalCostData?.thisMonthInjectionRate}}
+       </div>
+       <div class="signal-date-div">
+        <p class="patronash-pump-name-sub management-card-txt-clr-white management-bottom-txt">Current month injection rate</p>
+       </div>
+     </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 my-padding-card">
+      <div class="petronash_card petronash_card-row-2 management-current-month-chemical-cost">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card-menu-dots">
+        </div>
+      </div>
+      </div>
+       <div class="margtop1 num-card txt-center">
+         <p class="signal-digital-num-txt management-card-txt-clr-white management-value-center">{{chemicalCostData?.thisMonthChemCost}}
+       </div>
+       <div class="signal-date-div">
+        <p class="patronash-pump-name-sub management-card-txt-clr-white management-bottom-txt">Current month chemical cost</p>
+       </div>
+     </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 my-padding-card">
+      <div class="petronash_card petronash_card-row-2 management-current-year-chemical-cost">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card-menu-dots">
+        </div>
+      </div>
+      </div>
+       <div class="margtop1 num-card txt-center">
+         <p class="signal-digital-num-txt management-card-txt-clr-white management-value-center">{{chemicalCostData?.thisYearChemCost}}
+       </div>
+       <div class="signal-date-div">
+        <p class="patronash-pump-name-sub management-card-txt-clr-white management-bottom-txt">Current year chemical cost</p>
+       </div>
+     </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 my-padding-card">
+      <div class="petronash_card petronash_card-row-2 management-cost-chemical-gallon">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card-menu-dots">
+         </div>
+      </div>
+      </div>
+       <div class="margtop1 num-card txt-center">
+         <p class="signal-digital-num-txt management-card-txt-clr-white management-value-center">$ {{this.petronashInputModel[1]["value"]}}
+        </div>
+       <div class="signal-date-div">
+        <p class="patronash-pump-name-sub management-card-txt-clr-white management-bottom-txt">Cost of chemical per gallon</p>
+      </div>
+     </div>
+    </div>
+  </div>
+  </div>
+  <!-- management end here -->
+
+  <!--petronash new card html  end-------------->
+  <ngx-loading [show]="petronashLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+  <div class="no-devices" *ngIf="petronashModel?.length == 0">
+    No Data
+  </div>
+  </div><!--petronash container dashboard end--->
+
+  <!--TVS Dashboard Start-->
+  <div class="contaner-root" *ngIf="rmsAct?.customerId == 6">
+    <div class="row mr-b-12">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-padding-card">
+        <mat-card class="card_heicht_dashbord my-dashboard-title-div-height tvs-dashboard-title-card magin-top-60">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+              <p class="dashboard float-left dashboard-heading tvs-dashboard-heading">
+                Machine Monitoring and Asset Utilization</p>
+            </div> 
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row mr-b-12">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-padding-card">
+        <mat-card class="card_heicht_dashbord my-dashboard-title-div-height tvs-dashboard-title-div-height">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 my-float-left">
+              <div class="example-form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Device ID</mat-label>
+                    <mat-select>
+                      <mat-option (click)="deviceSelection(signals,'today')" *ngFor="let signals of deviceListData" [value]="signals">
+                        {{signals?.deviceName}} 
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>   
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-8 col-xl-8 col-lg-8 my-float-left">
+              <div class="float-r report-btn-div " >
+                <button mat-raised-button routerLinkActive="list-item-active" 
+                class="float-rt buttoncolor my-mbl-select-device-btn btn-width mr-top-5"
+                color="primary">Report </button>
+                <!-- <button  matTooltip=" Config" (click)="tvsUtilizationConfigPopup()"
+                 class="logsheet-threshold-config"><mat-icon class="config-icon">settings</mat-icon></button>  -->
+              </div>
+           </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <mat-card class="utilization-section-card">
+          <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+            <div class="example-form">
+                <elpis-rms-daternge-picker [noValidation]="false" [myForm]="tvsDaterangeForm"  (dateRangeEvent)="customdate($event)"></elpis-rms-daternge-picker>  
+            </div>
+            <!-- <div class="float-rt">
+              <button class="btn btn-primary" (click)="dateRangeUtilizeApply()">Apply</button>
+            </div> -->
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+            <p class="patronash-signal-name mr-t-25">Last start</p>  
+            <p class="patronash-card-date-time date-time-opacity">Date: {{getDateSplit(utilizationData?.lastStart) ? getDateSplit(utilizationData?.lastStart) : '--'}}</p>
+            <p class="patronash-card-date-time date-time-opacity">Time: {{getTimeSplit(utilizationData?.lastStart) ? getTimeSplit(utilizationData?.lastStart) : '--'}}</p>
+         
+            <p class="patronash-signal-name mr-t-25">Last stop</p>
+            <p class="patronash-card-date-time date-time-opacity">Date: {{getDateSplit(utilizationData?.lastStop) ? getDateSplit(utilizationData?.lastStop) : '--'}}</p>
+            <p class="patronash-card-date-time date-time-opacity">Time: {{getTimeSplit(utilizationData?.lastStop) ? getTimeSplit(utilizationData?.lastStop) : '--'}}</p>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+            <p class="patronash-signal-name mr-t-10">Utilization</p>
+            <p class="tvs-utilization-percent">{{utilizationData?.utilizationPercent !=null ? utilizationData?.utilizationPercent : '--' }}</p>
+            <p class="tvs-utilization-hours">{{utilizationData?.utilizationHours != null ? utilizationData?.utilizationHours : '--' }}hrs</p>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+            <p class="patronash-signal-name mr-t-25">Down Time</p>  
+            <p  class="tvs-utilization-percent">{{utilizationData?.downTimePercent != null ? utilizationData?.downTimePercent : '--' }}</p>
+            <p class="tvs-utilization-hours">{{utilizationData?.downTimeHours != null ? utilizationData?.downTimeHours : '--' }}hrs</p>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+            <p class="patronash-signal-name mr-t-25">Idle Time</p>
+            <p  class="tvs-utilization-percent">{{utilizationData?.idleTimePercent != null ? utilizationData?.idleTimePercent : '--' }}</p>
+            <p class="tvs-utilization-hours">{{utilizationData?.idleTimeHours != null ? utilizationData?.idleTimeHours : '--' }}hrs</p>  
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+            <p class="patronash-signal-name mr-t-25">Available Time</p>
+            <p  class="tvs-utilization-percent">{{utilizationData?.availableTimePercent !=null ? utilizationData?.availableTimePercent : '--' }}</p>
+            <p class="tvs-utilization-hours">{{utilizationData?.availableTimehours != null ? utilizationData?.availableTimehours : '--' }}hrs</p>  
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+            <p class="patronash-signal-name mr-t-25">Highest utilization machine ID</p>
+            <p class="tvs-utilization-hours">{{HighestutilizationData != null ? HighestutilizationData : '--' }}</p>  
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 float-l">
+         <div class="row">   
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 float-l my-padding-card" *ngFor="let item of devicedata">
+                <div class="tvs-card" *ngIf="item?.signalModel?.signalName == 'Production Idle' || item?.signalModel?.signalName == 'Fault Detected' || item?.signalModel?.signalName == 'Power On' || item?.signalModel?.signalName == 'Auto Mode On'">
+                  <div class="row">
+                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card-menu-dots">
+                         <p class="patronash-signal-name">{{item?.signalModel?.signalName}}</p>  
+                       </div>
+                     </div>
+                   </div>
+                   <div class="margtop1 emergency-png-div"> 
+                     <img *ngIf="item?.signalDataModels[0]?.dataValue == 0" class="tvs-led-img-width" src="../../../../assets/images/Petronash__Dashboard_Images/rms__emergency.png">
+                     <img *ngIf="item?.signalDataModels[0]?.dataValue == 1" class="tvs-led-img-width" src="../../../../assets/images/Petronash__Dashboard_Images/rms__running.png">
+                   </div>
+                   <div class="signal-date-div">
+                     <p class="patronash-card-date-time date-time-opacity">Date: {{getDateSplit(item?.signalDataModels[0]?.timeReceived)}}</p>
+                     <p class="patronash-card-date-time date-time-opacity">Time: {{getTimeSplit(item?.signalDataModels[0]?.timeReceived)}}</p>
+                   </div>
+               </div>
+             </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 float-l my-padding-card" >
+             <ng-container *ngFor="let item of devicedata">
+               <div class="tvs-card" *ngIf="item?.signalModel?.signalName == 'Wifi Active'">
+                 <div class="row">
+                   <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                     <div class="card-menu-dots">
+                      <p class="patronash-signal-name">{{item?.signalModel?.signalName}}</p>  
+                    </div>
+                   </div>
+                 </div>
+                 <div class="margtop1 emergency-png-div">
+                  <img *ngIf="item?.signalDataModels[0]?.dataValue == 0" class="tvs-led-img-width" src="../../../../assets/images/Petronash__Dashboard_Images/rms__emergency.png">
+                  <img *ngIf="item?.signalDataModels[0]?.dataValue == 1" class="tvs-led-img-width" src="../../../../assets/images/Petronash__Dashboard_Images/rms__running.png">
+                 </div>
+                 <div class="signal-date-div">
+                  <p class="patronash-card-date-time date-time-opacity">Date: {{getDateSplit(item?.signalDataModels[0]?.timeReceived)}}</p>
+                  <p class="patronash-card-date-time date-time-opacity">Time: {{getTimeSplit(item?.signalDataModels[0]?.timeReceived)}}</p>
+                 </div>
+               </div>
+             </ng-container>
+            </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 float-l my-padding-card">
+             <ng-container *ngFor="let item of devicedata">     
+               <div class="tvs-card" *ngIf="item?.signalModel?.signalName == 'Wifi Signal'" >
+                 <div class="row">
+                   <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                     <div class="card-menu-dots">
+                      <p class="patronash-signal-name">{{item?.signalModel?.signalName}}</p>  
+                      </div>
+                   </div>
+                 </div>
+                 <div class="margtop1 emergency-png-div">
+                   <img class="tvs-wifi-img" src="../../../../assets/images/Petronash__Dashboard_Images/Icons/signal_full.png">
+                   <p class="tvs-dashboard-battery-percent">{{item?.signalDataModels[0]?.dataValue}}</p>
+                 </div>
+                 <div class="signal-date-div">
+                  <p class="patronash-card-date-time date-time-opacity">Date: {{getDateSplit(item?.signalDataModels[0]?.timeReceived)}}</p>
+                  <p class="patronash-card-date-time date-time-opacity">Time: {{getTimeSplit(item?.signalDataModels[0]?.timeReceived)}}</p>
+                 </div>
+               </div>
+             </ng-container>
+           </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 float-l my-padding-card">
+              <ng-container *ngFor="let item of devicedata">
+               <div class="tvs-card" *ngIf="item?.signalModel?.signalName == 'Status Code'">
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="card-menu-dots">
+                      <p class="patronash-signal-name">{{item?.signalModel?.signalName}}</p>  
+                    </div>
+                  </div>
+                </div>
+                <div class="margtop1 emergency-png-div tvs-dashboard-battery-div">
+                 <p class="tvs-dashboard-battery-percent code-status-text">{{item?.signalDataModels[0]?.dataValue}}</p>
+                </div>
+                  <div class="signal-date-div">
+                   <p class="patronash-card-date-time date-time-opacity">Date: {{getDateSplit(item?.signalDataModels[0]?.timeReceived)}}</p>
+                   <p class="patronash-card-date-time date-time-opacity">Time: {{getTimeSplit(item?.signalDataModels[0]?.timeReceived)}}</p>
+                 </div>
+               </div>
+             </ng-container>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-l my-padding-card">
+              <ng-container *ngFor="let item of devicedata">
+                <div class="tvs-card" *ngIf="item?.signalModel?.signalName == 'Latitude'">
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                      <div class="card-menu-dots">
+                         <p class="patronash-signal-name ">{{item?.deviceModel?.deviceName}} : {{item?.deviceModel?.deviceId}}</p>  
+                      </div>
+                   </div>
+                 </div>
+                <div class="margtop1 emergency-png-div">
+                   <agm-map [latitude]="getlat()" [longitude]="getlng()">
+                    <agm-marker 
+                     [latitude]="getlat()" [longitude]="getlng()" [label]="" [iconUrl]="
+                      {
+                       url: '../../../../assets/images/device1.png',
+                        scaledSize: {
+                        width: 40,
+                        height: 40
+                        }
+                       }">
+                    </agm-marker>
+                  </agm-map>
+               </div>
+             <div class="signal-date-div">
+               <p class="patronash-card-date-time date-time-opacity">Date: {{getDateSplit(item?.signalDataModels[0]?.timeReceived)}}</p>
+               <p class="patronash-card-date-time date-time-opacity">Time: {{getTimeSplit(item?.signalDataModels[0]?.timeReceived)}}</p>
+             </div>  
+           </div>
+        </ng-container>
+            </div>
+        </div>
+        <div class="no_data" *ngIf="devicedata.length == 0">No data</div>
+      </div>
+    </div>
+
+      <ngx-loading [show]="dashboardLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+   </div>
+
+   <!--TVS Dashboard End-->
+

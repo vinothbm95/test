@@ -1,0 +1,20 @@
+<div>
+    <!-- [ngClass]="heightsetting?'height-inc':'height-dec'" -->
+    <div class="progress mar_tops" 
+    
+    [ngClass]="{'mt-41':(grid1 && ind == 4 || grid3 && ind == 3),
+     'mt-60' : (grid1 && ind != 4 || grid3 && ind != 3 || grid2), 
+     'grid-one-mt-60' : (gridOneShow && !customsize),
+     'custom-size-mt-60' : customsize}"
+    [style.height.px]="height">
+        <div class="progress-bar" role="progressbar" [style.background-color]="progresscolor"  [style.width]="datasize" aria-valuenow="coursesPercentage" aria-valuemin="0"
+            aria-valuemax="100">
+        </div>
+     
+    </div>
+    <!-- <div class="progress_text2">{{progressdata}}</div>  {{signallist}} --->
+    <!-- <div class="progress_text3"> {{progressdata}}</div> -->
+    <!-- <div class="signalvalue">{{signal}} </div> -->
+  </div>   
+ 
+  <!-- style="height: 30px; margin-top: 30px;" -->

@@ -1,0 +1,96 @@
+<div class="container custom-mat-dialog-container">
+ 
+  <div class="row mb-4">
+ 
+    <div class="col-10">
+      <h2 class="popup-title">Configuration Parameters</h2>      
+    </div>
+ 
+    <div class="col-2 delete-popup-close-icon d-flex justify-content-end" id="close-icon">
+      <mat-icon matDialogClose>close</mat-icon>
+    </div>
+ 
+    <div class="col-12">
+      <mat-divider></mat-divider>
+    </div>
+ 
+  </div>
+ 
+  
+  <form  class="row mr-t-10" [formGroup]="petronashDashboardForm" >
+    <!-- [formGroup]="petronashDashboardForm" -->
+          
+    <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+      
+      <div class="example-form">
+        
+        <mat-form-field class="example-full-width full-width">
+          
+          <mat-label>Set flow rate (Litre/Hr)</mat-label>
+          
+          <input matInput placeholder="Set flow rate (Litre/Hr)"  formControlName="setFlowRate">
+          
+          <mat-error *ngIf="!setFlowRate.valid && setFlowRate.touched">
+            Set flow rate is required
+          </mat-error>
+ 
+        </mat-form-field>
+ 
+      </div>
+ 
+    </div>
+   
+    <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+      
+      <div class="example-form">
+        
+        <mat-form-field class="example-full-width full-width">
+          
+          <mat-label>Chemical cost (USD/Gallon)</mat-label>
+          
+          <input matInput placeholder="Chemical cost  (USD/Gallon)"  formControlName="chemicalCost">
+          
+          <mat-error *ngIf="!chemicalCost.valid && chemicalCost.touched">
+            Chemical cost is required
+          </mat-error>
+ 
+        </mat-form-field>
+ 
+      </div>
+ 
+    </div>  
+          
+    <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+      
+      <div class="example-form">
+        
+        <mat-form-field class="example-full-width full-width">
+          
+          <mat-label>Tank Level max  (Litre)</mat-label>
+          
+          <input matInput placeholder="Tank Level max  (Litre)"  formControlName="tankLevelMax">
+          
+          <mat-error *ngIf="!tankLevelMax.valid && tankLevelMax.touched">
+            Tank level max is required
+          </mat-error>
+ 
+        </mat-form-field>
+ 
+      </div>
+ 
+    </div>
+ 
+    <!-- <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+ 
+      <button (click)="updateConfig()" class = "pupm-reset-btn buttoncolor my-mbl-select-device-btn mat-focus-indicator mat-raised-button mat-button-base mat-primary">
+        Update
+      </button>
+ 
+    </div> -->
+ 
+  </form>
+ 
+</div>
+<button (click)="updateConfig()" [disabled]="!petronashDashboardForm.valid" class = "process-popup-apply-btn width-full pupm-reset-btn buttoncolor my-mbl-select-device-btn mat-focus-indicator mat-raised-button mat-button-base mat-primary">
+  Update
+</button>

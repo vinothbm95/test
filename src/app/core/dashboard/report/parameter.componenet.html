@@ -1,0 +1,52 @@
+<div class="container pad20">
+<div>
+  <div class="add-sigal-content-div-scroll">
+    <div class="col-6">
+      <h2 class=" floatleft">Add parameter</h2>
+    </div>
+    <div class="col-6 float-right">
+      <div class=" floatright">
+        <mat-icon matDialogClose>close </mat-icon>
+      </div>
+    </div>
+    <div class="col-12 float-left ">
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+
+  <div class="parcy1 float-left">
+    <table>
+      <tr *ngFor="let item of data ">
+        <td>
+
+          <mat-accordion class="example-headers-align" multi>
+            <!-- #enddocregion multi -->
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <div class="my-panel st">
+                  <div>{{item.signalName}}</div>
+                </div>
+              </mat-expansion-panel-header>
+              <div class="row mar21">
+                <div class="col-sm-6 col-xs-6 col-sm-3 col-md-6 col-xl-4 col-lg-4 "
+                  *ngFor="let property of item.headers | keyvalue">
+                  <mat-checkbox color="primary" [disabled]="property.value.required"
+                    [(ngModel)]="property.value.selected">
+                    {{property.key}}
+                  </mat-checkbox>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class=" col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10  ">
+    <div class="add-signal-btn-div">
+      <button mat-raised-button class="buttoncolor  float-right" [mat-dialog-close]="data">Generate Report</button>
+    </div>
+  </div>
+</div>
+</div>

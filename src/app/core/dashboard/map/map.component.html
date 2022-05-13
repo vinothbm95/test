@@ -1,0 +1,35 @@
+<div class="mar_top10">
+  <div class="col-12 pad_0 virtual-scroll-header-alignment-device">
+    <h3 class="Signalh3">MAP</h3>
+  </div>
+ 
+
+ 
+  <div class="row mar_top30">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <agm-map [latitude]="lat" [longitude]="lng">
+        <agm-marker *ngFor="let m of deviceMapData; let i = index" (markerClick)="clickedMarker(m,infoWindow,i)"
+          [latitude]="m.latitude" [longitude]="m.longitude" [label]="" [iconUrl]="
+          {
+            url: '../../../../assets/images/MAP_Device icon.png',
+            scaledSize: {
+                width: 40,
+                height: 40
+            }
+        }">
+          <agm-info-window #infoWindow class="abhipopup">
+            <P class="list_font">Device name: <span class="font_siz">{{devicedata?.deviceModel?.deviceName}}</span></P>
+            <!-- <P class="list_font">Vehicle number: <span class="font_siz">{{devicedata?.vechileNumber}}</span></P>
+            <P class="list_font">Timing: <span class="font_siz">{{devicedata?.timing}} </span></P>
+            <P class="list_font">Vehicle speed: <span class="font_siz">{{devicedata?.vechileSpeed}}</span></P> -->
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </div>
+
+    
+  </div>
+
+
+</div>
+<ngx-loading [show]="mapShow" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

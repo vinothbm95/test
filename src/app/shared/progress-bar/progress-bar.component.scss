@@ -1,0 +1,82 @@
+.progress_text2{
+    font-size: 14px;
+    font-weight: bold;
+    color: #4d4f5c;
+    float: left;
+    margin-right: 3%;
+    position: relative;
+    top: 35px;
+  }
+  .progress_text3 {
+    // font-size: 11px;
+    // font-weight: bold;
+    // color: #A1A0AE;
+    // margin-right: 2px;
+    // position: relative;
+    // top: 35px;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    /* margin-right: 2px; */
+    text-align: center;
+    position: relative;
+    top: 20px;
+  }
+  .mar_tops {
+    width: 100%;
+    float: left;
+    border-radius: 50px;
+    margin-right: 10px;
+  }
+  // .progress_text3 {
+  //   font-size: 11px;
+  //   font-weight: bold;
+  //   color: #A1A0AE;
+  //   margin-right: 2px;
+  // }
+
+  .signal1 {
+    color: #4D4F5C;
+    font-weight: bold;
+  }
+  .buttoncolor{
+  background-color: #3B86FF;
+  }
+
+  .signalvalue{
+ 
+    margin-bottom: -26px;
+    position: relative;
+    top: 64px;
+    font-weight: 600;
+    color: #666666;
+}
+
+//based on requirement you can change height
+.height-inc{
+  // height:40px;
+  margin-top: 18px;
+}
+
+.height-dec{
+  // height:40px;
+ 
+  margin-bottom: 110px;
+}
+.mt-41{
+  margin-top:41% !important;
+  margin-bottom: 110px;
+}
+.mt-60{
+  margin-top: 85px !important;
+  margin-bottom: 85px;
+}
+.custom-size-mt-60{
+  margin-top: 0px !important;
+    margin-bottom: 66px;
+}
+.grid-one-mt-60{
+  margin-top: 85px !important;
+  margin-bottom: 85px;
+}

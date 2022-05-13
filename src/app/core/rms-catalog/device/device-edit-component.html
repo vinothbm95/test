@@ -1,0 +1,282 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2  *ngIf="rmsAct?.customerId != 11" class="popup-title">
+                Edit Device
+               <!-- Signal Level Configuration -->
+            </h2>
+            <h2  *ngIf="rmsAct?.customerId == 11" class="popup-title">
+              Edit Asset
+          </h2>
+            <div class="delete-popup-close-icon" id="close-icon">
+                <mat-icon matDialogClose >close </mat-icon>
+            </div>
+        </div>
+        <div class="col-12 margin-bottom-10">
+            <mat-divider ></mat-divider>
+        </div>
+    </div>    
+
+
+
+    <div class="form-fields-div col-12 no-pad">
+      <!-- <perfect-scrollbar >   -->
+          <form [formGroup]="addSignalForm" (ngSubmit)="onSubmit()">
+          <div class="row add-sigal-content-div-scroll">
+         
+          <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+              <div class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>{{mainPlaceholder?.deviceId}}</mat-label>
+                    <input matInput placeholder="{{mainPlaceholder?.deviceId}}" [maxLength]="getMaxlength(40)" readonly="true"  formControlName="deviceId" > 
+                         <mat-error *ngIf="!deviceId.valid && deviceId.touched">
+                          {{mainPlaceholder?.deviceName}} is required
+                      </mat-error>
+                  </mat-form-field>
+             
+                </div>
+          </div>
+          <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+              <div class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>{{mainPlaceholder?.deviceName}}</mat-label>
+                    <input matInput placeholder="{{mainPlaceholder?.deviceName}}" [maxLength]="getMaxlength(40)"   formControlName="deviceName">
+                     <mat-error *ngIf="!deviceName.valid && deviceName.touched">
+                      {{mainPlaceholder?.deviceName}} is required
+                     </mat-error>
+                   </mat-form-field>
+                </div>
+          </div>
+          <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+              <div class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>{{mainPlaceholder?.deviceDescription}}</mat-label>
+                    <input matInput placeholder="{{mainPlaceholder?.deviceDescription}}" [maxLength]="getMaxlength(150)" formControlName="deviceDescription">
+                  </mat-form-field>
+                </div>
+          </div>
+          <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+              <div class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>{{mainPlaceholder?.deviceSerialNo}}</mat-label>
+                    <input matInput placeholder="{{mainPlaceholder?.deviceSerialNo}}" [maxLength]="getMaxlength(40)" formControlName="deviceSerialNo" >
+                  </mat-form-field>
+                </div>
+          </div>
+  
+          <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+            <div class="example-form">
+              <mat-form-field (click)="formdate.open()" class="example-full-width fields-width calender-icon">
+                 <input type="text" #fromDateVal  placeholder="{{mainPlaceholder?.dateOfInstallation}}" aria-label="Number" (dateInput)="fromDateChange(fromDateVal.value)"
+                  matInput [matDatepicker]="formdate"  value="" ngModelOptions="{standalone: true}" [(ngModel)]="dateOfInstallationModel"  formControlName="dateOfInstallation"   />
+                 <mat-datepicker-toggle color="primary"  matSuffix [for]="formdate"></mat-datepicker-toggle>
+                 <mat-datepicker #formdate color="primary"></mat-datepicker>
+  
+                         <mat-error *ngIf="!dateOfInstallation.valid && dateOfInstallation.touched">
+                          {{mainPlaceholder?.dateOfInstallation}} is required
+                  </mat-error>
+              </mat-form-field>
+           </div>
+          </div>
+          <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+            <div class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>{{mainPlaceholder?.versionNo}}</mat-label>
+                  <input matInput placeholder="{{mainPlaceholder?.versionNo}}"  [maxLength]="getMaxlength(40)"  formControlName="versionNo" >
+                </mat-form-field>
+              </div>
+        </div>
+        <div   class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>{{mainPlaceholder?.placeOfInstallation}}</mat-label>
+                <input matInput placeholder="{{mainPlaceholder?.placeOfInstallation}}" [maxLength]="getMaxlength(40)" formControlName="placeOfInstallation"  >
+              </mat-form-field>
+            </div>
+      </div>
+      <!-- <div *ngIf="rmsAct?.customerId == 11" class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>{{mainPlaceholder?.placeOfInstallation}} </mat-label>
+            <mat-select formControlName="dataFormatTypeId">
+              <mat-option *ngFor="let lab of selectLabData" [value]="lab">
+                {{lab}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="!dataFormatTypeId.valid && dataFormatTypeId.touched">
+              {{mainPlaceholder?.placeOfInstallation}} is required
+            </mat-error>
+          </mat-form-field>
+          </div>
+    </div> -->
+  
+      <div  *ngIf="rmsAct?.customerId != 11" class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>{{mainPlaceholder?.cityOfInstallation}}</mat-label>
+              <input matInput placeholder="{{mainPlaceholder?.cityOfInstallation}}" [maxLength]="getMaxlength(40)" formControlName="cityOfInstallation"  >
+            </mat-form-field>
+          </div>
+    </div>
+          <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+              <div class="example-form">
+                  <mat-form-field class="example-full-width">
+                      <mat-label>{{mainPlaceholder?.timeZone}}</mat-label>
+                      <mat-select   formControlName="timeZone"> 
+                        <mat-option *ngFor="let signal of timezoneData" [value]="signal" >
+                          {{signal.timeZone}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+          </div>
+        <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                  <mat-label>{{mainPlaceholder?.dataFormatTypeId}}</mat-label>
+                  <mat-select formControlName="dataFormatTypeId">
+                    <mat-option *ngFor="let signal of DataFormatTypeIdData" [value]="signal">
+                      {{signal.dataFormatTypeName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="!dataFormatTypeId.valid && dataFormatTypeId.touched">
+                    {{mainPlaceholder?.dataFormatTypeId}} is required
+                  </mat-error>
+                </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>{{mainPlaceholder?.deviceTopicIn}}</mat-label>
+              <input matInput placeholder="{{mainPlaceholder?.deviceTopicIn}}" [maxLength]="getMaxlength(50)"    formControlName="deviceTopicIn">
+              <mat-error *ngIf="!deviceTopicIn.valid && deviceTopicIn.touched">
+                {{mainPlaceholder?.deviceTopicIn}} is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>{{mainPlaceholder?.deviceTypeId}} </mat-label>
+                <mat-select  formControlName="deviceTypeId">
+                  <mat-option *ngFor="let signal of deviceTypeIdData" [value]="signal">
+                    {{signal.deviceTypeName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!deviceTypeId.valid && deviceTypeId.touched">
+                  {{mainPlaceholder?.deviceTypeId}} is required
+                </mat-error>
+              </mat-form-field>
+          </div>
+       </div>
+       <div  *ngIf="rmsAct?.customerId != 11"  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label> {{mainPlaceholder?.deviceTopicOut}}</mat-label>
+              <input matInput placeholder=" {{mainPlaceholder?.deviceTopicOut}}" [maxLength]="getMaxlength(50)"  formControlName="deviceTopicOut" >
+            <mat-error *ngIf="!deviceTopicOut.valid && deviceTopicOut.touched">
+              {{mainPlaceholder?.deviceTopicOut}} is required
+            </mat-error>
+            </mat-form-field>
+          </div>
+      </div>
+      <div *ngIf="rmsAct?.customerId == 11" class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+          <mat-form-field (click)="formdate1.open()" class="example-full-width fields-width calender-icon">
+             <input type="text" #fromDateVal1  placeholder=" {{mainPlaceholder?.deviceTopicOut}}" aria-label="Number" (dateInput)="fromDateChangeComm(fromDateVal1.value)"
+              matInput [matDatepicker]="formdate1"  formControlName="deviceTopicOut"   />
+             <mat-datepicker-toggle color="primary"  matSuffix [for]="formdate1"></mat-datepicker-toggle>
+             <mat-datepicker #formdate1 color="primary"></mat-datepicker>
+  
+                     <mat-error *ngIf="!dateOfInstallation.valid && dateOfInstallation.touched">
+                      {{mainPlaceholder?.deviceTopicOut}} is required
+              </mat-error>
+          </mat-form-field>
+       </div>
+      </div>
+      <div *ngIf="rmsAct?.customerId == 11" class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+          <mat-form-field (click)="formdate2.open()" class="example-full-width fields-width calender-icon">
+             <input type="text" #fromDateVal2  placeholder=" {{mainPlaceholder?.cityOfInstallation}}" aria-label="Number" (dateInput)="fromDateChangeAmc(fromDateVal2.value)"
+              matInput [matDatepicker]="formdate2"  formControlName="cityOfInstallation"   />
+             <mat-datepicker-toggle color="primary"  matSuffix [for]="formdate2"></mat-datepicker-toggle>
+             <mat-datepicker #formdate2 color="primary"></mat-datepicker>
+  
+                     <mat-error *ngIf="!dateOfInstallation.valid && dateOfInstallation.touched">
+                      {{mainPlaceholder?.cityOfInstallation}} is required
+              </mat-error>
+          </mat-form-field>
+       </div>
+      </div>
+
+       <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>{{mainPlaceholder?.email}}</mat-label>
+              <input matInput placeholder="{{mainPlaceholder?.email}}"   [maxLength]="getMaxlength(50)"  formControlName="email">
+              <mat-error *ngIf="!addSignalForm.controls['email'].valid && addSignalForm.controls['email'].touched">
+                {{ getErrorEmail() }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+    </div>
+      <div   class="col-6 col-sm-6 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <p class="add-signal-popup-custom-lable">{{mainPlaceholder?.useDeviceTime}}</p>    
+                <mat-slide-toggle [checked]="useDeviceTimeSlideToggle"  [(ngModel)]="useDeviceTimeSlideToggle" formControlName="useDeviceTime"></mat-slide-toggle>    
+            <mat-error *ngIf="!useDeviceTime.valid && useDeviceTime.touched">
+              Use device time is required
+            </mat-error>
+          </div>
+    </div>
+      <!-- <div  class="col-6 col-sm-6 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <p class="add-signal-popup-custom-lable">isActive</p>    
+                <mat-slide-toggle [checked]="isActiveSlideToggle" [(ngModel)]="isActiveSlideToggle"  formControlName="isActive"></mat-slide-toggle>    
+            <mat-error *ngIf="!isActive.valid && isActive.touched">
+              isActive is required
+            </mat-error>
+          </div>
+    </div> -->
+     <div  class="col-6 col-sm-6 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+      <div class="example-form">
+          <p class="add-signal-popup-custom-lable">{{mainPlaceholder?.isGateway}}</p>    
+              <mat-slide-toggle [checked]="isGatewayToggle" [(ngModel)]="isGatewayToggle"  formControlName="isGateway"></mat-slide-toggle>    
+          <mat-error *ngIf="!isGateway.valid && isGateway.touched">
+            {{mainPlaceholder?.isGateway}} is required
+          </mat-error>
+        </div>
+    </div>
+     <div   class="col-6 col-sm-6 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+      <div class="example-form">
+          <p class="add-signal-popup-custom-lable">{{mainPlaceholder?.isLatLong}}</p>
+            <mat-slide-toggle [checked]="isLatLongToggle" [(ngModel)]="isLatLongToggle" formControlName="isLatLong"></mat-slide-toggle>
+          <mat-error *ngIf="!isLatLong.valid && isLatLong.touched">
+            {{mainPlaceholder?.isLatLong}} is required
+          </mat-error>
+        </div>
+     </div>
+     <div   class="col-6 col-sm-6 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+      <div class="example-form">
+          <p class="add-signal-popup-custom-lable">{{mainPlaceholder?.isUsed}}</p>
+            <mat-slide-toggle formControlName="isUsed"></mat-slide-toggle>
+          <!-- <mat-error *ngIf="!isLatLong.valid && isLatLong.touched">
+            {{mainPlaceholder?.isLatLong}} is required
+          </mat-error> -->
+        </div>
+     </div>
+          <div class=" col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10 pad-b-50 mr-t-25 ">
+              <div class="add-signal-btn-div">
+                 <button  matDialogClose mat-raised-button class=" popup-register-cancel-mbl-btn buttoncolor my-mbl-select-device-btn  add-signal-cancel-btn " color="primary">Cancel</button>
+                 <button [disabled]="!addSignalForm.valid"  (click)="addSignal()" mat-raised-button 
+                 class=" popup-register-cancel-mbl-btn buttoncolor my-mbl-select-device-btn btn-primary add-signal-register-btn" color="">Update</button>
+              </div>
+          </div>
+      </div>
+      </form>
+      <!-- </perfect-scrollbar>   -->
+      </div>
+      <ngx-loading [show]="show" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+</div>

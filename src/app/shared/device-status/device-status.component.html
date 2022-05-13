@@ -1,0 +1,21 @@
+<div class="row mt-20">
+    <div *ngFor="let item of deviceStatusData"  class="col-12 col-md-6 col-lg-2 col-xl-2 col-sm-12 my-padding-card">
+        <div class="devis_card2" >
+            <div class="spare_text1">{{item?.deviceModel?.deviceName}}</div>
+            <div class="led-img-div">
+            <img *ngIf="!item?.deviceModel?.isActive" src="../../../assets/images/led-red.png" alt="Network strength image"  class=" my-flow-meter-signal-img" >
+            <img *ngIf="item?.deviceModel?.isActive" src="../../../assets/images/led-green.png" alt="Network strength image"  class=" my-flow-meter-signal-img" >
+            </div>
+          
+          <!-- <div class="no-data-card-height" *ngIf="item?.signalDataModels?.length == 0">
+           <p class="no-data-text">No data</p>
+          </div> -->
+
+        
+            <!-- <div class="col-12  pad_0 signalvalue_text1" >daads <span class="unit_text1">hvhhv</span></div> -->
+            <!-- <div class="col-12 signalname_text1 pad_0"> Earth Fault Trip </div> -->
+            <div  class="col-12  pad_0 date_text1" >{{item?.lastUpdatedDateTime}}</div>
+        </div>
+    </div>
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+</div>

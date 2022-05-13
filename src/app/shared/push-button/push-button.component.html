@@ -1,0 +1,10 @@
+<!-- Switch ON div start here -->
+<div *ngIf="signalDataType == 1" class="text-center" [style.height.px]="divheight" >
+    <img src="../../../assets/images/push_btn_start.png" [style.height.px]="imgheight" class="">
+</div>
+<!-- Switch ON div end here -->
+
+<!-- Switch OFF div start here -->
+<div *ngIf="signalDataType == 0" class="text-center" [style.height.px]="divheight"> 
+    <img src="../../../assets/images/push_btn_released.png" [style.height.px]="imgheight" class="" >
+</div>

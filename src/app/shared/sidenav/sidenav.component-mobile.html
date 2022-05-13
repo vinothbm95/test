@@ -1,0 +1,66 @@
+<mat-selection-list  [multiple]="false">
+    <!-- <mat-list-option>
+      
+           
+            <mat-icon mat-list-icon>home_outlined</mat-icon>
+            <p  matLine><a (click)="onNoClick()" routerLinkActive="list-item-active"
+                 routerLink="/dashboard">Dashboard</a></p>
+         
+        
+    </mat-list-option> -->
+   
+    <mat-list-option (click)=" onNoClick()" routerLinkActive="list-item-active" 
+    routerLink="/dashboard">
+       
+        <mat-icon mat-list-icon>assessment</mat-icon>
+        <p matLine ><a >Dashboard</a></p>
+    
+</mat-list-option>
+    <mat-list-option  (click)=" onNoClick()" routerLinkActive="list-item-active" 
+    routerLink="/dashboard/signaldata">
+       
+            <mat-icon mat-list-icon>assessment</mat-icon>
+            <p matLine ><a>ParameterDataView</a></p>
+        
+    </mat-list-option>
+
+    <mat-list-option (click)=" onNoClick()" routerLinkActive="list-item-active" routerLink="/dashboard/compare">
+      
+            <mat-icon mat-list-icon>compare</mat-icon>
+            <p matLine><a >Compare</a></p>
+        
+    </mat-list-option>
+    <mat-list-option>
+       
+            <mat-icon mat-list-icon>assignment</mat-icon>
+            <p matLine ><a (click)=" onNoClick()">Report</a></p>
+         
+    </mat-list-option>
+    <mat-list-option>
+      
+            <mat-icon mat-list-icon>alarm</mat-icon>
+            <p matLine (click)=" onNoClick()">Alaram</p>
+        
+        
+    </mat-list-option>
+    <mat-list-option>
+   
+        <mat-icon mat-list-icon>storage</mat-icon>
+        <p matLine (click)=" onNoClick()">Device</p>
+    
+    </mat-list-option>
+    <mat-list-option>
+   
+        <mat-icon mat-list-icon>signal_cellular_alt</mat-icon>
+        <p matLine (click)=" onNoClick()">Parameter</p>
+    
+    </mat-list-option>
+    <mat-list-option>
+   
+        <mat-icon mat-list-icon>group_work</mat-icon>
+        <p matLine (click)=" onNoClick()">Group List</p>
+    
+    </mat-list-option>
+  </mat-selection-list>
+  
+ 

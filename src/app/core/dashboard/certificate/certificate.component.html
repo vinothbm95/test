@@ -1,0 +1,1737 @@
+<div class="container-root">
+
+<!--print icon html start-->
+    <div *ngIf="showPdfIcon" class="print-button-container" matTooltip ="print"  >
+        <button (click)="exportToPdf()" mat-mini-fab color="primary" class="select_print-btn float-right" >
+            <mat-icon >print</mat-icon>
+        </button>
+     </div>
+<!--print icon html end-->    
+
+<!--Certificate heading html start-->    
+    <div class="row virtual-scroll-header-alignment-device">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12   padding-head">
+            <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+                <p *ngIf="deviceCertificateShow" class="dashboard">Booster Test</p>
+                <p *ngIf="alarmCertificate" class="dashboard">Booster Alarm Test</p>
+                <p *ngIf="signalCertificate" class="dashboard">Booster Factory Acceptance Test</p>
+           </div>         
+        </div>
+    </div>
+<!--Certificate heading html end-->  
+
+<!--Select Certificate & Dropdown's header html start-->  
+    <mat-card class=" my-dashboard-title-div-height col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+          <div class="row ">
+               <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left ">
+                   <div class="row">
+                      <div *ngIf="deviceCertificate" [formGroup]="CertificateDateForm" (ngSubmit)="onSubmit()" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 float-left ">
+                          <!-- device list -->
+                          <div class="example-form">                     
+                            <mat-form-field class="example-full-width fields-width">
+                            <input type="text" placeholder="Select Device " aria-label="Number" matInput formControlName="deviceName"
+                              [matAutocomplete]="autoDeviceOne" />
+                            <mat-autocomplete #autoDeviceOne="matAutocomplete">
+                              <mat-option *ngFor="let device of filteredDeviceOne | async" [value]="device.deviceName"
+                                (onSelectionChange)="deviceSelection(device, 'deviceName', $event ,1)"
+                                [ngClass]="_deviceSelection(device.deviceName)">
+                                {{ device.deviceName }}
+                              </mat-option>
+                            </mat-autocomplete>
+                          </mat-form-field>
+                        </div>
+                            </div>      
+                          <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 float-left">
+                            <div class="example-form calender-div-pos">
+                               <mat-form-field (click)="fromToDate.open()" class="example-full-width siganl-ngx-picker-alignment calender-icon">
+                                <input type="text"  #fromToDateval placeholder="Select date" aria-label="Number"
+                                 matInput [matDatepicker]="fromToDate"  formControlName="fromToDate"  (dateInput)="toDateChange(fromToDateval.value)" />
+                                <mat-datepicker-toggle color="primary"  matSuffix [for]="fromToDate"></mat-datepicker-toggle>
+                                <mat-datepicker #fromToDate color="primary"></mat-datepicker>
+                              </mat-form-field>
+                             </div>
+                           </div>
+                          <div class="col-12 col-sm-12 col-md-12 col-xl-6 col-lg-6 float-left">
+                            <button mat-raised-button routerLinkActive="list-item-active"  class="float-right buttoncolor my-mbl-certificate-apply-btn btn-mbl-full-width " [disabled]="!CertificateDateForm.valid" color="primary" (click)="deviceCertificateApply()">Apply</button>
+                        </div>
+                      </div>
+                      <div  *ngIf="alarmCertificate" class="dashboard col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 float-left ">
+                       <p class="readable-heading-text"> Device name: {{CertificateDateForm.value?.deviceName}}  <span class="readable-date-text">Date: {{fromToDate}} </span></p>
+                      </div>
+                      <div *ngIf="signalCertificate" class="dashboard col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 float-left ">
+                        <p class="readable-heading-text"> Device name: {{CertificateDateForm.value?.deviceName}}  <span class="readable-date-text">Date: {{fromToDate}} </span></p>
+                       </div>
+                   </div>
+              </div>         
+          </div>
+    </mat-card>
+<!--Select Certificate & Dropdown's header html end-->  
+<loading *ngIf="isLoading">{{ isLoading }}</loading>
+<!-- device certificate start here -->
+<div *ngIf="deviceCertificateShow" class="all-certificate-div col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pad-0"><!--main div for all certificate printing at a time start-->
+<!--Certificate Main Card html start-->  
+<!-- <div class="row main-row" > -->
+  <form class="row main-row " [formGroup]="certificateDataForm" (ngSubmit)="certificateDataSubmit()">
+  <mat-card class="certificate-main-card col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+    
+    <div class="row"><!--Elpis Logo With Certificate Title Row Start-->
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="elpis-img-div">
+          <img src="../../../../assets/images/elpis_logo.png" alt="Elpis IT Solution"  class="img-responsive">
+          <p class="certificate-title">BOOSTER TEST CERTIFICATE</p>
+          <p class="certificate-sub-txt"><b>Sunpowergen</b> declare that all data recorded are true and in compliance with purchase order and the national standard and safety requirements which the item is destined. </p>
+        </div>
+      </div>
+    </div><!--Elpis Logo With Certificate Title Row End-->
+    <div class="row general-data-row"><!--General Data Row Start-->
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <p class="general-data-heading">GENERAL DATA</p>
+      </div>
+       <mat-card class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+         <div class="row">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="row">
+
+                  <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                    <p class="general-data-title">CUSTOMER NAME</p>
+                  </div>
+
+                  <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+
+                    <div class="example-form">
+                      <mat-form-field class="example-full-width width-100">
+                      <input matInput placeholder="Enter customer name"  formControlName="customerName">
+                      <mat-error *ngIf="!customerName.valid && customerName.touched">
+                          Customer name is required
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                    <p class="general-data-title">P&ID DRAWING</p>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                    <div class="example-form">
+                      <mat-form-field class="example-full-width width-100">
+                      <input matInput placeholder="Enter P & ID drawing" formControlName="pIdDrawing">
+                      <mat-error *ngIf="!pIdDrawing.valid && pIdDrawing.touched">
+                          P&ID drawing is required
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 general-data-col-bg">
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                    <p class="general-data-title">JOB NUMBER</p>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                    <div class="example-form">
+                      <mat-form-field class="example-full-width width-100">
+                      <input matInput placeholder="Enter Job number" formControlName="jobNumber">
+                      <mat-error *ngIf="!jobNumber.valid && jobNumber.touched">
+                          Job number is required
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>           
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 general-data-col-bg">
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                    <p class="general-data-title">ELECTRICAL DRAWING</p>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                    <div class="example-form">
+                      <mat-form-field class="example-full-width width-100">
+                      <input matInput placeholder="Enter electrical drawing"  formControlName="electricalDrawing">
+                      <mat-error *ngIf="!electricalDrawing.valid && electricalDrawing.touched">
+                        Electrical drawing is required
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>     
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                    <p class="general-data-title">PURCHASE ORDER NO:</p>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                    <div class="example-form">
+                      <mat-form-field class="example-full-width width-100">
+                      <input matInput placeholder="Enter purchase order no" formControlName="purchaseOrderNo" >
+                      <mat-error *ngIf="!purchaseOrderNo.valid && purchaseOrderNo.touched">
+                        Purchase order no is required
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>      
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                    <p class="general-data-title">OIL CIRCUIT DRAWING</p>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                    <div class="example-form">
+                      <mat-form-field class="example-full-width width-100">
+                      <input matInput placeholder="Enter oil circuit drawing" formControlName="oilCircuitDrawing">
+                      <mat-error *ngIf="!oilCircuitDrawing.valid && oilCircuitDrawing.touched">
+                        Oil circuit drawing is required
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>              
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 general-data-col-bg">
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                    <p class="general-data-title">DELIVERY PLACE</p>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                    <div class="example-form">
+                      <mat-form-field class="example-full-width width-100">
+                      <input matInput placeholder="Enter delivery place" formControlName="deliveryPlace" >
+                      <mat-error *ngIf="!deliveryPlace.valid && deliveryPlace.touched">
+                        Delivery place is required
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 general-data-col-bg">
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                    <p class="general-data-title">WATER CIRCUIT DRAWING</p>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                    <div class="example-form">
+                      <mat-form-field class="example-full-width width-100">
+                      <input matInput placeholder="Enter water circuit drawing" formControlName="waterCircuitDrawing" >
+                      <mat-error *ngIf="!waterCircuitDrawing.valid && waterCircuitDrawing.touched">
+                        Water circuit drawing is required
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>               
+              </div>
+         </div>
+       </mat-card>
+    </div><!--General Data Row End-->
+
+    <div class="row general-data-row"><!--Compressor Data Row Start-->
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <p class="compressor-data-heading">COMPRESSOR DATA</p>
+      </div>
+       <mat-card class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 margin-bottom-50 reusable-table compressor-table-mbl mbl-card"><!--Compressor table card Start-->
+        <table class=""><!--Compressor table Start-->
+          <thead><!--Compressor table Header Start-->
+           <tr>
+            <th scope="col">
+              <div>Model No:</div>
+            </th>
+            <th scope="col">
+             <div>Code</div>
+            </th>
+            <th scope="col">
+              <div>Compressor Stroke</div>
+            </th>
+            <th scope="col">
+              <div>Piston Diameter</div>
+            </th>
+            <th scope="col">
+              <div>Transmission Type</div>
+            </th>
+            <th scope="col">
+              <div>Piston Load</div>
+            </th>
+           </tr>
+          </thead><!--Compressor table Header End-->
+          <tbody><!--Compressor table body Start-->
+           <tr>
+            <td data-label="Model No:" class="display-block">
+              <div>
+                <mat-form-field class="example-full-width width-100">
+                  <input matInput placeholder="Enter model no"  formControlName="compressorModelNumber" >
+                  <mat-error *ngIf="!compressorModelNumber.valid && compressorModelNumber.touched">
+                    Model number is required
+                  </mat-error>
+                  </mat-form-field>
+              </div>
+            </td>
+            <td data-label="Code" class="display-block">
+              <div>
+                <mat-form-field class="example-full-width width-100">
+                  <input matInput placeholder="Enter code" formControlName="compressorCode" >
+                  <mat-error *ngIf="!compressorCode.valid && compressorCode.touched">
+                    Code is required
+                  </mat-error>
+                  </mat-form-field>
+              </div>
+            </td>
+            <td data-label="Compressor Stroke" class="display-block">
+              <div>
+                <mat-form-field class="example-full-width width-100">
+                  <input matInput placeholder="Enter compressor stroke"  formControlName="compressorStroke" >
+                  <mat-error *ngIf="!compressorStroke.valid && compressorStroke.touched">
+                    Compressor stroke is required
+                  </mat-error>
+                  </mat-form-field>
+              </div>
+            </td>
+            <td data-label="Piston Diameter" class="display-block">
+              <div>
+                <mat-form-field class="example-full-width width-100">
+                  <input matInput placeholder="Enter piston diameter"  formControlName="compressorPistonDiameter" >
+                  <mat-error *ngIf="!compressorPistonDiameter.valid && compressorPistonDiameter.touched">
+                    Piston diameter is required
+                  </mat-error>
+                  </mat-form-field>
+              </div>
+            </td>
+            <td data-label="Transmission Type" class="display-block">
+              <div>
+                <mat-form-field class="example-full-width width-100">
+                  <input matInput placeholder="Enter Transmission type"  formControlName="compressorTransmissionType" >
+                  <mat-error *ngIf="!compressorTransmissionType.valid && compressorTransmissionType.touched">
+                    Transmission type is required
+                  </mat-error>
+                  </mat-form-field>
+              </div>
+            </td>
+            <td data-label="Piston Load " class="display-block">
+              <div>
+                <mat-form-field class="example-full-width width-100">
+                  <input matInput placeholder="Enter Piston load"  formControlName="compressorPistonLoad" >
+                  <mat-error *ngIf="!compressorPistonLoad.valid && compressorPistonLoad.touched">
+                     Piston load is required
+                  </mat-error>
+                  </mat-form-field>
+              </div>
+            </td>
+           </tr>
+          </tbody><!--Compressor table body End-->
+         </table><!--Compressor table End-->        
+       </mat-card><!--Compressor table card End-->
+    </div><!--Compressor Data Row End-->
+
+    <!-- formArrayName="nominalCharacterstics" -->
+    <div class="row general-data-row" ><!--Nominal Characteristics Row Start-->
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <p class="compressor-data-heading">NOMINAL CHARACTERISTICS</p>
+      </div>
+       <mat-card class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 margin-bottom-50 reusable-table mbl-card"><!--Compressor table card Start-->
+        <table class="compressor-table"><!--Nominal Characteristics table Start-->
+          <thead><!--Nominal Characteristics table Header Start-->
+           <tr>
+       
+            <th scope="col">
+              <div>Description</div>
+            </th>
+            <th scope="col">
+             <div>Values </div>
+            </th>
+            <th scope="col">
+              <div>Tolerance </div>
+            </th>
+            <th scope="col">
+              <div>Values</div>
+            </th>
+           </tr>
+          </thead><!--Nominal Characteristics table Header End-->
+          <tbody> <!--Nominal Characteristics table body Start-->
+
+            <!--Static nominal CHARACTERISTICS body HTML start -->
+
+            <tr>
+              <td class="display-block">
+                <div>
+                FLOW RATE Sm³/h
+              </div>
+            </td>
+            <td class="display-block">
+              <div class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Values</mat-label>
+                  <input matInput placeholder="Values" formControlName="flowRateRange">
+                <mat-error *ngIf="!flowRateRange.valid && flowRateRange.touched">
+                  Flow rate values is required
+                </mat-error>
+                </mat-form-field>
+              </div>
+          </td>
+          <td class="display-block">
+            <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Tolerance</mat-label>
+                <input matInput placeholder="Tolerance" formControlName="flowRateTolerance" >
+              <mat-error *ngIf="!flowRateTolerance.valid && flowRateTolerance.touched">
+                Flow rate Tolerance is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+        </td>
+        <td class="display-block">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Value</mat-label>
+              <input matInput placeholder="Value" formControlName="flowRateValue" >
+            <mat-error *ngIf="!flowRateValue.valid && flowRateValue.touched">
+              Flow rate values is required
+            </mat-error>
+            </mat-form-field>
+          </div>
+      </td>
+            </tr>
+            
+            <tr>
+              <td class="display-block">
+                <div>
+                  INLET PRESSURE (bar)
+              </div>
+            </td>
+            <td class="display-block">
+              <div class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Values</mat-label>
+                  <input matInput placeholder="Values" formControlName="inletPressureRange" >
+                <mat-error *ngIf="!inletPressureRange.valid && inletPressureRange.touched">
+                  Inlet pressure values is required
+                </mat-error>
+                </mat-form-field>
+              </div>
+          </td>
+          <td class="display-block">
+            <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Tolerance</mat-label>
+                <input matInput placeholder="Tolerance" formControlName="inletPressureTolerance">
+              <mat-error *ngIf="!inletPressureTolerance.valid && inletPressureTolerance.touched">
+                Inlet pressure tolerance is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+        </td>
+        <td class="display-block">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Value</mat-label>
+              <input matInput placeholder="Value"  formControlName="inletPressureValue">
+            <mat-error *ngIf="!inletPressureValue.valid && inletPressureValue.touched">
+              Inlet pressure values is required
+            </mat-error>
+            </mat-form-field>
+          </div>
+      </td>
+            </tr>
+            <tr>
+              <td class="display-block">
+                <div>
+                  MAXIMUM DELIVER PRESSURE ( bar)
+              </div>
+            </td>
+            <td class="display-block" >
+              <div class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Values</mat-label>
+                  <input matInput placeholder="Values"  formControlName="maxDeliveryPressureRange">
+                <mat-error *ngIf="!maxDeliveryPressureRange.valid && maxDeliveryPressureRange.touched">
+                  Max delivery pressure values is required
+                </mat-error>
+                </mat-form-field>
+              </div>
+          </td>
+          <td class="display-block">
+            <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Tolerance</mat-label>
+                <input matInput placeholder="Tolerance"  formControlName="maxDeliveryPressureTolerance">
+              <mat-error *ngIf="!maxDeliveryPressureTolerance.valid && maxDeliveryPressureTolerance.touched">
+                Max delivery pressure tolerance is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+        </td>
+        <td class="display-block">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Value</mat-label>
+              <input matInput placeholder="Value" formControlName="maxDeliveryPressureValue">
+            <mat-error *ngIf="!maxDeliveryPressureValue.valid && maxDeliveryPressureValue.touched">
+              Max delivery pressure value is required
+            </mat-error>
+            </mat-form-field>
+          </div>
+      </td>
+            </tr>
+            <tr>
+              <td class="display-block">
+                <div>
+                  POWER MAIN MOTOR (Kw)
+              </div>
+            </td>
+            <td class="display-block">
+              <div class="example-form"> 
+                <mat-form-field class="example-full-width">
+                  <mat-label>Values</mat-label>
+                  <input matInput placeholder="Values" formControlName="powerMainMotorRange">
+                <mat-error *ngIf="!powerMainMotorRange.valid && powerMainMotorRange.touched">
+                  Power main motor values is required
+                </mat-error>
+                </mat-form-field>
+              </div>
+          </td>
+          <td class="display-block">
+            <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Tolerance</mat-label>
+                <input matInput placeholder="Tolerance" formControlName="powerMainMotorTolerance">
+              <mat-error *ngIf="!powerMainMotorTolerance.valid && powerMainMotorTolerance.touched">
+                Power main motor tolerance is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+        </td>
+        <td class="display-block">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Value</mat-label>
+              <input matInput placeholder="Value" formControlName="powerMainMotorValue">
+            <mat-error *ngIf="!powerMainMotorValue.valid && powerMainMotorValue.touched">
+              Power main motor value is required
+            </mat-error>
+            </mat-form-field>
+          </div>
+      </td>
+            </tr>
+            <tr>
+              <td class="display-block"> 
+                <div>
+                  POWER AUXILLARIES (Kw)
+              </div>
+            </td>
+            <td class="display-block">
+              <div class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Values</mat-label>
+                  <input matInput placeholder="Values" formControlName="powerAuxillariesRange">
+                <mat-error *ngIf="!powerAuxillariesRange.valid && powerAuxillariesRange.touched">
+                  Power auxillaries values is required
+                </mat-error>
+                </mat-form-field>
+              </div>
+          </td>
+          <td class="display-block">
+            <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Tolerance</mat-label>
+                <input matInput placeholder="Tolerance" formControlName="powerAuxillariesTolerance">
+              <mat-error *ngIf="!powerAuxillariesTolerance.valid && powerAuxillariesTolerance.touched">
+                Power auxillaries tolerance is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+        </td>
+        <td class="display-block">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Value</mat-label>
+              <input matInput placeholder="Value" formControlName="powerAuxillariesValue">
+            <mat-error *ngIf="!powerAuxillariesValue.valid && powerAuxillariesValue.touched">
+              Power auxillaries value is required
+            </mat-error>
+            </mat-form-field>
+          </div>
+      </td>
+            </tr>
+            <tr>
+              <td class="display-block">
+                <div>
+                  TEMPREATURE
+              </div>
+            </td>
+            <td class="display-block">
+              <div class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Values</mat-label>
+                  <input matInput placeholder="Values" formControlName="temperatureRange">
+                <mat-error *ngIf="!temperatureRange.valid && temperatureRange.touched">
+                  Temperature Values is required
+                </mat-error>
+                </mat-form-field>
+              </div>
+          </td>
+          <td class="display-block">
+            <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Tolerance</mat-label>
+                <input matInput placeholder="Tolerance" formControlName="temperatureTolerance">
+              <mat-error *ngIf="!temperatureTolerance.valid && temperatureTolerance.touched">
+                Temperature tolerance is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+        </td>
+        <td class="display-block">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Value</mat-label>
+              <input matInput placeholder="Value" formControlName="temperatureValue">
+            <mat-error *ngIf="!temperatureValue.valid && temperatureValue.touched">
+              Temperature value is required
+            </mat-error>
+            </mat-form-field>
+          </div>
+         </td>
+            </tr>
+          </tbody><!--Nominal Characteristics table body End-->
+         </table><!--Nominal Characteristics table End-->        
+       </mat-card><!--Nominal Characteristics table card End-->
+    </div><!--Nominal Characteristics  Row End-->
+
+    <div class="row incharge-data-row mbl-margin">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <!-- <p class="date-txt">DATE:</p> -->
+      </div>
+      <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <!-- <p class="date-txt">PLACE:</p> -->
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 mbl-pad0 ipad-p0">
+        <!-- <p class="date-txt text-center">SIGN. INCHARGE</p> -->
+        <button mat-raised-button routerLinkActive="list-item-active"  
+        class="float-right buttoncolor my-mbl-certificate-apply-btn btn-mbl-full-width text-white save-mbl-btn" 
+        color="primary" [disabled]="!certificateDataForm.valid" (click)="showAlarmCertificate()">Next</button>
+      </div>
+    </div>
+
+  </mat-card>
+</form>
+<!--Certificate Main Card html end-->
+</div>
+<!-- device certificate end here -->
+<!--Alarm Certificate html start-->
+<div *ngIf="alarmCertificate" class="all-certificate-div-alarm col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pad-0"><!--main div for all certificate printing at a time start-->
+
+
+  <!--Alarm Certificate Main Card html start--> 
+ 
+    <form class="row main-row "  [formGroup]="alaramformgroup"  >
+    <mat-card class="certificate-main-card col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+     
+      <div class="row"><!--Elpis Logo With Certificate Title Row Start-->
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="elpis-img-div">
+            <img src="../../../../assets/images/elpis_logo.png" alt="Elpis IT Solution"  class="img-responsive">
+            <p class="certificate-title">BOOSTER ALARM TEST CERTIFICATE</p>
+            <p class="certificate-sub-txt"><b>Sunpowergen</b> declare that all data recorded are true and in compliance with purchase order and the national standard and safety requirements which the item is destined. </p>
+          </div>
+        </div>
+      </div><!--Elpis Logo With Certificate Title Row End-->
+
+      <div class="row incharge-data-row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <!-- <p class="date-txt">DATE:</p> -->
+        </div>
+        <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+          <!-- <p class="date-txt">PLACE:</p> -->
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+          <!-- <p class="date-txt text-center">SIGN. INCHARGE</p> -->
+          <!-- <button mat-raised-button routerLinkActive="list-item-active"  class="float-right buttoncolor my-mbl-certificate-apply-btn btn-mbl-full-width save-mbl-btn" color="primary" (click)="saveCertificate()">Save</button> -->
+        </div>
+      </div>
+
+      <!--table css start-->
+    
+<div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  mt-20 " style="overflow-x: auto;">
+       <table id="table2" class="col-12">
+        <tr>
+          <th colspan="5" class="compressor-data-heading ptb-8">ALARM SET VALUE DATA</th>
+        </tr>
+       
+        <tr>
+          <td rowspan="2" class="alarmtableheading ">INLET PRESSURE</td>
+          <td rowspan="2" class="width50 textaligncenter alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="INLET PRESSURE" formControlName="inletPressureValue">
+                <mat-error *ngIf="alaramformgroup.controls['inletPressureValue'].invalid">
+                  Inlet pressure is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </td>
+
+          <td colspan="2" class="alarmtableheading">
+            <div>
+            MINIMUM ALARM SET &nbsp; &nbsp; &nbsp; 
+            <span class="float-right">
+            bar
+            </span>
+            </div>
+           </td>
+          <td  class="alarmtableheading" >
+            <div class="example-form">
+            
+              <mat-form-field>
+                <input type="text" matInput placeholder="Inlet pressure minimum alarm value" formControlName="inletPressureMinAlarmSet">
+                <mat-error *ngIf="alaramformgroup.controls['inletPressureMinAlarmSet'].invalid">
+                  Inlet pressure minimum alarm value required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+          </td>
+           
+        </tr>
+       
+        <tr >
+          <td colspan="2" class="alarmtableheading">
+            <div>
+            MAXIMUM ALARM SET       
+             <span class="float-right">
+            bar
+            </span>
+          </div>
+          </td>
+           <td class=" alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="Inlet pressure maximum alarm value" formControlName="inletPressureMaxAlarmSet">
+                <mat-error *ngIf="alaramformgroup.controls['inletPressureMaxAlarmSet'].invalid">
+                  Inlet pressure maximum alarm value required
+                </mat-error>
+              </mat-form-field>
+             
+            </div>
+
+            </td>
+        </tr>
+       
+          <tr>
+          <td  class="alarmtableheading">MAXIMUM DELIVERY PRESSURE</td>
+          <td  class=" alarmtableheading">
+            
+           <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="MAXIMUM DELIVERY PRESSURE" formControlName="maxDeliveryPressureValue">
+                <mat-error *ngIf="alaramformgroup.controls['maxDeliveryPressureValue'].invalid">
+                  Maximum delivery pressure is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          
+          </td>
+          <td colspan="2" class="alarmtableheading">
+<div>
+            MAXIMUM ALARM SET <span class="float-right">
+             bar
+             </span>
+             </div>
+
+          </td>
+          <td  class="alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="Maximum delivery max. alarm set"
+                 formControlName="maxDeliveryPressureAlarmSet">
+                <mat-error *ngIf="alaramformgroup.controls['maxDeliveryPressureAlarmSet'].invalid">
+                  Maximum delivery max. alarm required
+                </mat-error>
+              </mat-form-field>
+            </div>
+           </td>
+         
+        </tr>
+       
+         <tr>
+          <td class="alarmtableheading">MEDIUM BANK PRESSURE</td>
+          <td  class="width50 alarmtableheading">  
+            <div class="example-form">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="MEDIUM BANK PRESSURE" formControlName="mediumbankpressure">
+                <mat-error *ngIf="alaramformgroup.controls['mediumbankpressure'].invalid">
+                  Medium bank pressure is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          </td>
+          <td class="alarmtableheading">
+            <div>
+            MAXIMUM
+           
+            <span class="float-right">
+            bar</span>
+            </div>
+          </td>
+          <td class="width50 alarmtableheading ">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="Medium bank pressure max. alarm" formControlName="mediumBankPressureMaxAlarmSet">
+                <mat-error *ngIf="alaramformgroup.controls['mediumBankPressureMaxAlarmSet'].invalid">
+                  Medium bank pressure max. alarm required
+                </mat-error>
+              </mat-form-field>
+            </div> </td>
+
+          <td class="alarmtableheading">
+            SET MAXIMUM 245 bar
+            </td>
+        </tr>
+        <tr>
+           <td rowspan="2" class="alarmtableheading">HIGH BANK PRESSURE</td>
+          <td rowspan="2"  class="width50 alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="HIGH BANK PRESSURE" formControlName="highbankpressure">
+                <mat-error *ngIf="alaramformgroup.controls['highbankpressure'].invalid">
+                 Inlet pressure is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </td>
+           <td class="alarmtableheading">
+           <div> 
+            MINI. ALARM SET
+            <span class="float-right">
+            bar
+            </span>
+            </div>
+           </td>
+           <td class="width50 alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="High bank pressure min. alarm" formControlName="highBankPressureMinAlarmSet">
+                <mat-error *ngIf="alaramformgroup.controls['highBankPressureMinAlarmSet'].invalid">
+                  High bank pressure max. alarm required
+                </mat-error>
+              </mat-form-field>
+            </div>
+             </td>
+           <td rowspan="2" class="alarmtableheading">
+            SET MAXIMUM 245 bar
+          </td>
+        </tr>
+         <tr>
+          <td class="alarmtableheading">
+            <div>
+            MAXIMUM ALARM SET
+            <span class="float-right">
+              bar
+              </span>
+              </div>
+          </td>
+           <td class="width50 alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="High bank pressure max. alarm" formControlName="highBankPressureMaxAlarmSet">
+                <mat-error *ngIf="alaramformgroup.controls['highBankPressureMaxAlarmSet'].invalid">
+                  High bank pressure max. alarm" required
+                </mat-error>
+              </mat-form-field>
+            </div>
+              </td>
+        </tr>
+       
+        <tr>
+          <td class="alarmtableheading">MAXI. OIL PRESSURE LOW REGULATOR</td>
+          <td class="width50 alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="Maxi. oil Pressure low regulator range "  formControlName="maxOilPressureLowRegulatorRange">
+                <mat-error *ngIf="alaramformgroup.controls['maxOilPressureLowRegulatorRange'].invalid">
+                 Oil pressure range is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </td>
+          <td colspan="3"  class="alarmtableheading"> 
+            <div class="example-form">
+              <mat-form-field class="width-100">
+                <input type="text" matInput placeholder="Maxi. oil Pressure low regulator value" formControlName="maxOilPressureLowRegulatorValue">
+                <mat-error *ngIf="alaramformgroup.controls['maxOilPressureLowRegulatorValue'].invalid">
+                  Oil pressure value  is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          
+          </td>
+        </tr>
+        <tr>
+          <td class="alarmtableheading">MAXI. OIL PRESSURE HIGH REGULATOR</td>
+          <td class="width50 alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="Maxi. oil Pressure high regulator range" formControlName="maxOilPressureHighRegulatorRange">
+                <mat-error *ngIf="alaramformgroup.controls['maxOilPressureHighRegulatorRange'].invalid">
+                  Oil pressure range  is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </td>
+          <td colspan="3" class="alarmtableheading"> 
+            <div class="example-form">
+              <mat-form-field class="width-100">
+                <input type="text" matInput placeholder="Maxi. oil Pressure high regulator value" formControlName="maxOilPressureHighRegulatorValue">
+                <mat-error *ngIf="alaramformgroup.controls['maxOilPressureHighRegulatorValue'].invalid">
+                  Oil pressure value  is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="alarmtableheading">
+            <div>
+            AIR PRESSURE
+            <span class="float-right">
+            bar
+          </span>
+          </div>
+          </td>
+          <td class="width50 alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="Air pressure range" formControlName="airPressureRange">
+                <mat-error *ngIf="alaramformgroup.controls['airPressureRange'].invalid">
+                Air pressure range  required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </td>
+          <td colspan="3"  class="alarmtableheading"> 
+            <div class="example-form">
+              <mat-form-field class="width-100">
+                <input type="text" matInput placeholder="Air pressure value" formControlName="airPressureValue">
+                <mat-error *ngIf="alaramformgroup.controls['airPressureValue'].invalid">
+                Air pressure value  required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            </td>
+        </tr>
+        <tr>
+        <tr>
+          <td class="alarmtableheading">
+            <div>
+            OIL TREMPREATURE ALARM SET
+            <span class="float-right"> 
+            °C
+          </span>
+          </div>
+          </td>
+          <td class="width50 alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="Oil trempreature alarm set range" formControlName="oilTempAlarmSetRange">
+                <mat-error *ngIf="alaramformgroup.controls['oilTempAlarmSetRange'].invalid">
+                  Oil trempreature alarm  range required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </td>
+          <td colspan="3" class="alarmtableheading"> 
+            <div class="example-form">
+              <mat-form-field class="width-100">
+                <input type="text" matInput placeholder="Oil trempreature alarm set value" formControlName="oilTempAlarmSetValue">
+                <mat-error *ngIf="alaramformgroup.controls['oilTempAlarmSetValue'].invalid">
+                  Oil trempreature alarm  value required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </td>
+        </tr>
+        <tr>
+        <tr>
+          <td class="alarmtableheading">
+            <div>
+            OIL PRESSURE ALARM SET
+            <span class="float-right">
+            bar
+            </span>
+            </div>
+         
+          </td>
+          <td class="width50 alarmtableheading">
+            <div class="example-form">
+              <mat-form-field>
+                <input type="text" matInput placeholder="Oil pressure alarm range" formControlName="oilPressureAlarmSetRange">
+                <mat-error *ngIf="alaramformgroup.controls['oilPressureAlarmSetRange'].invalid">
+                  Oil pressure alarm  required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </td>
+          <td colspan="3" class="alarmtableheading"> 
+            <div class="example-form">
+              <mat-form-field class="width-100">
+                <input type="text" matInput placeholder="Oil trempreature alarm value" formControlName="oilPressureAlarmSetValue">
+                <mat-error *ngIf="alaramformgroup.controls['oilPressureAlarmSetValue'].invalid">
+                  Oil trempreature alarm  value required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </td>
+        </tr>
+        <tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<!--  table end here -->
+
+      <div class="form-group col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 float-left obsevationtextarea">
+        <h2 class= "compressor-data-heading">OBSERVATION</h2>
+        <mat-form-field  class="width-100 ">
+          <textarea  matInput  formControlName="observationtextarea" class="form-control rounded-0" id="exampleFormControlTextarea1" rows="25"></textarea>
+          <mat-error *ngIf="alaramformgroup.controls['observationtextarea'].invalid">
+           Content needed
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 float-left">
+        <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 float-left mbl-pad0">
+          <button mat-raised-button routerLinkActive="list-item-active"  
+          class="float-left buttoncolor my-mbl-certificate-apply-btn btn-mbl-full-width save-mbl-btn margin-top-20" 
+          color="primary"(click)="signalCertificateBack()">Back</button>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 float-left">
+          <!-- <p class="date-txt">PLACE:</p> -->
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 float-left mbl-pad0">
+          <!-- <p class="date-txt text-center">SIGN. INCHARGE</p> -->
+          <button mat-raised-button routerLinkActive="list-item-active"  
+          class="float-right buttoncolor my-mbl-certificate-apply-btn btn-mbl-full-width save-mbl-btn margin-top-20" 
+          color="primary" [disabled]="!alaramformgroup.valid" (click)="showSignalCertificate()">Next</button>
+        </div>
+      </div>
+      </div>
+    </mat-card>
+  </form>
+ 
+  </div>
+<!--Alarm Certificate html end-->
+<!--Signal Certificate html start-->
+<div *ngIf="signalCertificate" class="all-certificate-div-signal col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pad-0"><!--main div for all certificate printing at a time start-->
+  <!--Certificate Main Card html start--> 
+    <form class="row main-row " [formGroup]="certificateDataForm" (ngSubmit)="certificateDataSubmit()">
+    <mat-card class="certificate-main-card col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+      <div class="row"><!--Elpis Logo With Certificate Title Row Start-->
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="elpis-img-div">
+            <img src="../../../../assets/images/elpis_logo.png" alt="Elpis IT Solution"  class="img-responsive">
+            <p class="certificate-title">Booster Factory Acceptence Test Report</p>
+            <p class="certificate-sub-txt"><b>Sunpowergen</b> declare that all data recorded are true and in compliance with purchase order and the national standard and safety requirements which the item is destined. </p>
+          </div>
+        </div>
+      </div><!--Elpis Logo With Certificate Title Row End-->
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <p class="general-data-heading">COMPRESSOR DATA</p>
+      </div>
+    <div  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-left" [formGroup]="Checkboxcontrol">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-left"></div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-left mbl-plr0">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-left mbl-plr0" >
+            <mat-checkbox  color='primary' [(ngModel)]="inletgastemp1" class="check-box-text" formControlName="InletStage1" (change)="onCheckboxChange($event,'InGasTemp1')">INLET GAS TEMPREATURE 1st STAGE</mat-checkbox>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-left mbl-plr0">
+            <mat-checkbox  color='primary' [(ngModel)]="outletgastemp1"  class="check-box-text" formControlName="OutletStage1" (change)="onCheckboxChange($event,'OutGasTemp1')">OUTLET GAS TEMPREATURE 1st STAGE</mat-checkbox>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-left mbl-plr0">
+            <mat-checkbox  color='primary' [(ngModel)]="inletgastemp2"  class="check-box-text" formControlName="InletStage2" (change)="onCheckboxChange($event,'InGasTemp2')">INLET GAS TEMPREATURE 2nd STAGE</mat-checkbox>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-left mbl-plr0">
+            <mat-checkbox  color='primary' [(ngModel)]="outletgastemp2" class="check-box-text" formControlName="OutletStage2" (change)="onCheckboxChange($event,'OutGasTemp2')">OUTLET GAS TEMPREATURE 2nd STAGE</mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+     <!--table css start-->
+      <div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 " style="overflow-x: auto;">
+            <table class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [formGroup]="SignalCertificateFormGroup">
+              <tr>
+                <th class="alarmtableheading textaligncenter"></th>
+                <th class="alarmtableheading textaligncenter">UNIT</th>
+                <th class="alarmtableheading textaligncenter">TEST 1</th>
+                <th class="alarmtableheading textaligncenter">TEST 2</th>
+                <th class="alarmtableheading textaligncenter">TEST 3</th>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">DATE</td>
+                <td class="alarmtableheading" [formGroup]="SignalCertificateTestFormGroup">
+                  <div class="example-form">
+                    <mat-form-field (click)="formdate.open()" class="example-full-width siganl-ngx-picker-alignment calender-icon">
+                       <input type="text" #fromDateVal  placeholder="Select date" aria-label="Number" (dateInput)="fromDateChange(fromDateVal.value)"
+                        matInput [matDatepicker]="formdate"  formControlName="signaldate" />
+                       
+                       <mat-datepicker-toggle color="primary"  matSuffix [for]="formdate"></mat-datepicker-toggle>
+                       <mat-datepicker #formdate color="primary"></mat-datepicker>
+                       <mat-error *ngIf="SignalCertificateTestFormGroup.controls['signaldate'].touched ">Please select a date</mat-error>
+
+                    </mat-form-field>
+                 </div>
+                </td>
+                <td [formGroup]="SignalCertificateTestFormGroup">
+                  <p class="from-txt">From -</p>
+                    <div class="ngx-timepicker-field-example" >                   
+                      <ngx-timepicker-field [format]="24" formControlName="FTime1"  [(ngModel)]="time1" ></ngx-timepicker-field>                
+                  </div>
+                  
+                   <p  class="from-txt">To -</p>
+                  <div class="ngx-timepicker-field-example" >                
+                    <ngx-timepicker-field [format]="24" formControlName="FTime2"  [(ngModel)]="time2" ></ngx-timepicker-field>
+                  </div>
+                
+                </td>
+                <td [formGroup]="SignalCertificateTestFormGroup">
+                  <p class="from-txt">From -</p>
+                  <div class="ngx-timepicker-field-example"  >
+                 
+                    <ngx-timepicker-field [format]="24" formControlName="FTime3"  [(ngModel)]="time3" ></ngx-timepicker-field>
+                  </div>
+                 <p  class="from-txt">To -</p>
+                <div class="ngx-timepicker-field-example" >
+              
+                  <ngx-timepicker-field [format]="24" formControlName="FTime4"  [(ngModel)]="time4" ></ngx-timepicker-field>
+                </div>  
+                </td>
+                <td [formGroup]="SignalCertificateTestFormGroup">
+                  <p class="from-txt">From -</p>
+                  <div class="ngx-timepicker-field-example" >
+                 
+                    <ngx-timepicker-field [format]="24" formControlName="FTime5"  [(ngModel)]="time5" ></ngx-timepicker-field>
+                  </div>
+                 <p  class="from-txt">To -</p>
+                <div class="ngx-timepicker-field-example" >
+              
+                  <ngx-timepicker-field [format]="24" formControlName="FTime6"  [(ngModel)]="time6" ></ngx-timepicker-field>
+
+              </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <div class="textalighcentre">
+                    <button mat-raised-button  class=" btnproperties " [disabled]="!SignalCertificateTestFormGroup.controls['signaldate'].valid" (click)="getboosterAcceptanceReport()"  >  get test data</button>
+    
+                  </div>
+                </td>
+              </tr>
+              <tr >
+                <td class="alarmtableheading">GAS TYPE</td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Select</mat-label>
+                        <mat-select formControlName="gastype" [(ngModel)]="GastypeV">
+                          <mat-option  *ngFor="let signals of gasTypeDropdownData" [value]="signals"  >
+                            {{signals}} 
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="SignalCertificateFormGroup.controls['gastype'].touched ">Please select a gas type</mat-error>
+
+                      </mat-form-field>
+               </div>
+                </td>
+                <td>
+                  <div class="example-form">
+                    <div class="signal-certificate-td-text">{{GastypeV}}</div>
+                  </div>
+                
+                </td>
+                <td>
+                  <div class="example-form">
+                    <div class="signal-certificate-td-text">{{GastypeV}}</div>
+
+                  </div>
+                </td>
+                <td>
+                  <div class="example-form">
+                    <div class="signal-certificate-td-text">{{GastypeV}}</div>
+
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">DURATION OF TEST</td>
+                <td class="alarmtableheading">MINUTES</td>
+                <td>
+                  <div class="signal-certificate-td-text" >{{test1time}}</div>
+                
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{test2time}}</div>
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{test3time}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">AMBIENT TEMPREATURE</td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Unit</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="Ambienttemp" value="°C" [(ngModel)]="AmbienttempV">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['Ambienttemp'].touched ">Please enter a Unit </mat-error>
+
+                     </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test1formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="Ambienttemp1"  [(ngModel)]="AmbienttempV1">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['Ambienttemp1'].touched ">Please enter AMBIENT TEMPREATURE test1 value</mat-error>
+
+                     </mat-form-field>
+                  </div>
+                
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form" >
+                    <mat-form-field class="example-full-width" *ngIf="test2formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="Ambienttemp2"  [(ngModel)]="AmbienttempV2">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['Ambienttemp2'].touched ">Please enter AMBIENT TEMPREATURE test2 value</mat-error>
+
+                     </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form" >
+                    <mat-form-field class="example-full-width" *ngIf="test3formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="Ambienttemp3"  [(ngModel)]="AmbienttempV3">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['Ambienttemp3'].touched ">Please enter AMBIENT TEMPREATURE test3 value</mat-error>
+
+                     </mat-form-field>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">POWER SUPPLY VOLTAGE</td>
+                <td class="alarmtableheading">V</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{PowerSupplyVoltageV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{PowerSupplyVoltageV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{PowerSupplyVoltageV3}}</div> 
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">TOTAL AVG CURRENT</td>
+                <td class="alarmtableheading">A</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{TotalAvgCurrentV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{TotalAvgCurrentV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{TotalAvgCurrentV3}}</div> 
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">GAS DETECTOR LEVEL</td>
+                <td class="alarmtableheading"> A</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{GasDetectorLevelV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{GasDetectorLevelV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{GasDetectorLevelV3}}</div> 
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">FLOW RATE</td>
+                <td class="alarmtableheading">Kg/h</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{FlowRateKghV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{FlowRateKghV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{FlowRateKghV3}}</div> 
+                </td>
+              </tr>
+               <tr>
+                <td class="alarmtableheading">FLOW RATE</td>
+                <td class="alarmtableheading">Sm3/h</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{FlowRateSmhV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{FlowRateSmhV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{FlowRateSmhV3}}</div> 
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">INLET SUSCTION</td>
+                <td class="alarmtableheading">bar</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{InletSusctionV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{InletSusctionV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{InletSusctionV3}}</div> 
+                </td>
+              </tr>
+               <tr>
+                <td class="alarmtableheading">DISCHARGE PRESSURE</td>
+                <td class="alarmtableheading">bar</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{DischargePressureV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{DischargePressureV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{DischargePressureV3}}</div> 
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">COOLING WATER PRESSURE</td>
+                <td class="alarmtableheading">bar</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{CoolingWaterPressureV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{CoolingWaterPressureV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{CoolingWaterPressureV3}}</div> 
+                </td>
+              </tr>
+         
+               <tr>
+                <td class="alarmtableheading">H.P. REGULATOR PRESSURE</td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Unit</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="HpRegPressure" value="bar" [(ngModel)]="HpRegPressureV"  >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['HpRegPressure'].touched ">Please enter a Unit </mat-error>
+
+                      </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test1formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="HpRegPressure1" [(ngModel)]="HpRegPressureV1"  >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['HpRegPressure1'].touched ">Please enter H.P. REGULATOR PRESSURE test1 value </mat-error>
+
+                      </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test2formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="HpRegPressure2" [(ngModel)]="HpRegPressureV2"  >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['HpRegPressure2'].touched ">Please enter H.P. REGULATOR PRESSURE test2 value </mat-error>
+
+                      </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form" >
+                    <mat-form-field class="example-full-width" *ngIf="test3formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="HpRegPressure3" [(ngModel)]="HpRegPressureV3"  >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['HpRegPressure3'].touched ">Please enter H.P. REGULATOR PRESSURE test3 value </mat-error>
+
+                      </mat-form-field>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">L.P. REGULATOR PRESSURE</td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Unit</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="LpRegPressure" value="bar" [(ngModel)]="LpRegPressureV">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['LpRegPressure'].touched ">Please enter a Unit </mat-error>
+
+                      </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test1formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="LpRegPressure1" [(ngModel)]="LpRegPressureV1" >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['LpRegPressure1'].touched ">Please enter L.P. REGULATOR PRESSURE test1 value </mat-error>
+
+                      </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test2formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="LpRegPressure2" [(ngModel)]="LpRegPressureV2" >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['LpRegPressure2'].touched ">Please enter L.P. REGULATOR PRESSURE test2 value </mat-error>
+
+                      </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form" >
+                    <mat-form-field class="example-full-width" *ngIf="test3formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="LpRegPressure3" [(ngModel)]="LpRegPressureV3" >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['LpRegPressure3'].touched ">Please enter L.P. REGULATOR PRESSURE test3 value </mat-error>
+
+                      </mat-form-field>
+                  </div>
+                </td>
+              </tr>
+               <tr>
+                <td class="alarmtableheading">DISCHARGE PRESSURE 1st STAGE</td>
+                <td class="alarmtableheading">bar</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{DischargePressure1stStageV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{DischargePressure1stStageV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{DischargePressure1stStageV3}}</div> 
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">DISCHARGE GAS TEMPREATURE</td>
+                <td class="alarmtableheading">°C</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{DischargeGasTempretureV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{DischargeGasTempretureV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{DischargeGasTempretureV3}}</div> 
+                </td>
+              </tr>
+               <tr>
+                <td class="alarmtableheading">HEAT EXCHANGER INLET WATER TEMP</td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Unit</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="HeatExWaterTemp" value="°C"  [(ngModel)]="HeatExWaterTempV">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['HeatExWaterTemp'].touched ">Please enter a Unit </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test1formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="HeatExWaterTemp1" [(ngModel)]="HeatExWaterTempV1" >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['HeatExWaterTemp1'].touched ">Please enter HEAT EXCHANGER INLET WATER TEMP test1 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test2formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="HeatExWaterTemp2" [(ngModel)]="HeatExWaterTempV2" >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['HeatExWaterTemp2'].touched ">Please enter HEAT EXCHANGER INLET WATER TEMP test2 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading" >
+                  <div class="example-form" >
+                    <mat-form-field class="example-full-width" *ngIf="test3formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="HeatExWaterTemp3" [(ngModel)]="HeatExWaterTempV3" >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['HeatExWaterTemp3'].touched ">Please enter HEAT EXCHANGER INLET WATER TEMP test3 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+              </tr>
+                 <tr>
+                <td class="alarmtableheading">HEAT EXCHANGER OUTLET WATER TEMP</td>
+                <td class="alarmtableheading">°C</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{HeatExchangerOutletWaterTempV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{HeatExchangerOutletWaterTempV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{HeatExchangerOutletWaterTempV3}}</div> 
+                </td>
+              </tr>
+              <tr>
+                <td class="alarmtableheading">COMPRESSOR AUTO START PRESSURE</td>
+                <td class="alarmtableheading">°C</td>
+                <td>
+                  <div class="signal-certificate-td-text">{{CompressorAutoStartPressureV1}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{CompressorAutoStartPressureV2}}</div> 
+                </td>
+                <td>
+                  <div class="signal-certificate-td-text">{{CompressorAutoStartPressureV3}}</div> 
+                </td>
+              </tr>
+              <tr *ngIf="inletgastemp1">
+                <td class="alarmtableheading">INLET GAS TEMPREATURE 1st STAGE</td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Unit</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="InGasTemp1St" value="°C" [(ngModel)]="InGasTemp1StV">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['InGasTemp1St'].touched ">Please enter a Unit </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test1formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="InGasTemp1St1" [(ngModel)]="InGasTemp1StV1" >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['InGasTemp1St1'].touched ">Please enter INLET GAS TEMPREATURE 1st STAGE test1 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test2formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="InGasTemp1St2" [(ngModel)]="InGasTemp1StV2" >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['InGasTemp1St2'].touched ">Please enter INLET GAS TEMPREATURE 1st STAGE test2 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test3formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value" formControlName="InGasTemp1St3" [(ngModel)]="InGasTemp1StV3" >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['InGasTemp1St3'].touched ">Please enter INLET GAS TEMPREATURE 1st STAGE test3 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="outletgastemp1">
+                <td class="alarmtableheading">OUTLET GAS TEMPREATURE 1st STAGE</td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Unit</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="OutGasTemp1St" value="°C" [(ngModel)]="OutGasTemp1StV" >
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['OutGasTemp1St'].touched ">Please enter a Unit </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test1formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="OutGasTemp1St1" [(ngModel)]="OutGasTemp1StV1">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['OutGasTemp1St1'].touched ">Please enter OUTLET GAS TEMPREATURE 1st STAGE test1 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test2formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="OutGasTemp1St2" [(ngModel)]="OutGasTemp1StV2">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['OutGasTemp1St2'].touched ">Please enter OUTLET GAS TEMPREATURE 1st STAGE test2 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test3formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="OutGasTemp1St3" [(ngModel)]="OutGasTemp1StV3">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['OutGasTemp1St3'].touched ">Please enter OUTLET GAS TEMPREATURE 1st STAGE test3 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="inletgastemp2">
+                <td class="alarmtableheading">INLET GAS TEMPREATURE 2nd STAGE</td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Unit</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="InGasTemp2St" value="°C"  [(ngModel)]="InGasTemp2StV">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['InGasTemp2St'].touched ">Please enter a Unit </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test1formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="InGasTemp2St1"  [(ngModel)]="InGasTemp2StV1">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['InGasTemp2St1'].touched ">Please enter INLET GAS TEMPREATURE 2nd STAGE test1 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test2formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="InGasTemp2St2"  [(ngModel)]="InGasTemp2StV2">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['InGasTemp2St2'].touched ">Please enter INLET GAS TEMPREATURE 2nd STAGE test2 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test3formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="InGasTemp2St3"  [(ngModel)]="InGasTemp2StV3">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['InGasTemp2St3'].touched ">Please enter INLET GAS TEMPREATURE 2nd STAGE test3 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="outletgastemp2">
+                <td class="alarmtableheading">OUTLET GAS TEMPREATURE 2nd STAGE</td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Unit</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="OutGasTemp2St" value="°C" [(ngModel)]="OutGasTemp2StV">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['OutGasTemp2St'].touched ">Please enter a Unit </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test1formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="OutGasTemp2St1" [(ngModel)]="OutGasTemp2StV1">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['OutGasTemp2St1'].touched ">Please enter OUTLET GAS TEMPREATURE 2nd STAGE test1 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test2formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="OutGasTemp2St2" [(ngModel)]="OutGasTemp2StV2">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['OutGasTemp2St2'].touched ">Please enter OUTLET GAS TEMPREATURE 2nd STAGE test2 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="alarmtableheading">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width" *ngIf="test3formvalidation">
+                      <mat-label>Value</mat-label>
+                      <input matInput class="textalighcentre" placeholder="Value"  formControlName="OutGasTemp2St3" [(ngModel)]="OutGasTemp2StV3">
+                      <mat-error *ngIf="SignalCertificateFormGroup.controls['OutGasTemp2St3'].touched ">Please enter OUTLET GAS TEMPREATURE 2nd STAGE test3 value </mat-error>
+
+                    </mat-form-field>
+                  </div>
+                </td>
+              </tr>
+            </table>
+     
+          </div>
+        </div>
+       <!--table css end--> 
+
+          <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 float-left">
+                  <div class="row">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 float-left">
+                    <button mat-raised-button routerLinkActive="list-item-active"  
+                    class="float-left buttoncolor my-mbl-certificate-apply-btn btn-mbl-full-width save-mbl-btn margin-top-40" 
+                    color="primary"(click)="showAlarmCertificate()">Back</button>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 float-left">
+                    <!-- <p class="date-txt">PLACE:</p> -->
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 float-left">
+                    <!-- <p class="date-txt text-center">SIGN. INCHARGE</p>  [disabled]="!SignalCertificateFormGroup.valid" -->
+                     <button mat-raised-button routerLinkActive="list-item-active"  
+                    class="float-right buttoncolor my-mbl-certificate-apply-btn btn-mbl-full-width save-mbl-btn margin-top-40" 
+                    color="primary"  [disabled]="!SignalCertificateFormGroup.valid " (click)="saveCertificate()">Save</button>
+                  </div>
+                </div>
+                </div>
+              </div>
+           </div>
+    </mat-card>
+  </form>
+  </div>
+<!--Signal Certificate html end-->    
+<ngx-loading [show]="showCertificate" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+</div><!--Main container end -->
+

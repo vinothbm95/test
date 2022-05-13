@@ -1,0 +1,416 @@
+<div class="container">
+  <div class="row">
+      <div class="col-12">
+          <h2 class="popup-title">
+             Edit Parameter
+          </h2>
+          <div class="delete-popup-close-icon" id="close-icon">
+              <mat-icon matDialogClose >close </mat-icon>
+          </div>
+      </div>
+      <div class="col-12 margin-bottom-10">
+          <mat-divider ></mat-divider>
+      </div>
+  </div>    
+
+  
+<div class="form-fields-div col-12 no-pad">
+  <!-- <perfect-scrollbar >   -->
+      <form [formGroup]="addSignalForm" (ngSubmit)="onSubmit()">
+      <div class="row add-sigal-content-div-scroll">
+        <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Parameter ID</mat-label>
+                <input matInput placeholder="Parameter ID" [maxLength]="getMaxlength(40)" readonly="true" formControlName="signalId">
+              <mat-error *ngIf="!signalId.valid && signalId.touched">
+                Parameter ID is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Parameter Name</mat-label>
+                <input matInput placeholder="Parameter Name" [maxLength]="getMaxlength(40)" formControlName="signalName">
+              <mat-error *ngIf="!signalName.valid && signalName.touched">
+                Parameter name is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Parameter Description</mat-label>
+                <input matInput placeholder="Parameter Description" [maxLength]="getMaxlength(150)"   formControlName="signalDescription" >
+              <mat-error *ngIf="!signalDescription.valid && signalDescription.touched">
+                Parameter Description is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Parameter mode</mat-label>
+                  <mat-select formControlName="signalModeId">
+                    <mat-option *ngFor="let signal of signalModesData" [value]="signal" >
+                      {{signal?.signalModeName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="!signalModeId.valid && signalModeId.touched">
+                    Parameter mode is required
+                  </mat-error>
+                  
+                </mat-form-field>
+            
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <!-- <mat-form-field class="example-full-width">
+              <mat-label>Signal topic</mat-label>
+              <input matInput placeholder="Signal topic"  formControlName="signalTopic"  >
+            <mat-error *ngIf="!signalTopic.valid && signalTopic.touched">
+              signalTopic is required
+            </mat-error>
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Parameter Type  </mat-label>
+              <mat-select formControlName="signalType">
+                <mat-option *ngFor="let signal of signalTypeData" [value]="signal">
+                  {{signal}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!signalType.valid && signalType.touched">
+                Parameter type is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+    </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Parameter Data Type</mat-label>
+                  <mat-select formControlName="signalDataTypeId">
+                    <mat-option *ngFor="let signal of signalDataTypesData" [value]="signal">
+                      {{signal.signalDataTypeName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="!signalDataTypeId.valid && signalDataTypeId.touched">
+                    Parameter Data Type is required
+                  </mat-error>
+                </mat-form-field>
+          
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Parameter Data Decimal Point </mat-label>
+                <input matInput placeholder="Parameter Data Decimal Point" [maxLength]="getMaxlength(3)" formControlName="dataDecimalPoint">
+              <mat-error *ngIf="!dataDecimalPoint.valid && dataDecimalPoint.touched">
+                Parameter Data Decimal Point is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <p class="add-signal-popup-custom-lable">Log Only New</p>
+                <mat-slide-toggle [checked]="logOnlyNewSlideToggle" formControlName="logOnlyNew"></mat-slide-toggle>
+                <mat-error *ngIf="!logOnlyNew.valid && logOnlyNew.touched">
+                  Log Only New is required
+                </mat-error>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Default Display Type</mat-label>
+                  <mat-select  formControlName="defaultDisplayTypeId">
+             
+                    <mat-option *ngFor="let signal of defaultDisplayTypeData" [value]="signal">
+                      {{signal?.defaultDisplayTypeName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="!defaultDisplayTypeId.valid && defaultDisplayTypeId.touched">
+                   Default Display Type is required
+                  </mat-error>
+                </mat-form-field>
+          
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Multiply Factor </mat-label>
+                <input matInput placeholder="Multiply Factor "  formControlName="multiplyFactor">
+                <mat-error *ngIf="(!multiplyFactor.valid && multiplyFactor.touched)">{{getDecimalvalError()}}</mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Parameter Start/Min Range</mat-label>
+                <input matInput placeholder="Parameter Start/Min Range " formControlName="signalStartRange" >
+              <mat-error *ngIf="!signalStartRange.valid && signalStartRange.touched">
+                Parameter Start Start/Min is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Parameter End/Max Range</mat-label>
+                <input matInput placeholder="Parameter End/Max Range " formControlName="signalEndRange">
+              <mat-error *ngIf="!signalEndRange.valid && signalEndRange.touched">
+                Parameter End/Max Range is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Parameter Unit</mat-label>
+                <input matInput placeholder="Parameter Unit" [maxLength]="getMaxlength(40)" formControlName="signalUnit" >
+              <mat-error *ngIf="!signalUnit.valid && signalUnit.touched">
+                Parameter Unit is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Parameter Icon</mat-label>
+                  <mat-select formControlName="signalIconId">
+                    <mat-option *ngFor="let signal of signalIconsData" [value]="signal">
+                      {{signal?.signalIconName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="!signalIconId.valid && signalIconId.touched">
+                    Parameter icon id is required
+                   </mat-error>
+                </mat-form-field>
+          
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Sensor Min</mat-label>
+                <input matInput placeholder="Sensor Min "  formControlName="sensorMin">
+              <mat-error *ngIf="!sensorMin.valid && sensorMin.touched">
+                Sensor min is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Sensor Max</mat-label>
+                <input matInput placeholder="Sensor Max " formControlName="sensorMax" >
+              <mat-error *ngIf="!sensorMax.valid && sensorMax.touched">
+                Sensor max is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <p class="add-signal-popup-custom-lable">Is mapping calculation done</p>              
+                <mat-slide-toggle [checked]="isMappingCalculationDone1"  formControlName="isMappingCalculationDone"></mat-slide-toggle>
+                <mat-error *ngIf="!isMappingCalculationDone.valid && isMappingCalculationDone.touched">
+                  Is mapping calculation done is required
+                </mat-error>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <p class="add-signal-popup-custom-lable">IsLatLong</p>  
+              <mat-slide-toggle [checked]="isLatLong1" formControlName="isLatLong"></mat-slide-toggle>
+              <mat-error *ngIf="!isLatLong.valid && isLatLong.touched">
+                IsLatLong is required
+              </mat-error>
+          </div>
+    </div>
+   <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                  <mat-label>No of bits</mat-label>
+                  <mat-select formControlName="noOfBitId">
+                    <mat-option *ngFor="let signal of  noOfBitsData" [value]="signal">
+                      {{signal?.noOfBit}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="!noOfBitId.valid && noOfBitId.touched">
+                      No of bits is required
+                     </mat-error>
+                </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>PLC Address</mat-label>
+                <input matInput placeholder="PLC Address" [maxLength]="getMaxlength(50)" formControlName="plcAddress"  >
+              <mat-error *ngIf="!plcAddress.valid && plcAddress.touched">
+                Plc Address is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>PLC Address Type  </mat-label>
+                <mat-select formControlName="plcAddressType">
+                  <mat-option (click)="addressTypefun(signal)" *ngFor="let signal of addressTypeDropdown" [value]="signal">
+                    {{signal}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!plcAddressType.valid && plcAddressType.touched">
+                  Address Type is required
+                 </mat-error>
+              </mat-form-field>
+          </div>
+    </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10" *ngIf="addressTypeShow">
+        <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Bit position</mat-label>
+              <input matInput placeholder="Bit position" [maxLength]="getMaxlength(40)" formControlName="signalBitModel"  >
+            <mat-error *ngIf="!signalBitModel.valid && signalBitModel.touched">
+              Bit position is required
+            </mat-error>
+            </mat-form-field>
+          </div>
+    </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Group Type   </mat-label>
+                  <mat-select formControlName="signalGroupId">
+                    <mat-option *ngFor="let signal of signalGroupsData" [value]="signal">
+                      {{signal?.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="!signalGroupId.valid && signalGroupId.touched">
+                    Group type is required
+                  </mat-error>
+                </mat-form-field>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+              <p class="add-signal-popup-custom-lable">IsDashboardTagged  </p>
+                
+                <mat-slide-toggle [checked]="isDashboardTagged1"  formControlName="isDashboardTagged"></mat-slide-toggle>
+                <mat-error *ngIf="!isDashboardTagged.valid && isDashboardTagged.touched">
+                  is Dashboard Tagged is required
+                </mat-error>
+            </div>
+      </div>
+      <div  class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+            <p class="add-signal-popup-custom-lable"> isConnected  </p>
+               <mat-slide-toggle [checked]="isConnectedSlider"formControlName="isConnected"></mat-slide-toggle>
+               <mat-error *ngIf="!isConnected.valid && isConnected.touched">
+                is connected is required
+              </mat-error>
+              </div>
+     </div>
+ 
+      <div class="col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10">
+        <div class="row">
+            <div  class="col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10 ">
+               <h2 class="thereshold-heading">Threshold Range</h2>
+            </div>
+   <div class="col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10 " formArrayName="quantities">
+       <div class="row  bottom-line"  *ngFor="let item of  quantities().controls; let i=index; let first = first; let last = last" [formGroupName]="i">
+       <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class=""> 
+         
+          <mat-form-field class="threshold-field-div">
+            <mat-label>Threshold Range</mat-label>
+            <input matInput placeholder="threshold value " name="thresholdValue{{i}}"  (input)="rangInput($event)"   formControlName="thresholdValue">
+          <mat-error *ngIf="!quantities().controls[i].get('thresholdValue').valid && quantities().controls[i].get('thresholdValue').touched">
+              Threshold Range is required
+          </mat-error>
+          </mat-form-field>
+          <!-- alert message input start here -->
+          <mat-form-field class="threshold-field-div">
+            <mat-label>Alert message</mat-label>
+            <input matInput placeholder="Alert meassage"  formControlName="alertMessage">
+          </mat-form-field>
+          <!-- alert message input end here -->
+          <div class="">
+            <input class="threshold-color-div" autocomplete="off" formControlName="thresholdColor"
+            [style.backgroundColor]="quantities().controls[i].get('thresholdColor').value"
+            [style.color]="quantities().controls[i].get('thresholdColor').value"
+            [(colorPicker)]="item.thresholdColor"
+            (colorPickerSelect)="onColorPickerSelect($event,i)" />
+          </div>    
+        </div>
+       </div>
+       <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form">
+          <span class="add-signal-popup-custom-lable mr-10">Alert Required </span>      
+            <mat-slide-toggle  
+            (change)="alertrequired()"  [checked]="item.alertRequired" 
+            formControlName="alertRequired" ></mat-slide-toggle>   
+            <div class="alert-required-field-inside-div">
+             <div class="h-div">
+              <p class="add-signal-popup-custom-lable-alert-required">Email </p>
+              <mat-slide-toggle [disabled]="alertisEmail()" 
+             [checked]="item.isEmail" class="h-alignment" formControlName="isEmail"></mat-slide-toggle>
+              <p class="add-signal-popup-custom-lable-alert-required">Audio </p>
+              <mat-slide-toggle [disabled]="alertisAudio()"
+               [checked]="item.isAudio" class="h-alignment"  formControlName="isAudio"></mat-slide-toggle>
+              <p class="add-signal-popup-custom-lable-alert-required">SMS </p>
+              <mat-slide-toggle  [disabled]="alertisSms()"
+                [checked]="sms" class="h-alignment"  formControlName="isSms"></mat-slide-toggle>
+           </div>
+          </div>
+        </div>
+       </div>
+       <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+        <div class="example-form  margin-top-10">
+          <p class="add-signal-popup-custom-lable"> isAlertRange  </p>
+             <mat-slide-toggle class="pos-ab" [checked]="item.isAlertRange"   
+             formControlName="isAlertRange"></mat-slide-toggle>
+             <span *ngIf="last" class="material-icons threshold-add-icon"  (click)="addQuantity()" matTooltip ="Add">
+              add_circle_outline
+              </span>
+              <span *ngIf="!last"   class="material-icons threshold-remove-icon" (click)="removeQuantity(i)"   matTooltip ="Remove">
+                  remove_circle_outline
+              </span>
+        </div>
+       </div>
+   </div>
+   </div>
+     </div>
+   </div>  
+      <div class=" col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10 pad-b-50 ">
+          <div class="add-signal-btn-div">
+             <button  matDialogClose mat-raised-button class="buttoncolor my-mbl-select-device-btn add-device-btn add-signal-cancel-btn " color="primary">Cancel</button>
+             <button (click)="addSignal()" [disabled]="!addSignalForm.valid"  mat-raised-button class="buttoncolor my-mbl-select-device-btn add-device-btn add-signal-register-btn" color="">Update</button>
+          </div>
+      </div>
+  </div>
+  </form>
+  <!-- </perfect-scrollbar>   -->
+  </div>
+
+  <ngx-loading [show]="showSignal" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+
+</div>

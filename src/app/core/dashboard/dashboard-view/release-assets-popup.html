@@ -1,0 +1,35 @@
+<div class="container custom-mat-dialog-container pad-0" >
+    <div class="row mb-4">
+      <div class="col-10">
+        <h2 class="popup-title">Release Asset</h2>      
+       </div>
+     <div class="col-2 delete-popup-close-icon d-flex justify-content-end" id="close-icon">
+        <mat-icon matDialogClose>close</mat-icon>
+     </div>
+      <div class="col-12">
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+    <form  class="row mr-t-10">      
+      <div class="col-12 col-sm-10 col-md-10 col-xl-10 col-lg-10 my-float-left">
+        <div class="example-form">
+            <mat-form-field class="width100 ipad-width100">
+                <mat-label>Select Assets</mat-label>
+                <mat-select [(ngModel)]="selectedsignalname" name="selectedsignalname" multiple
+                  >
+                  <mat-option *ngFor="let item of devicedata" [value]="item?.deviceId">
+                    {{item?.deviceId}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+      </div>  
+    </form>
+  </div>
+  <button  class = "process-popup-apply-btn my-float-left width-50-per buttoncolor my-mbl-select-device-btn
+   mat-focus-indicator mat-raised-button mat-button-base mat-primary cancel-btn" matDialogClose>
+    Cancel
+  </button>
+  <button  class = "process-popup-apply-btn my-float-left width-50-per buttoncolor my-mbl-select-device-btn
+  mat-focus-indicator mat-raised-button mat-button-base mat-primary " [disabled]="devicedata?.length < 1" (click)="releaseAsset()">
+   Release
+ </button>

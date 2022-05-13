@@ -1,0 +1,200 @@
+<div class="contaner-root">
+    <div class="virtual-scroll-header-alignment-device">
+        <div *ngIf="rmsAct?.customerId != 11" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 dashboard heading-col">
+            <p class="heading-txt mbl-mb5"> Device</p>            
+            <button (click)="AddNewDevice()" mat-raised-button routerLinkActive="list-item-active"  class="buttoncolor my-mbl-select-device-btn add-device-btn ipad-ml10 width100" color="primary">Add Device <mat-icon>library_add</mat-icon></button>
+        </div>
+        <div *ngIf="rmsAct?.customerId == 11"class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 dashboard heading-col">
+            <p class="heading-txt width-auto mbl-mb5">Asset Registration</p>            
+            <button (click)="AddNewDevice()" mat-raised-button routerLinkActive="list-item-active"  class="buttoncolor my-mbl-select-device-btn add-device-btn ipad-ml10 width100" color="primary">Add Asset <mat-icon>library_add</mat-icon></button>
+        </div>
+    </div>
+ <div class="global-action-main-div">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20  padding-head ">
+         <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-20">
+                    <div class="global-search-div">
+                         <mat-form-field class="mbl-content-width-100 my-search-width ipad-width100">
+                            <mat-icon matSuffix>search</mat-icon>
+                           <input [(ngModel)]="SearchModal" autocomplete="off" name="Search"  matInput type="search" placeholder="search here" class="search-input">
+                         </mat-form-field>
+                    </div>                   
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-20">
+                    <div class="example-form">
+                        <mat-form-field class="form-element">
+                            <mat-label>Please select export</mat-label>
+                            <mat-select >
+                                <mat-option (click)="exportTo('csv')" [value]="'CSV'">
+                                    CSV
+                                </mat-option>
+                                <mat-option (click)="exportTo('xlsx')"  [value]="'Excel'">
+                                    Excel
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-20 no-pad">
+                <div class="pagination-block-top col-12 col-sm-12 col-md-12">
+                    <div class="items-per-page-div ">
+                        <mat-form-field class="chart-view-dropdown mbl-content-width-100 ipad-width100">
+                            <mat-label>Items per page</mat-label>
+                            <mat-select  [(ngModel)]="itemVal">
+                                <mat-option (click)="itemsperpage(val1.value)" #val1 [value]="'5'">5</mat-option>
+                                <mat-option (click)="itemsperpage(val2.value)" #val2 [value]="'10'">10</mat-option>
+                                <mat-option (click)="itemsperpage(val3.value)" #val3 [value]="'20'">20</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                   </div>
+                   <elpis-rms-pagination *ngIf="paginationShow" [config]="config"></elpis-rms-pagination>     
+                </div>
+            </div>
+        </div>     
+     </div>
+</div>
+
+<div class="table-main-div"> <!-- table main div start from here---->
+    <table>
+        <thead>
+           <tr>
+             <th  *ngFor="let header of TableHeader" scope="col">
+                 <div class="thead-th-div">{{header?.title}}</div>
+                </th>
+                <!-- {{rmsAct?.customerId == 11 ? 'my-last-th-width-hydac':'my-last-th-width'}} -->
+             <th scope="col" class="my-last-th my-last-th-width" >
+                <!-- {{rmsAct?.customerId == 11 ? 'thead-th-last-sticky-div-hydac':'thead-th-last-sticky-div'}} -->
+                <div class="thead-th-last-sticky-div ">
+                     <div class="details-th-div">Details</div>
+                     <div class="details-th-div">Parameter</div>
+                     <div class="edit-th-div">Edit</div>
+                     <div class="delete-th-div"> Delete</div>
+                     <div class="details-th-div">Clone</div>
+                     <!-- <div *ngIf="rmsAct?.customerId == 11" 
+                     class="{{rmsAct?.customerId == 11 ? 'datalogger-th-div':'thead-th-last-sticky-div'}}">Release Datalogger</div> -->
+
+                </div>
+            </th>
+          </tr>  
+        </thead>
+        <tbody class="overflowdisp">
+           <tr *ngFor="let item of devicedata | filter: SearchModal | paginate: config ? config : '' ; let i = index ">
+               <td *ngFor="let header of TableHeader "  data-label="header.title" [attr.data-label]="header.title">
+                  <div *ngIf="!header.isActiveKey" class="tbody-td-div ">{{item[header.name]}}</div>
+                  <div *ngIf="header.isActiveKey"  class="tbody-td-div " 
+                >
+                <!-- [ngStyle]="item?.isActive ? {'backcolor':'green'}:{'color':'red'}"  -->
+                     <span class="" [ngClass]="item?.isActive ? 'active':'inactive'"> {{item?.isActive ? 'Active':'Inactive'}}</span>
+                    </div>
+               </td>
+               <!-- {{rmsAct?.customerId == 11 ? 'my-last-td-width-hydac':'my-last-td-width'}} -->
+              <td data-label="" class="my-last-td-width">
+                <!-- {{rmsAct?.customerId == 11 ? 'tbody-td-last-sticky-div-hydac':'tbody-td-last-sticky-div'}} -->
+                  <div class=" tbody-td-last-sticky-div ">
+                      <div class="details-td-div"   matTooltip ="Details">
+                          <button  (click)="deviceDetailspopup(item)" class="action-btn" >
+                          <span class="material-icons action-span-icon">
+                           assignment
+                          </span>
+                          </button>
+                      </div>
+                      <div class="details-td-div"  [routerLink]="['/dashboard/signal/', item.deviceId]" matTooltip ="Parameter">
+                          <!-- <button  class="action-btn" >
+                          <span class="material-icons action-span-icon">
+                            wifi_tethering
+                           </span>
+                           </button> -->
+                           <img class="action-btn cursor"  matTooltip ="Parameter" src="../../../../assets/images/parameter icon 1.svg">
+                     </div>
+                      <div  class="edit-th-div"  matTooltip ="Edit">
+                            <button (click)="deviceEditpopup(item)" class="action-btn">
+                            <span class="material-icons action-span-icon">
+                            create
+                            </span>
+                            </button>
+                     </div>
+                      <div  class="delete-th-div" matTooltip ="Delete">
+                            <button (click)="deviceDeletepopup(item,i,TableHeader)"   class="action-btn">
+                            <span class="material-icons action-span-icon">
+                            delete
+                            </span>
+                            </button>
+                     </div>
+                     <div  class="clone-th-div" matTooltip ="Clone">
+                        <button  (click)="CloneDevice(item)"  class="action-btn">
+                        <span class="material-icons action-span-icon">
+                            file_copy
+                        </span>
+                        </button>
+                     </div>
+                     <!-- <div *ngIf="rmsAct?.customerId == 11"  class=" {{rmsAct?.customerId == 11 ? 'datalogger-th-div':'thead-th-last-sticky-div'}}" matTooltip ="Release Datalogger">
+                    
+                            <mat-slide-toggle class="action-span-icon"></mat-slide-toggle>
+                      
+                     </div> -->
+                 </div>
+             </td>
+         </tr>
+        </tbody>
+    </table>     
+    <div >
+    <p *ngIf="emptydata" class="nodata">No records found</p>
+</div>
+      <div class="global-action-main-div-bottom"><!--bottom pagination div starts from here-->
+           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20  padding-head ">
+               <div class="row">
+                   <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-20">
+                      <div class="items-per-page-div-bottom">
+                         <mat-form-field class="chart-view-dropdown mbl-content-width-100">
+                           <mat-label>Items per page</mat-label>
+                            <mat-select [(ngModel)]="itemVal">
+                               <mat-option (click)="itemsperpage(val1.value)" #val1 [value]="'5'">5</mat-option>
+                               <mat-option (click)="itemsperpage(val2.value)" #val2 [value]="'10'">10</mat-option>
+                               <mat-option (click)="itemsperpage(val3.value)" #val3 [value]="'20'">20</mat-option>
+                            </mat-select>
+                         </mat-form-field>
+                      </div>       
+                   </div>
+                   <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 mt-20 no-pad">
+                      <div class="pagination-block-bottom col-12 col-sm-12 col-md-12">     
+                         <elpis-rms-pagination *ngIf="paginationShow" [config]="config"></elpis-rms-pagination>               
+                     </div>
+                 </div>
+               </div>
+            </div>
+       </div><!--bottom pagination div End  here-->
+ </div><!-- table main div end  here---->
+  <ngx-loading [show]="showDevice" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>   
+</div><!--main container end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

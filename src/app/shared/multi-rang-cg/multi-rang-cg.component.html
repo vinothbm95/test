@@ -1,0 +1,50 @@
+<ejs-circulargauge height="{{height}}" width="{{width}}"  style='display:block;' id='{{ind}}'  class="activity-gauge-height" >
+    <!-- [size.height]="height" [size.width]="width" -->
+    <e-axes>
+  
+        <e-axis minimum="{{sensorMin}}" radius='80%' maximum="{{sensorMax}}" startAngle=210 endAngle=150 [majorTicks]='majorTicks' [labelStyle]='labelStyle'
+  
+            [lineStyle]='lineStyle' [minorTicks]='minorTicks' >
+  
+            <e-ranges>
+  
+                <ng-container *ngFor="let item of threshold; let i = index">              
+                    <e-range *ngIf="i == 0"  start="{{sensorMin}}" end="{{threshold[i].thresholdValue}}" color="{{item.thresholdColor}}" ></e-range>
+                    <e-range *ngIf="i != 0"  start="{{threshold[i - 1].thresholdValue}}" end="{{threshold[i].thresholdValue}}" color="{{item.thresholdColor}}"></e-range>
+                </ng-container >
+                <!-- <e-range start=40 end=80 color='#FFDD00'></e-range>
+  
+                <e-range start=80 end=120 color='#F03E3E'></e-range> -->
+  
+            </e-ranges>
+  
+            <e-pointers>
+  
+                <e-pointer value="{{seriesVal}}" radius='60%' color='#757575' pointer Width=8 [needleTail]='tail' [cap]="pointerCap">
+  
+                </e-pointer>
+  
+            </e-pointers>
+  
+        </e-axis>
+
+  
+    </e-axes>
+
+  
+  </ejs-circulargauge> 
+  <!-- <div class="signal-value-div">
+    <p class="signal-value">65</p>
+
+</div> -->
+  <!-- <div class="signal-name-div">
+        <P class="signal-name">Signal 1</P>
+  </div> -->
+
+
+
+
+
+
+
+ 

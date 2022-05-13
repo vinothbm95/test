@@ -1,0 +1,114 @@
+<div class="contaner-root">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 select-heading">
+            <mat-icon class="back-arrow" (click)="backToGroups()" matTooltip ="Back">keyboard_backspace</mat-icon>
+            <span>Add Parameters to {{groupName}} group</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20">
+            <mat-card class="mat-bg pad-top select-device-pad-b">
+                <div class="row ">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-pad">
+                        <div class="card-heading box-shadow-card-txt ">Select Device</div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                        <div class="row tabview-device-div-scroll">
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-1"
+                              *ngFor="let device of devicelist| paginate: config1; let i = index ">
+                              <div class="device-div" [ngClass]="(i == selectedIndex) ? 'device-div-selected' : ''" (click)="signalData(device,i)">
+                                <p class="device-name" title="{{device.deviceName}}">{{device.deviceName}}</p>
+                                     <img class="imgdevice" src="assets/images/device1.png" width="90%" height="70%"
+                                     alt="Device">
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="pagination-block col-12 col-sm-12 col-md-12 mr-t-10 pagination-div-mbl-r">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-20 ">
+                              <div class="items-per-page-div-bottom">
+                                    <mat-form-field class="chart-view-dropdown item-per-page-mbl-view">
+                                        <mat-label>Items per page</mat-label>
+                                        <mat-select [(value)]="itemsperpagemodel">
+                                            <mat-option (click)="itemsperpage(val1.value)" #val1 [value]="'15'">15</mat-option>
+                                            <mat-option (click)="itemsperpage(val2.value)" #val2 [value]="'30'">30</mat-option>
+                                            <mat-option (click)="itemsperpage(val3.value)" #val3 [value]="'50'">50</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                             </div>
+                         </div>
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 mt-20 no-pad">
+                                <div class="pagination-block col-12 col-sm-12 col-md-12 pagination-main-div-mbl">
+                                    <elpis-rms-pagination [config]="config1"></elpis-rms-pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div *ngIf="!isMobile" id="pcBlock" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 margin-top-50 margin-bottom-50">
+            <mat-card class="mat-bg-3 pad-top">
+                <div class="row">
+                    <div #selectedDevice class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-heading box-shadow-card-txt">
+                        Parameter List
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 signalCheckBlock">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  p-0 float-l">
+                            <div *ngIf="signalDeviceName; else selectBlock " class="mt-20">
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6 float-l p-0">
+                                    <strong>{{ signalDeviceName | uppercase }}</strong>
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6 float-l p-0">
+                                    <mat-checkbox color='primary'
+                                    (change)="allSignals($event)" 
+                                    [checked]="allSignalsChecked" class="float-r">
+                                    <span class="signallist-names" class="float-r">ALL</span>
+                                </mat-checkbox>
+                                </div>
+                                <div class="new-hr">
+                                </div>
+                            </div>
+                            <ng-template #selectBlock>
+                                <div class=" col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pad-0 mt-20 float-l">
+                                    <p>
+                                        <strong>Please Select Device</strong>
+                                    </p>
+                                </div>
+                            </ng-template>
+                        </div>
+                        <perfect-scrollbar>
+                            <div class="scrollableSignals">
+                                <div class="col-4 col-sm-4 col-md-3 col-lg-4 col-xl-1 float-left pad-left-5"
+                                    *ngFor="let signalDetails of signalModel; let i = index">
+                                    <mat-checkbox color='primary' [checked]="signalDetails.isSelected"
+                                        (change)="signalChange($event, i)">
+                                        <span class="signallist-names" title="{{signalDetails.signalModel.signalName}}">{{signalDetails.signalModel.signalName}}</span>
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                        </perfect-scrollbar>
+                    </div>
+                    <ngx-loading [show]="signalLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="submitSignals col-12 col-sm-12 col-md-12 float-right">
+                            <div class="f row">
+                                <div class="col-12 col-sm-12 col-md-12  pointer pad-0">
+                                    <button mat-raised-button type="button" class="button pointer submitAllSignals"
+                                        color="primary" (click)="submitSignals(signalModel)">Submit</button>
+                                    <button mat-raised-button type="button" class="button pointer"
+                                        (click)="clearSignals()">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

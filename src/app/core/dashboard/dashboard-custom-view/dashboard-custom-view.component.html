@@ -1,0 +1,98 @@
+<div class="contaner-root">
+
+    <div class="Select_Devicemobile">
+      <button mat-fab routerLinkActive="list-item-active" routerLink="/dashboard/selectdevice"
+        class="float-right bgcolorbutton mobiel-select-device-btn" color="primary">
+        <mat-icon>library_add</mat-icon>
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12   padding-head">
+        <mat-card class="card_heicht_dashbord my-dashboard-title-div-height">
+          <div class="row">
+  
+            <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 my-float-left">
+               <p class="dashboard">Dashboard</p>
+            </div>
+            <div class="col-12 col-sm-12 col-md-8 col-xl-8 col-lg-8 my-float-left ">
+              <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left no-pad">
+                <button mat-raised-button routerLinkActive="list-item-active" routerLink="/dashboard/selectdevice"
+                  class="float-right buttoncolor my-mbl-select-device-btn" color="primary">Select Device <mat-icon>
+                    library_add</mat-icon></button>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row mt-20" *ngIf="devicedata?.length > 0" cdkDropListGroup>
+  
+      <div class="" *ngFor="let item of devicedata; let i = index" [ngClass]="item?.isSelected?' my-padding-card':''"
+        cdkDropList [cdkDropListData]="{item:item,index:i}" cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="onDrop($event)">
+        <div class="devis_card2 resizeCards" *ngIf="item?.isSelected" (resized)="onResized($event)" cdkDrag>
+          <div class="spare_text1">{{item.deviceModel?.deviceName}}</div>
+          <span [matMenuTriggerFor]="menu" class="material-icons pointer card-dots">
+            more_horiz
+          </span>
+          <i class="material-icons dragDropHandle" cdkDragHandle>open_with</i>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="Device1(item)">Bar</button>
+            <button mat-menu-item (click)="Device2(item)"> Ruler </button>
+            <button mat-menu-item  [matMenuTriggerFor]="gaugemenu"> Gauge </button>
+          </mat-menu>
+          <mat-menu #gaugemenu="matMenu">
+            <button mat-menu-item (click)="Device3(item)"> Speedometer gauge </button>
+            <button mat-menu-item (click)="Device4(item)"> Solid gauge  </button>
+            <button mat-menu-item (click)="Device5(item)"> Multi range gauge  </button>
+            <button mat-menu-item (click)="Device6(item)"> Multi range gauge 180 </button>
+            <button mat-menu-item > Solid pointer  </button>
+          </mat-menu>
+        
+  
+          <div class="margtop1">
+            <div *ngIf="item.widgetTypeModel?.bar">
+               <elpis-rms-progress-bar [progresscolor]="item.signalThresholdModels[0]?.thresholdColor"
+                [progressdata]="item.signalDataModels[0]?.dataValue" [signallist]="item.signalModel?.signalUnit"
+                [signal]="item.signalModel?.signalName" [sensorMin]="item.signalModel?.sensorMin"
+                [sensorMax]="item.signalModel?.sensorMax">
+              </elpis-rms-progress-bar>
+            </div>
+            <div *ngIf="item.widgetTypeModel?.rule">
+              <elpis-rms-bar-chart [series]="item.signalDataModels[0]?.dataValue"
+                [rulercolor]="item.signalThresholdModels[0]?.thresholdColor" [signal]="item.signalModel?.signalName"
+                [sensorMin]="item.signalModel?.sensorMin" [sensorMax]="item.signalModel?.sensorMax"
+                [grid1]="true" [ind]="i"></elpis-rms-bar-chart>
+            </div>
+            <div class="guge-pos" *ngIf="item.widgetTypeModel?.gauge">
+              <elpis-rms-gauge-chart [series]="item.signalDataModels[0]?.dataValue"
+                [signal]="item.signalModel?.signalName" [threshold]="item.signalThresholdModels"
+                [sensorMin]="item.signalModel?.sensorMin" [sensorMax]="item.signalModel?.sensorMax"
+                [grid1]="true" [ind]="i">
+              </elpis-rms-gauge-chart>
+            </div>
+            <div class="guge-pos" *ngIf="item.widgetTypeModel?.solidGauge">
+              <elpis-rms-solid-gauge
+              [series]="item.signalDataModels[0]?.dataValue"
+              [signal]="item.signalModel?.signalName" [threshold]="item.signalThresholdModels"
+              [sensorMin]="item.signalModel?.sensorMin" [sensorMax]="item.signalModel?.sensorMax"
+              [rulercolor]="item.signalThresholdModels[0]?.thresholdColor"
+              [grid1]="true" [ind]="i"></elpis-rms-solid-gauge>
+            </div>
+            <div *ngIf="item.widgetTypeModel?.needlePointer" class="multi-range-cg-pos">
+                <elpis-rms-multi-rang-cg [grid1]="true" [ind]="i"></elpis-rms-multi-rang-cg>
+            </div>
+            <div *ngIf="item.widgetTypeModel?.rangeCustom" class="multi-range-cg-pos">
+              <elpis-rms-range-custom-cg [ind]="i"></elpis-rms-range-custom-cg>
+          </div>
+          </div>
+          <div class="col-12 date_text1 pad_0">{{item.signalDataModels[0]?.timeReceived}}</div>
+        </div>
+        <div *cdkDragPlaceholder></div>
+      </div>
+    </div>
+    <ngx-loading [show]="dashboardLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+    <div class="no-devices" *ngIf="devicedata?.length == 0">
+      Please Select Device
+    </div>
+  </div>

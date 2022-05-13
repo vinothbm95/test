@@ -1,0 +1,324 @@
+<div class="contaner-root">
+    <div class="row virtual-scroll-header-alignment-select-device">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 select-heading">
+            <mat-icon class="back-arrow" routerLink="{{returnRoute}}" matTooltip ="Back">keyboard_backspace</mat-icon><span> {{MainTitle}}</span>
+        </div>
+     </div>
+     <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-20">
+            <mat-card class="mat-bg pad-top select-device-pad-b">
+                <div class="row ">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-pad">
+                        <div class="card-heading box-shadow-card-txt ">
+                            Select Device
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                        <div class="row tabview-device-div-scroll">
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-2"
+                              *ngFor="let device of devicelist| paginate: config1; let i = index ">
+                              <div class="device-div" [ngClass]="(i == selectedIndex) ? 'device-div-selected' : ''" (click)="signalData(device,i)">
+                                <p class="device-name overflowhidden" matTooltip={{device.deviceName}} >{{device.deviceName}}</p>
+                                     <img class="imgdevice" src="assets/images/device1.png" width="90%" height="70%"
+                                     alt="Device">
+                            <!-- <img class="elpis-logo x-auto d-block" src="assets/images/elpis_logo.png" alt="Card image cap"> -->
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="pagination-block col-12 col-sm-12 col-md-12 mr-t-10 pagination-div-mbl-r">
+                        <!-- <mat-paginator [length]="devicelist?.length" [pageSize]="12" [pageSizeOptions]="[6, 12]"
+                            (page)="getPaginatorData($event)">
+                        </mat-paginator> -->
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-20 ">
+                              <div class="items-per-page-div-bottom">
+                                 <mat-form-field class="chart-view-dropdown item-per-page-mbl-view">
+                                    <mat-label>Items per page</mat-label>
+                                    <mat-select [(value)]="itemsperpagemodel">
+                                        <mat-option (click)="itemsperpage(val1.value)" #val1 [value]="'15'">15</mat-option>
+                                         <mat-option (click)="itemsperpage(val2.value)" #val2 [value]="'30'">30</mat-option>
+                                         <mat-option (click)="itemsperpage(val3.value)" #val3 [value]="'50'">50</mat-option>
+                                    </mat-select>
+                                 </mat-form-field>
+                              </div>  
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 mt-20 no-pad">
+                                <div class="pagination-block col-12 col-sm-12 col-md-12 pagination-main-div-mbl">
+                                    <!-- <mat-paginator [length]="10" [pageSize]="20" [pageSizeOptions]="[5, 10]">
+                                    </mat-paginator> -->
+                                    <elpis-rms-pagination [config]="config1"></elpis-rms-pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div *ngIf="!isMobile" class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-20">
+            <mat-card class="mat-bg mat-bg-3 pad-top">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 
+                                card-heading box-shadow-card-txt">
+                        Select Parameter List
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 signalCheckBlock">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  p-0 float-l">
+                            <div *ngIf="signalDeviceName; else selectBlock " class="mt-20">
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6 float-l p-0">
+                                    <strong>{{ signalDeviceName | uppercase }}</strong>
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6 float-l p-0">
+                                    <mat-checkbox color='primary'
+                                      (change)="allSignals($event)" 
+                                      [checked]="allSignalsChecked" class="float-r">
+                                      <span class="signallist-names" class="float-r">ALL</span>
+                                    </mat-checkbox>
+                                </div>
+                                <div class="new-hr"></div>
+                            </div>
+                            <ng-template #selectBlock>
+                                <div class=" col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pad-0 mt-20 float-l">
+                                    <p>
+                                        <strong>Please Select Device</strong>
+                                    </p>
+                                </div>
+                            </ng-template>
+                            <span *ngIf="signalDeviceName && !signalModel?.length">
+                                <strong>  There is no Parameter data</strong>
+                            </span>
+                      </div>
+                        <perfect-scrollbar>
+                            <div class="scrollableSignals">
+                                <div class="col-4 col-sm-4 col-md-3 col-lg-4 col-xl-4 float-left pad-left-5 ipad-pl0"
+                                    *ngFor="let signalDetails of signalModel; let i = index">
+                                    <mat-checkbox class="select-device-checkbox-list" color='primary' [checked]="signalDetails.isSelected"
+                                        (change)="signalChange($event, i)">
+                                        <span class="signallist-names" matTooltip="{{signalDetails.signalModel.signalName}}">{{signalDetails.signalModel.signalName}}</span>
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                        </perfect-scrollbar>
+                    </div>
+                    <ngx-loading [show]="signalLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-pad select-signal-btn-div">
+                        <span class="note">* Note : Please submit configuration from below</span>
+                        <div class="col-6 col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-left no-pad ">
+                            <button class="cancel-btn" (click)="clearSignals()">Clear</button>
+                        </div>
+                        <div class="col-6 col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-left no-pad">
+                            <button class=" no-pad apply-btn" (click)="submitSignals(signalModel)">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 margin-top-50 margin-bottom-50">
+            <mat-card class="mat-bg-2 pad-top">
+                <div class="row ">
+                    <div #selectedDevice class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-heading box-shadow-card-txt">
+                      Parameters List
+                               
+                                 <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+                                 <label (click)="gridMenu()" for="openSidebarMenu" class="sidebarIconToggle" matTooltip="Select Layout">
+                        
+                                   <img src="../../../../assets/images/grid-menu-icon.png" class="grid-menu-icon">
+                   
+                                 </label>
+                                 <div id="sidebarMenu">
+                                   <div class="select-grid-heading-div">
+                                     <p class="select-grid-heading">Select Layout</p>
+                                     <label (click)="closeGrid()" for="openSidebarMenu" class="sidebarIconToggle" matTooltip="Close">
+                                       <mat-icon class="close-icon">close</mat-icon>
+                                     </label>
+                                   </div>
+                   
+                                   <ul class="sidebarMenuInner">
+                                     <perfect-scrollbar>
+                                       <li [ngClass]="gridLayout == 5 ? 'sidebarMenuActive':'' ">
+                                         <div class="grid-layout-div">
+                                           <img src="../../../../assets/images/grid_01.png">
+                                         </div>
+                                         <div class="grid-layout-apply-btn-div">
+                                           <p class="grid-text">Small grids</p>
+                                           <button (click)="layoutsfun(5)" mat-button class="btn-primary apply-btn-grid">Apply</button>
+                                         </div>
+                                       </li>
+                                       <li [ngClass]="gridLayout == 0 ? 'sidebarMenuActive':'' ">
+                                         <div class="grid-layout-div">
+                                           <img src="../../../../assets/images/grid_01.png">
+                                         </div>
+                                         <div class="grid-layout-apply-btn-div">
+                                           <p class="grid-text">Layout 1</p>
+                                           <button id="apply-btn" (click)="layoutsfun(0)" mat-button
+                                             class="btn-primary apply-btn-grid">Apply</button>
+                                         </div>
+                                       </li>
+                   
+                                       <li [ngClass]="gridLayout == 1 ? 'sidebarMenuActive':'' ">
+                                         <div class="grid-layout-div">
+                                           <img src="../../../../assets/images/grid_02.png">
+                                         </div>
+                                         <div class="grid-layout-apply-btn-div">
+                                           <p class="grid-text">Layout 2</p>
+                                           <button (click)="layoutsfun(1)" mat-button class="btn-primary apply-btn-grid">Apply</button>
+                                         </div>
+                                       </li>
+                   
+                                       <li [ngClass]="gridLayout == 2 ? 'sidebarMenuActive':'' ">
+                                         <div class="grid-layout-div">
+                                           <img src="../../../../assets/images/grid_03.png">
+                                         </div>
+                                         <div class="grid-layout-apply-btn-div">
+                                           <p class="grid-text">Layout 3</p>
+                                           <button (click)="layoutsfun(2)" mat-button class="btn-primary apply-btn-grid">Apply</button>
+                                         </div>
+                                       </li>
+                   
+                                       <li [ngClass]="gridLayout == 3 ? 'sidebarMenuActive':'' ">
+                                         <div class="grid-layout-div">
+                                           <img src="../../../../assets/images/grid_04.png">
+                                         </div>
+                                         <div class="grid-layout-apply-btn-div">
+                                           <p class="grid-text">Layout 4</p>
+                                           <button (click)="layoutsfun(3)" mat-button class="btn-primary apply-btn-grid">Apply</button>
+                                         </div>
+                                       </li>
+                   
+                                      
+                   
+                                       <li [ngClass]="gridLayout == 4 ? 'sidebarMenuActive':'' ">
+                                         <div class="grid-layout-div">
+                                           <img src="../../../../assets/images/grid_05.png">
+                                         </div>
+                                         <div class="grid-layout-apply-btn-div">
+                                           <p class="grid-text">Layout 5</p>
+                                           <button (click)="layoutsfun(4)" mat-button class="btn-primary apply-btn-grid">Apply</button>
+                                         </div>
+                                       </li>
+                                     </perfect-scrollbar>
+                                   </ul>
+                                 </div>
+                    <!--grid layout selection html end-->
+                    </div>
+                    <!-- <div class="first-row-signals-list "> -->
+                      <div class="cardsContainer  cards-scroll-container col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                         <div class="content-container mr-b-50" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
+                            <perfect-scrollbar>
+                               <elpis-rms-chart-card-reusable *ngIf="gridLayout == 0" [devicedata]="selectedDeviceList"></elpis-rms-chart-card-reusable>
+                               <elpis-rms-custom-size-layout *ngIf="gridLayout == 5" [devicedata]="selectedDeviceList"></elpis-rms-custom-size-layout>
+                                <elpis-rms-grid-layout1 *ngIf="gridLayout == 1" class="select-device-layout-1" [devicedata]="selectedDeviceList"></elpis-rms-grid-layout1>
+                                <elpis-rms-grid-layout2 *ngIf="gridLayout == 2" [devicedata]="selectedDeviceList"></elpis-rms-grid-layout2> 
+                                <elpis-rms-grid-layout3 *ngIf="gridLayout == 3" class="select-device-layout-3" [devicedata]="selectedDeviceList"></elpis-rms-grid-layout3>
+                                <elpis-rms-grid-layout4 *ngIf="gridLayout == 4" class="layout-3" [devicedata]="selectedDeviceList"></elpis-rms-grid-layout4>
+                            </perfect-scrollbar>
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pad-bottom-20 clear_submit_btn_div">
+                        <div class="submitSignals col-12 col-sm-12 col-md-12 float-right">
+                            <div class=" row">
+                              <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 pointer pad-0"></div> -->
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 pad-0">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                            <div *ngIf="rmsAct?.customerId == 1 || rmsAct?.customerId == 11"  class="example-form">
+                                                <mat-form-field class="dashboard-name-input-width float-left">
+                                                  <mat-label>{{rmsAct?.customerId == 11 ? 'Project name':'Dashboard Name'}}</mat-label>
+                                                  <input matInput placeholder="{{rmsAct?.customerId == 11 ? 'Project Name':'Dashboard Name'}}" [(ngModel)]="dashboardName">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                            <mat-form-field class="assign-user-dropdown-width"  *ngIf="rmsAct.userRoleId == 1 && !(userdDashboard||userdGroupDashboard)">
+                                                <mat-label>Assign to Users</mat-label>
+                                                <mat-select [formControl]="users" multiple [(value)]="selectedUsers">
+                                                    <mat-select-trigger>
+                                                        {{users.value ? users.value[0] : ''}}
+                                                        <span *ngIf="users.value?.length > 1" class="example-additional-selection">
+                                                            (+{{users.value.length - 1}} {{users.value?.length === 2 ? 'other' : 'others'}})
+                                                        </span>
+                                                    </mat-select-trigger>
+                                                    <mat-option *ngFor="let user of usersList" [value]="user.firstName">{{user.firstName}} {{user.email}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                            <span class="userDisplay" *ngIf="userdDashboard||userdGroupDashboard">{{currentUser.firstName}}</span>
+                                        </div>
+                                    </div>                      
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pad-0">
+                                    <button mat-raised-button type="button" class="button pointer submitAllSignals"
+                                        color="primary" (click)="submitSelectedSignals()">Submit</button>
+                                    <button mat-raised-button type="button" class="button pointer"
+                                        (click)="cancelSignalDialog()">Clear All</button>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                   <!-- </div> -->
+                </div>
+
+                <div *ngIf=" rmsAct?.customerId == 11" class="row">
+                    <div #selectedDevice class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-heading box-shadow-card-txt">
+                      Parameter Memic Config
+                   </div>
+                   <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 second-row-signals-list">
+                    <form [formGroup]="" class="example-form row mr-t-15">
+                        <div class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
+                            <mat-form-field class="example-full-width  comparatorData-width">
+                                <mat-label>Input 1</mat-label>
+                                <mat-select >
+                                  <mat-option  *ngFor="let signals of parameterData" [value]="signals">
+                                    {{signals}} 
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                        <div   class="col-12 col-sm-12 col-md-11 col-lg-11 col-xl-11">
+                            <div *ngFor="let item of dropdowndata;let i = index;let first = first; let last = last;" class="float-l">
+                                <mat-form-field class="example-full-width comparatorData-width1">
+                                    <mat-label>Comparator</mat-label>
+                                    <mat-select >
+                                      <mat-option  *ngFor="let signals of comparatorData" [value]="signals">
+                                        {{signals}} 
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                  <mat-form-field class="example-full-width comparatorData-width1">
+                                    <mat-label>Input {{i + 2}}</mat-label>
+                                    <mat-select >
+                                      <mat-option  *ngFor="let signals of parameterData" [value]="signals">
+                                        {{signals}} 
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                  <button *ngIf="last" [disabled]="dropdowndata?.length > 3" class="material-icons threshold-add-icon"   matTooltip ="Add" (click)="addData()">
+                                    add_circle_outline
+                                  </button>
+                                  <span *ngIf="!last"   class="material-icons threshold-remove-icon" (click)="removeData(i)"  matTooltip ="Remove">
+                                        remove_circle_outline
+                                  </span>
+                            </div>
+                            <mat-form-field class="example-full-width  comparatorData-width">
+                                <mat-label>Output</mat-label>
+                                <mat-select >
+                                  <mat-option  *ngFor="let signals of parameterData" [value]="signals">
+                                    {{signals}} 
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                     </form>
+                  </div>
+                </div> 
+                <ngx-loading [show]="selectedSignalShow" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+          </mat-card>
+        </div>
+    </div>
+
+</div>
+
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

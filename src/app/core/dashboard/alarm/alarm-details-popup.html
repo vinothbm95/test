@@ -1,0 +1,49 @@
+
+<div class="container">
+  <div class="add-sigal-content-div-scroll">
+  <div class="">
+    <div class="col-12 float-left displayflex float-left">
+      <h2 class="popup-title">
+          alarm name : <span class="alsrm_details_color" >{{ tabledataPopup?.alarmModel?.alarmName}}</span>
+      </h2>
+      <div class="delete-popup-close-icon" id="close-icon">
+        <mat-icon matDialogClose>close </mat-icon>
+      </div>
+    </div>
+    <div class="col-12 margin-bottom-10 float-left">
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+  <div class="form-fields-div col-12 no-pad">
+    <!-- <perfect-scrollbar >   -->
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <p class="col-12 alsrm_details">list Mail</p>
+        <div class="listmail" *ngFor="let email of tabledataPopup?.emailAlarmModels">
+          {{ email.emailId }}
+        </div>
+        <div class="no-devices" *ngIf="tabledataPopup?.emailAlarmModels?.length == 0">
+          No email data
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <p class="col-12 alsrm_details">list number</p>
+        <div class="listmail" *ngFor="let phone of tabledataPopup?.phoneAlarmModels">
+          {{ phone.phoneNo }}
+        </div>
+        <div class="no-devices" *ngIf="tabledataPopup?.phoneAlarmModels?.length == 0">
+          No phone data
+        </div>
+      </div>
+    </div>
+    <!-- </perfect-scrollbar>   -->
+  </div>
+
+  <div class="add-signal-btn-div">
+    <button matDialogClose mat-raised-button
+      class="buttoncolor my-mbl-select-device-btn add-device-btn edit-popup-apply-btn margin-r-25"
+      color="primary">Close</button>
+  </div>
+</div>
+  <ngx-loading [show]="showAlarm" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>  
+</div>

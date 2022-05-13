@@ -1,0 +1,134 @@
+<div class="contaner-root">
+  <div class="Select_Devicemobile mobileFont">
+    <button mat-fab class="float-right buttoncolor mobiel-select-device-btn" routerLink="signals" color="primary">
+      <mat-icon>library_add</mat-icon>
+    </button>
+  </div>
+  <div class="Select_Devicemobile_remov_btn mobileFont" *ngIf="signals?.length >= 1 && showDelete">
+    <button mat-fab class="float-right buttoncolor mobiel-select-device-btn" color="primary" (click)="deleteSignal()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 virtual-scroll-header-alignment  padding-head">
+      <mat-card class="card_heicht_dashbord my-dashboard-title-div-height">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-8 col-xl-4 col-lg-4 my-float-left">
+            <p class="dashboard">
+              <mat-icon class="back-arrow" [routerLink]="returnRouteLink">keyboard_backspace</mat-icon>Group :
+              {{signalGroupName}}
+            </p>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-xl-8 col-lg-8 my-float-left ">
+            <div class="select-device-drop  col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left no-pad">
+              <div class="float-right device-select-div my-mbl-select-device-dropdown-div">
+              </div>
+              <div class="col-sm-4 col-md-2 col-xl-3 col-lg-3 float-right no-pad deleteMobileBtn">
+                <button *ngIf="signals?.length >= 1 && showDelete" mat-raised-button
+                  class=" custom-add-signal-btn float-left buttoncolor my-mbl-select-device-btn" color="primary"
+                  (click)="deleteSignal()">Delete Parameter <mat-icon>delete</mat-icon></button>
+              </div>
+
+              <div class="col-sm-4 col-md-3 col-xl-3 col-lg-3 float-right deleteMobileBtn">
+                <button mat-raised-button *ngIf="SignalGrpList"
+                  class="float-right custom-add-signal-btn buttoncolor my-mbl-select-device-btn" color="primary"
+                  routerLink="signals">Add Parameter <mat-icon>library_add</mat-icon>
+                </button>
+              </div>
+
+
+              <!----grid layout selection html start-->
+              <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+              <label (click)="gridMenu()" for="openSidebarMenu" class="sidebarIconToggle" matTooltip="Select Layout">
+                <img src="../../../../assets/images/grid-menu-icon.png" class="grid-menu-icon">
+
+              </label>
+              <div id="sidebarMenu">
+                <div class="select-grid-heading-div">
+                  <p class="select-grid-heading">Select Layout</p>
+                  <label (click)="closeGrid()" for="openSidebarMenu" class="sidebarIconToggle" matTooltip="Close">
+                    <mat-icon class="close-icon">close</mat-icon>
+                  </label>
+                </div>
+
+                <ul class="sidebarMenuInner">
+                  <perfect-scrollbar>
+                    <li [ngClass]="gridLayout == 0 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_01.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Layout 1</p>
+                        <button id="apply-btn" (click)="layoutsfun(0)" mat-button
+                          class="btn-primary grid-apply-btn">Apply</button>
+                      </div>
+                    </li>
+
+                    <li [ngClass]="gridLayout == 1 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_02.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Layout 2</p>
+                        <button (click)="layoutsfun(1)" mat-button class="btn-primary grid-apply-btn">Apply</button>
+                      </div>
+                    </li>
+
+                    <li [ngClass]="gridLayout == 2 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_03.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Layout 3</p>
+                        <button (click)="layoutsfun(2)" mat-button class="btn-primary grid-apply-btn">Apply</button>
+                      </div>
+                    </li>
+
+                    <li [ngClass]="gridLayout == 3 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_04.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Layout 4</p>
+                        <button (click)="layoutsfun(3)" mat-button class="btn-primary grid-apply-btn">Apply</button>
+                      </div>
+                    </li>
+
+                    <li [ngClass]="gridLayout == 4 ? 'sidebarMenuActive':'' ">
+                      <div class="grid-layout-div">
+                        <img src="../../../../assets/images/grid_05.png">
+                      </div>
+                      <div class="grid-layout-apply-btn-div">
+                        <p class="grid-text">Layout 5</p>
+                        <button (click)="layoutsfun(4)" mat-button class="btn-primary grid-apply-btn">Apply</button>
+                      </div>
+                    </li>
+                  </perfect-scrollbar>
+                </ul>
+              </div>
+              <!--grid layout selection html end-->
+
+            </div>
+          </div>
+
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- *ngIf="signals?.length > 0" -->
+  <div *ngIf="gridLayout == 0">
+    <elpis-rms-chart-card-reusable [devicedata]="signals"></elpis-rms-chart-card-reusable>
+  </div>
+  <div *ngIf="gridLayout == 1">
+    <elpis-rms-grid-layout1 [devicedata]="signals"></elpis-rms-grid-layout1>
+  </div>
+
+  <elpis-rms-grid-layout2 *ngIf="gridLayout == 2" [devicedata]="signals"></elpis-rms-grid-layout2>
+  <elpis-rms-grid-layout3 *ngIf="gridLayout == 3" [devicedata]="signals"></elpis-rms-grid-layout3>
+  <elpis-rms-grid-layout4 *ngIf="gridLayout == 4" [devicedata]="signals"></elpis-rms-grid-layout4>
+  <ngx-loading [show]="dashboardLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+  <div class="no-devices" *ngIf="signals?.length == 0 ">
+    No Parameters in group !!
+  </div>
+</div>

@@ -1,0 +1,17 @@
+
+<!-- Switch ON div start here -->
+<div *ngIf="signalDataType == 1" class="text-center" [style.height.px]="divheight" >
+    <img src="../../../assets/images/Artboard – 3.png" [style.height.px]="imgheight" class="">
+</div>
+<!-- Switch ON div end here -->
+
+<!-- Switch OFF div start here -->
+<div *ngIf="signalDataType == 0" class="text-center" [style.height.px]="divheight"> 
+    <img src="../../../assets/images/Artboard – 4.png" [style.height.px]="imgheight" class="" >
+</div>
+<!-- Switch OFF div end here -->
+<!-- [ngClass]="(grid3 && ind == 3) || (grid1 && ind == 4) ? 'img-div1':'img-div'" 
+[ngClass]="(grid3 && ind == 3) || (grid1 && ind == 4) ? 'digital-switch-img1':'digital-switch-img'"-->
+
+<!-- <div class="signal-name">signal-name</div> -->
+<!-- Artboard – 2 -->

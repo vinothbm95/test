@@ -1,0 +1,50 @@
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="popup-title">Device details</h2>
+            <div class="delete-popup-close-icon" id="close-icon">
+                <mat-icon matDialogClose >close </mat-icon>
+            </div>
+        </div>
+        <div class="col-12 margin-bottom-10">
+            <mat-divider ></mat-divider>
+        </div>
+    </div>    
+
+    <div class="form-fields-div col-12 no-pad">
+       <!-- <perfect-scrollbar >   -->
+        <div class="row add-sigal-content-div-scroll">
+             <div *ngFor="let header of headerdata" class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+                <p class="details-popup-title">{{header.title}}</p> 
+                <p *ngIf="!header.slidetogglekey && !header.thresholdRange && !header.isActiveKey" class="details-popup-data-txt"> {{tabledata[header.name] ? tabledata[header.name] : 'N/A'}}</p>
+                <p *ngIf="header.slidetogglekey" class="details-popup-data-txt"> 
+                    {{tabledata[header.name] ? 'Yes':'No'}}
+                </p>
+                <p *ngIf="header.isActiveKey" class="details-popup-data-txt"> 
+                    {{tabledata.isActive ? 'Active':'Inactive'}}
+                </p>
+                <div *ngIf="header.thresholdRange">
+                    <div *ngFor="let item of  tabledata[header.name] ; let i = index" class="details-popup-data-txt">
+                          <span>
+                              <div class="thresholdrange-value" > {{item.value}} </div></span>
+                          <span >
+                          <p [style.background-color]="item.colorCode" class="thresholdrange-details-color-box"></p></span>  
+                    </div>
+                </div>
+             </div>
+        <div class=" col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10 pad-b-50 ">
+            <div class="add-signal-btn-div">
+                <button  matDialogClose mat-raised-button class="buttoncolor details-close-btn-mbl my-mbl-select-device-btn add-device-btn edit-popup-apply-btn" color="primary">Close</button>
+            </div>
+        </div>
+  
+    </div><!-- popup body row end tag-->
+
+    <!-- </perfect-scrollbar>   -->
+    </div> <!-- Popup body end tag-->
+    <ngx-loading [show]="show" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+</div> <!-- Container end tag-->
+

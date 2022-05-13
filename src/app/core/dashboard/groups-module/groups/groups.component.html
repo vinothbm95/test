@@ -1,0 +1,80 @@
+<div class="contaner-root">
+    <div class="Select_Devicemobile mobileFont">
+        <button mat-fab class="float-right buttoncolor mobiel-select-device-btn" color="primary" (click)="creatGroup()">
+            <mat-icon>library_add</mat-icon>
+        </button>
+    </div>
+    <div class="Select_Devicemobile_remov_btn mobileFont" *ngIf="groupList?.length >= 1 && showDelete">
+        <button mat-fab class="float-right buttoncolor mobiel-select-device-btn" color="primary"
+            (click)="deleteGroup()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 virtual-scroll-header-alignment padding-head">
+            <mat-card class="card_heicht_dashbord my-dashboard-title-div-height">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-xl-6 col-lg-9 my-float-left ipad-displayflex">
+                    <p class="dashboard float-left">{{userdGroupDashboard?'User Group List':'Parameter Group List'}}</p>
+                        <div class="adminRoleSelect float-left ml-5 mbl-width100" *ngIf="userdGroupDashboard">
+                            <mat-form-field class="mbl-width100">
+                                <mat-label>Select User</mat-label>
+                                <mat-select [(ngModel)]="selectedUser" (ngModelChange)="onUserSelection()">
+                                    <mat-option *ngFor="let user of users" [value]="user.userAccountId">
+                                        {{user.firstName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="adminRoleSelect float-right ipad-ml2rem mbl-width100" *ngIf="userdGroupDashboard">
+                            <mat-form-field class="mbl-width100">
+                                <mat-label>Select Dashboard</mat-label>
+                                <mat-select [(ngModel)]="selectedDashboard" (ngModelChange)="onDashboardSelection()">
+                                  <mat-option *ngFor="let dash of dashboardList" [value]="dash.dashboardId" [routerLink]="dash.routeLink">
+                                    {{dash.DashbordName}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-xl-6 col-lg-3 my-float-left ">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 float-rt no-pad" *ngIf="!isMobile">
+                            <button *ngIf="groupList?.length >=1 && showDelete" mat-raised-button
+                                class="float-left buttoncolor my-mbl-select-device-btn" color="primary"
+                                (click)="deleteGroup()">Delete Group <mat-icon>delete</mat-icon>
+                            </button>
+                            <button mat-raised-button *ngIf="SignalGroupList&& !userdGroupDashboard && (rmsAct.userRoleId == 1 || rmsAct.userRoleId == 2 || rmsAct.userRoleId == 3)"
+                                class="float-right buttoncolor my-mbl-select-device-btn" color="primary"
+                                (click)="creatGroup()">Create Group <mat-icon>library_add</mat-icon>
+                            </button>
+                            <button mat-raised-button *ngIf="userdGroupDashboard"
+                            class="float-right buttoncolor my-mbl-select-device-btn" color="primary"
+                            (click)="creatGroup()" [disabled]="selectedUser == undefined||selectedUser == ''">Create Group <mat-icon>library_add</mat-icon>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="groupsView row ">
+        <div class="col-sm-3 groupCard" *ngFor="let group of groupList; index as i">
+            <mat-card matRipple [ngClass]="group.alertCount > 0 ?'matNotify':''">
+                <div class="alertNotify">
+                    <mat-checkbox *ngIf="SignalGroupList" [(ngModel)]="group.isSelected" (change)="validateDelete()"
+                        color='primary'></mat-checkbox>
+                    <mat-icon title="{{group.alertCount}}" matBadge="{{group.alertCount}}" matBadgeColor="warn"
+                        *ngIf="group.alertCount > 0">notification_important</mat-icon>
+                </div>
+                <div class="groupImgSec" [routerLink]="['group', group.signalGroupId]">
+                    <img mat-card-image src="assets/images/Group.png" class="image imagegroup">
+                    <mat-card-title title="{{group.name}}" class="groupname">{{group.name}}</mat-card-title>
+                    <mat-card-content>{{group.description}}</mat-card-content>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<ngx-loading [show]="groupsLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

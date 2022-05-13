@@ -1,0 +1,191 @@
+
+    <div class="content-container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="popup-title">
+                   Style Configuration
+                </h2>
+                <div class="delete-popup-close-icon" id="close-icon">
+                    <mat-icon matDialogClose >close </mat-icon>
+                </div>
+            </div>
+            
+        </div>
+     
+        <mat-divider ></mat-divider>
+
+    <div class="popup-content-div row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-left">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-left">
+                    <div class="preview-div">
+                        <p class="preview-title">Options</p>
+                    </div>
+                    <div class="color-picker-div no-pad">       
+                        <label class="card-style-lable">Select card background color</label>      
+                          <input class="threshold-color-div input-width" autocomplete="off" 
+                          [(colorPicker)]="colorcode"
+                          [style.backgroundColor]="colorcode"
+                          (colorPickerSelect)="onColorPickerSelect($event)"
+                           />              
+                          </div>
+                          <div class="color-picker-div no-pad">       
+                              <label class="card-style-lable">Select card font color</label>      
+                                <input class="threshold-color-div input-width" autocomplete="off" 
+                                [style.backgroundColor]="colorcode1"
+                                [(colorPicker)]="colorcode1"
+                                (colorPickerSelect)="onColorPickerSelect($event)" 
+                                 />       
+          
+                          </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 float-left">
+                    <div class="preview-div">
+                        <p class="preview-title">Preview</p>
+                    </div>
+
+                    <div class="preview-bg-clr">
+                            <!-- card start -->
+                        <div class="col-12 col-md-7 col-lg-7 col-xl-7 col-sm-12 my-padding-card margin-auto pop-card-div-height"
+                           >
+                            <div class="devis_card2 popup-card" [style.backgroundColor]="colorcode">
+
+                                <div  [style.color]="colorcode1" class="spare_text1" matTooltip={{currentdata.deviceModel?.deviceName}} >
+                                
+                                  {{currentdata.deviceModel?.deviceName}}
+                                </div>
+                                <span  [style.color]="colorcode1"  [matMenuTriggerFor]="menu" class="material-icons pointer popup-dots ">
+                                    more_horiz
+                                </span>
+                               
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="Device1(currentdata)">Bar</button>
+                                    <button mat-menu-item (click)="Device2(currentdata)"> Ruler </button>
+                                    <button mat-menu-item [matMenuTriggerFor]="gaugemenu"> Gauge </button>
+                                    <button mat-menu-item [matMenuTriggerFor]="digitalmenu"> Digital </button>
+                                    <button mat-menu-item (click)="Device10(currentdata)"> Number </button>
+                                    <!-- <button mat-menu-item [matMenuTriggerFor]="stylemenu"> Style </button> -->
+                    
+                                </mat-menu>
+                    
+                                <mat-menu #gaugemenu="matMenu">
+                    
+                                    <button mat-menu-item (click)="Device3(currentdata)"> Speedometer gauge </button>
+                                    <button mat-menu-item (click)="Device4(currentdata)"> Solid gauge </button>
+                                    <button mat-menu-item (click)="Device5(currentdata)"> Multi range gauge </button>
+                                    <button mat-menu-item (click)="Device6(currentdata)"> Multi range gauge 180 </button>
+                                    <button mat-menu-item (click)="Device7(currentdata)"> Solid pointer </button>
+                                </mat-menu>
+                                <mat-menu #digitalmenu="matMenu">
+                    
+                                  <button mat-menu-item (click)="Device8(currentdata)">Dial</button>
+                                  <button mat-menu-item (click)="Device9(currentdata)">LED</button>
+                              </mat-menu>
+                    
+                             
+                              <div *ngIf="currentdata.signalModel?.signalId == 1277 && currentdata?.signalDataModels?.length != 0" class="margtop1 flow-meter-signal-img-div">
+                                <img src="../../../assets/images/Petronash__Dashboard_Images/Icons/signal_full.png" alt="Network strength image"  class=" my-flow-meter-signal-img" >
+                                <!-- <p class="signal-digital-num-txt">{{item?.signalDataModels[0].dataValue }} -->
+                              </div>
+                              
+                              <div class="no-data-card-height" *ngIf="currentdata?.signalDataModels?.length == 0">
+                               <p  [style.color]="colorcode1" class="no-data-text">No data</p>
+                              </div>
+                    
+                                <div *ngIf="currentdata.signalModel?.signalId != 1277  && currentdata?.signalDataModels?.length != 0" class="margtop1">
+                                    <!-- <div class="signal1 margbott1 margtop1" *ngIf="item.widgetTypeModel?.bar">{{item.signalModel?.signalName}}</div> -->
+                                    <div *ngIf="currentdata.widgetTypeModel?.bar" class="progress-bar-div">
+                                        <!-- [progressdata]="item.signalDataModels[0]?.dataValue"  -->
+                                        <elpis-rms-progress-bar *ngIf="currentdata.signalModel?.signalId != 1279" [progresscolor]="currentdata.signalThresholdModels[0]?.thresholdColor"
+                                            [progressdata]="currentdata.signalDataModels[0]?.dataValue" [signallist]="currentdata.signalModel?.signalUnit"
+                                            [signal]="currentdata.signalModel?.signalName" [sensorMin]="currentdata.signalModel?.signalStartRange"
+                                            [sensorMax]="currentdata.signalModel?.signalEndRange"
+                                            [grid1]="false" [grid2]="false" [grid3]="false" [grid4]="false"  
+                                            [customsize]="true">
+                                        </elpis-rms-progress-bar>
+                                        <div *ngIf="currentdata.signalModel?.signalId == 1279" class="margtop1 vertical-progress-center">
+                                            <elpis-rms-temp-progress-bar [data]="currentdata"></elpis-rms-temp-progress-bar>
+                                        </div>
+                                        
+                                    </div>
+                    
+                                    <div class="rule-pos" *ngIf="currentdata.widgetTypeModel?.rule">
+                                        <elpis-rms-bar-chart [series]="currentdata.signalDataModels[0]?.dataValue"
+                                          [rulercolor]="currentdata.signalThresholdModels[0]?.thresholdColor" [signal]="currentdata.signalModel?.signalName"
+                                          [sensorMin]="currentdata.signalModel?.signalStartRange" [sensorMax]="currentdata.signalModel?.signalEndRange"
+                                          [grid1]="false" [grid2]="false" [grid3]="false" [grid4]="false"   [customsize]="true"></elpis-rms-bar-chart>
+                                        <!-- <elpis-rms-sync-ponter-anim [index]="i"></elpis-rms-sync-ponter-anim> -->
+                                    </div>
+                    
+                                    <div class="guge-pos" *ngIf="currentdata.widgetTypeModel?.gauge">
+                                        <elpis-rms-gauge-chart [series]="currentdata.signalDataModels[0]?.dataValue"
+                                          [signal]="currentdata.signalModel?.signalName" [threshold]="currentdata.signalThresholdModels"
+                                          [sensorMin]="currentdata.signalModel?.signalStartRange" [sensorMax]="currentdata.signalModel?.signalEndRange"
+                                          [grid1]="false" [grid2]="false" [grid3]="false" [grid4]="false" 
+                                          [customsize]="true">
+                                        </elpis-rms-gauge-chart>
+                                      </div>
+                    
+                                      <div class="solid-pos-in-popup" *ngIf="currentdata.widgetTypeModel?.solidGauge">
+                                        <elpis-rms-solid-gauge
+                                        [series]="currentdata.signalDataModels[0]?.dataValue"
+                                        [signal]="currentdata.signalModel?.signalName" [threshold]="currentdata.signalThresholdModels"
+                                        [sensorMin]="currentdata.signalModel?.signalStartRange" [sensorMax]="currentdata.signalModel?.signalEndRange"
+                                        [rulercolor]="currentdata.signalThresholdModels[0]?.thresholdColor"
+                                        [grid1]="false" [grid2]="false" [grid3]="false" [grid4]="false"  
+                                        [customsize]="true"></elpis-rms-solid-gauge>
+                                        
+                                      </div>
+                                      <div *ngIf="currentdata.widgetTypeModel?.needlePointer" class="multi-range-cg-pos">
+                                          <elpis-rms-multi-rang-cg [grid1]="false" [grid2]="false" [grid3]="false" [grid4]="false" 
+                                           [threshold]="currentdata.signalThresholdModels" 
+                                          [sensorMin]="currentdata.signalModel?.signalStartRange" [sensorMax]="currentdata.signalModel?.signalEndRange"  
+                                          [series]="currentdata.signalDataModels[0]?.dataValue" [customsize]="true"></elpis-rms-multi-rang-cg>
+                                      </div>
+                                      <div *ngIf="currentdata.widgetTypeModel?.rangeCustom" class="range-custom-cg-pos">
+                                        <elpis-rms-range-custom-cg [grid1]="false" [grid2]="false" [grid3]="false" [grid4]="false"  
+                                         [threshold]="currentdata.signalThresholdModels" 
+                                        [sensorMin]="currentdata.signalModel?.signalStartRange" [sensorMax]="currentdata.signalModel?.signalEndRange"  
+                                        [series]="currentdata.signalDataModels[0]?.dataValue" [customsize]="true"></elpis-rms-range-custom-cg>
+                                    </div>
+                                    <div *ngIf="currentdata.widgetTypeModel?.pointerAnimation" class="spedo-cg-pos-popup">
+                                      <elpis-rms-sync-ponter-anim [grid1]="false" [grid2]="false" [grid3]="false" [grid4]="false"  
+                                      [threshold]="currentdata.signalThresholdModels" 
+                                      [sensorMin]="currentdata.signalModel?.signalStartRange" [sensorMax]="currentdata.signalModel?.signalEndRange" 
+                                      [series]="currentdata.signalDataModels[0]?.dataValue" [customsize]="true"></elpis-rms-sync-ponter-anim>
+                                  </div>
+                                  <div *ngIf="currentdata.widgetTypeModel?.dialOn" class="dail-cg-pos-popup">
+                                    <elpis-rms-digital-dial-onff [grid1]="false" [grid2]="false" [grid3]="false" [grid4]="false"  
+                                    [series]="currentdata.signalDataModels[0]?.dataValue" [customsize]="true" [chartpopup]="false"></elpis-rms-digital-dial-onff>
+                                </div>
+                                <div *ngIf="currentdata.widgetTypeModel?.ledOn" class="led-cg-pos-popup">
+                                  <elpis-rms-digital-led-onoff [grid1]="false" [grid2]="false" [grid3]="false" [grid4]="false" 
+                                  [series]="currentdata.signalDataModels[0]?.dataValue" [customsize]="true" [chartpopup]="false"></elpis-rms-digital-led-onoff>
+                                 
+                              </div>
+                              <div *ngIf="currentdata.widgetTypeModel?.numberVal" class="number-value-pos">
+                                <elpis-rms-number-card [series]="currentdata.signalDataModels[0]?.dataValue" [grid1]="false" [grid2]="false" 
+                                [style.color]="colorcode1"  [grid3]="false" [grid4]="false"  [customsize]="true" [chartpopup]="false"></elpis-rms-number-card>
+                            </div>
+                                </div>
+                                <div  [style.color]="colorcode1" class="col-12 signalvalue_text1 pad_0">{{currentdata.signalDataModels[0]?.dataValue}} <span class="unit_text1"  [style.color]="colorcode1" >{{currentdata.signalModel?.signalUnit}}</span></div>
+                                <div  [style.color]="colorcode1" class="col-12 signalname_text1 pad_0">{{currentdata.signalModel?.signalName}}</div>
+                                <div  [style.color]="colorcode1" class="col-12 date_text1 pad_0">{{currentdata.signalDataModels[0]?.timeReceived}}</div>
+                            </div>
+                        </div>
+                            <!-- card end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+            
+    </div>
+
+    <div class="cancel-save-bt-div row" >
+        <button matDialogClose class="delete-popup-cancel-btn" >Cancel</button>
+        <button  class="delete-popup-delete-btn" (click)="saveStyleColors()" >Save</button>
+    </div>
+</div>
+    <!-- (click)="deleteSignal()" -->
+    <!-- {{currentdata?.name}} Signal? -->

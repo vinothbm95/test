@@ -1,0 +1,66 @@
+
+    <div class="mbl-view-popup">
+        <div class="popup-content-div mbl-popup-div-content">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-20 pad-0">
+                <mat-card class="mat-bg mat-bg-3 pad-top">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-heading box-shadow-card-txt">
+                            Select Parameter List
+                            <div class="delete-popup-close-icon" id="close-icon">
+                                <mat-icon matDialogClose >close </mat-icon>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 signalCheckBlock-mbl">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 p-0">
+                                <div *ngIf="signalDeviceName; else selectBlock">
+                                    <div class="col-8 col-sm-8 col-md-8 col-lg-8 float-l p-0">
+                                        <strong>{{ signalDeviceName | uppercase }}</strong>
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 float-l p-0">
+                                    <mat-checkbox color='primary'
+                                      
+                                        (change)="allSignals($event)" 
+                                        [checked]="allSignalsChecked" class="float-r">
+                                        <span class="signallist-names">ALL</span>
+                                    </mat-checkbox>
+                                </div>
+                                <div class="new-hr">                    
+                                </div>
+                                </div>
+                                <ng-template #selectBlock>
+                                    <div>
+                                        <span class="col-10 col-sm-10 col-md-10 col-lg-10 col-10-10">
+                                            <strong>Please Select Device</strong>
+                                        </span>
+                                    </div>
+                                </ng-template>
+                            </div>
+                            <perfect-scrollbar>
+                                <div class="scrollableSignals">
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 float-left pad-left-5 mbl-mt20 mbl-mt20"
+                                        *ngFor="let signalDetails of signalModel; let i = index">
+                                        <mat-checkbox color='primary' [checked]="signalDetails.isSelected"
+                                            (change)="signalChange($event, i)">
+                                            <span class="signallist-names">{{signalDetails.signalModel.signalName}}</span>
+                                        </mat-checkbox>
+                                    </div>
+                                </div>
+                            </perfect-scrollbar>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-pad select-signal-btn-div">
+                            <span class="note">* Note : Please submit configuration from below</span>
+                            <div class="col-6 col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-left no-pad ">
+                                <button class="cancel-btn" (click)="clearSignals()">Clear</button>
+                            </div>
+                            <div class="col-6 col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 float-left no-pad">
+                                <button class=" no-pad apply-btn" (click)="submitSignals()">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+            
+        </div>
+    
+
+    </div>

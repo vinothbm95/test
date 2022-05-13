@@ -1,0 +1,30 @@
+
+    <div class="content-container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="popup-title">
+                    Create Group
+                </h2>
+                <div class="delete-popup-close-icon" id="close-icon">
+                    <mat-icon matDialogClose >close </mat-icon>
+                </div>
+            </div>
+        </div>
+        <mat-divider ></mat-divider>
+    </div>
+    <div class="popup-content-div">
+        <mat-dialog-content>
+            <mat-form-field style="width: 100%; padding: 10px; box-sizing: border-box;">
+                <input type="text" matInput placeholder="Group Name" [(ngModel)]="groupName" (input)="groupNameExists=false"
+                autocomplete="off" (keydown.space)="groupName.length>0 ?'':$event.preventDefault()" required>
+            </mat-form-field>
+            <mat-error *ngIf="groupNameExists">
+                Group name already exists!
+            </mat-error>
+        </mat-dialog-content>
+    </div>
+    <div class="popup-bottom-btn-div" >
+        <button matDialogClose class="delete-popup-cancel-btn" >Cancel</button>
+        <button  class="delete-popup-delete-btn" 
+        [disabled]="!groupName.length" (click)="onGroupSubmit()">Save</button>
+    </div>

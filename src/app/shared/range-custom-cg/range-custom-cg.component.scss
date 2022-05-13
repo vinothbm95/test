@@ -1,0 +1,49 @@
+.activity-gauge-height{
+
+    // overflow: hidden !important;
+}
+::ng-deep #range-container_svg{
+    position: relative !important;
+
+}
+
+
+::ng-deep #circulargauge_control_svg{
+    position: relative;
+
+}
+.activity-gauge-height{
+    // height: 170px !important;
+    // overflow: hidden !important;
+}
+
+.signal-value-div{
+    width: 100%;
+    float: left;
+    position: relative;
+ 
+}
+.signal-value{
+
+    position: absolute;
+    bottom: -20px;
+    left: 115px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+
+}
+.signal-name-div{
+    width: 100%;
+    float: left;
+    position: relative;
+   
+}
+.signal-name{
+    margin-bottom: 0px;
+    position: absolute;
+    /* top: 48px; */
+    font-weight: 600;
+    bottom: -59px;
+    color: #666666;
+}

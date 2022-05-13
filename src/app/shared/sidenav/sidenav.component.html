@@ -1,0 +1,220 @@
+<div class="example-container">
+
+  <mat-sidenav-container class="example-sidenav-container min-hight" autosize>
+    <span *ngIf="!sidenavshow" >
+      <!-- <mat-icon class="open-mbl-menu-icon" (click)="openNav()" >menu</mat-icon> -->
+      <div id="mySidenav" class="sidenav mbl-side-nav" (clickOutside)="sidenavclosemobile()">
+        <!-- <img class="img-elpis" src="../../../assets/images/elpis_logo.png" /> -->
+        <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">menu</a> -->
+        <mat-icon  class="closebtn menu-color" (click)="closeNav()">menu_open</mat-icon>
+
+          <a *ngIf="UsersRoleData?.customerId != 5 && dashboardShow " mat-list-item (click)="toggleActiveMobile($event)" routerLinkActive="list-item-active" routerLink="/dashboard">
+          <!-- <span class="material-icons">home_outlined</span> -->
+          <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard"></mat-icon>
+          <p matLine ><a class="color_textnave my-mbl-nav-menu-text">Dashboard</a></p>
+          </a>
+          <a *ngIf="UsersRoleData?.customerId == 5" mat-list-item (click)="toggleActiveMobile($event);pumpStatus();" routerLinkActive="list-item-active" routerLink="/dashboard">
+            <!-- <span class="material-icons">home_outlined</span> -->
+            <mat-icon mat-list-icon class="my-mbl-nav-icon pupm-icon"></mat-icon>
+            <p matLine ><a class="color_textnave my-mbl-nav-menu-text">Pump dashboard</a></p>
+            </a>
+            <a *ngIf="UsersRoleData?.customerId == 5" mat-list-item (click)="toggleActiveMobile($event);processStatus();" routerLinkActive="list-item-active" routerLink="/dashboard">
+              <!-- <span class="material-icons">home_outlined</span> -->
+              <mat-icon mat-list-icon class="my-mbl-nav-icon process-icon"></mat-icon>
+              <p matLine ><a class="color_textnave my-mbl-nav-menu-text">Process dashboard</a></p>
+              </a>
+              <a *ngIf="UsersRoleData?.customerId == 5" mat-list-item (click)="toggleActiveMobile($event);managementStatus()" routerLinkActive="list-item-active" routerLink="/dashboard">
+                <!-- <span class="material-icons">home_outlined</span> -->
+                <mat-icon mat-list-icon class="my-mbl-nav-icon management-icon"></mat-icon>
+                <p matLine ><a class="color_textnave my-mbl-nav-menu-text">Management dashboard</a></p>
+                </a>
+
+
+          <a  *ngIf="UsersRoleData?.customerId != 5 && UsersRoleData?.customerId != 11" mat-list-item (click)="toggleActiveMobile($event)" routerLinkActive="list-item-active" routerLink="/dashboard/md/groups">
+            <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-group"></mat-icon>
+            <p matLine  ><a class="color_textnave my-mbl-nav-menu-text">Group&nbsp;List</a></p>
+          </a>
+          <a mat-list-item *ngIf="UserRoleBase && UsersRoleData?.customerId != 5" (click)="toggleActiveMobile($event)" routerLinkActive="list-item-active" routerLink="/dashboard/device">
+            <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-device"></mat-icon>
+            <p matLine ><a class="color_textnave my-mbl-nav-menu-text" >Device</a></p>
+          </a>
+          <a mat-list-item *ngIf="UserRoleBase && UsersRoleData?.customerId == 11" (click)="toggleActiveMobile($event)" routerLinkActive="list-item-active" routerLink="/dashboard/device">
+            <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-device"></mat-icon>
+            <p matLine ><a class="color_textnave my-mbl-nav-menu-text" >Asset</a></p>
+          </a>
+          <a mat-list-item *ngIf="UserRoleBase" (click)="toggleActiveMobile($event)" routerLinkActive="list-item-active" routerLink="/dashboard/signal">
+            <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-signal-list"></mat-icon>
+            <p matLine  ><a class="color_textnave my-mbl-nav-menu-text">Parameter</a></p>
+          </a>
+          <a  mat-list-item *ngIf="(UserRoleBase || signalCompareShow) && UsersRoleData?.customerId != 5" (click)="toggleActiveMobile($event)" routerLinkActive="list-item-active" routerLink="/dashboard/signaldata">
+            <!-- <span class="material-icons">home_outlined</span> -->
+            <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-signal-data"></mat-icon>
+            <p matLine ><a class="color_textnave my-mbl-nav-menu-text">ParameterDataView</a></p>
+            </a>
+            <a mat-list-item *ngIf="(UserRoleBase || signalCompareShow)  && UsersRoleData?.customerId != 5"  (click)="toggleActiveMobile($event)"  routerLinkActive="list-item-active" routerLink="/dashboard/compare">
+              <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-signal-compare"></mat-icon>
+              <p matLine ><a class="color_textnave my-mbl-nav-menu-text">Compare</a></p>
+            </a>
+
+            <a mat-list-item *ngIf="UserRoleBase && UsersRoleData?.customerId != 5 && UsersRoleData?.customerId != 11" (click)="toggleActiveMobile($event)"  routerLinkActive="list-item-active" routerLink="/dashboard/alarm">
+              <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-alarm"></mat-icon>
+              <p matLine ><a class="color_textnave my-mbl-nav-menu-text">Alarm</a></p>
+            </a>
+            <a mat-list-item *ngIf="UserRoleBase || signalCompareShow" (click)="toggleActiveMobile($event)"  routerLinkActive="list-item-active" routerLink="/dashboard/report">
+              <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-report"></mat-icon>
+              <p matLine ><a class="color_textnave my-mbl-nav-menu-text">Report</a></p>
+            </a>
+
+          <a mat-list-item *ngIf="UserRoleBase && UsersRoleData?.customerId != 5 && UsersRoleData?.customerId != 11" (click)="toggleActiveMobile($event)"  routerLinkActive="list-item-active" routerLink="/dashboard/certificate">
+            <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-certificate"></mat-icon>
+            <p matLine ><a class="color_textnave my-mbl-nav-menu-text">Certificate </a></p>
+          </a>
+
+          <a mat-list-item *ngIf="UserRoleBase && UsersRoleData?.customerId != 5 && UsersRoleData?.customerId != 11" (click)="toggleActiveMobile($event)" routerLinkActive="list-item-active" routerLink="/dashboard/map">
+            <!-- <span class="material-icons">home_outlined</span> -->
+            <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-map"></mat-icon>
+            <p matLine ><a class="color_textnave my-mbl-nav-menu-text">Map</a></p>
+            </a>
+            <a mat-list-item *ngIf="AdminRoleBase && UsersRoleData?.customerId != 5  && UsersRoleData?.customerId != 11" (click)="toggleActive($event)" routerLinkActive="list-item-active" routerLink="/dashboard/users">
+              <!-- <span class="material-icons">home_outlined</span> -->
+              <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-users"></mat-icon>
+              <p matLine ><a class="color_textnave my-mbl-nav-menu-text">Users</a></p>
+            </a>
+            <a mat-list-item *ngIf="UserRoleBase && UsersRoleData?.customerId == 11" (click)="toggleActive($event)" routerLinkActive="list-item-active"routerLink="/dashboard/userDashboards">
+              <!-- <span class="material-icons">home_outlined</span> -->
+              <mat-icon mat-list-icon class="my-mbl-nav-icon icon-dashboard-user-list hydac-user-dashboard-icon-alignment"></mat-icon>
+              <p matLine ><a class="color_textnave my-mbl-nav-menu-text user-dashboard-hydac">User Dashboards</a></p>
+            </a>
+            <!-- <a mat-list-item title="User Dashboards" *ngIf="UserRoleBase && UsersRoleData?.customerId == 11" (click)="toggleActive($event)" routerLinkActive="list-item-active" routerLink="/dashboard/userDashboards">
+              <mat-icon mat-list-icon class="icon-dashboard-user-list hydac-user-dashboard-icon-alignment"></mat-icon>
+              <span class="icont-bottom-title small-nav-menu-text hydac-user-dashboard-text" *ngIf="!isExpanded">User Dashboards</span>
+              <p matLine *ngIf="isExpanded ">User Dashboards</p>
+            </a> -->
+
+
+          <!-- <a mat-list-item (click)="toggleActiveMobile($event)" routerLinkActive="list-item-active" routerLink="/dashboard/groups">
+            <mat-icon mat-list-icon>group_work</mat-icon>
+            <p matLine><a class="color_textnave my-mbl-nav-menu-text">Group List</a></p>
+          </a> -->
+          <div class="powered-by-div">
+            <p class="powered-by-text">Powered by</p>
+            <img class="powered-by-elpis-logo" src="../../../assets/images/elpis_logo.png" />
+          </div>
+
+      </div>
+      <!-- <span >&#9776; open</span> -->
+    </span>
+    <mat-sidenav #sidenav class="example-sidenav  min-hight" mode="side" opened="true" *ngIf="sidenavshow">
+      <mat-nav-list class="dashboard">
+        <a mat-list-item (click)="sideNavExpand()">
+          <span >
+            <mat-icon class="dashboard-main-icon">menu</mat-icon>
+          </span>
+          <!-- <span (click)="isexpandedicon = !isexpandedicon"> <mat-icon>menu_open</mat-icon> </span> -->
+          <p matLine *ngIf="isExpanded"><a>Menu</a></p>
+        </a>
+        <a *ngIf="UsersRoleData?.customerId != 5 && dashboardShow " mat-list-item title="Dashboard" (click)="toggleActive($event)" routerLinkActive="list-item-active" routerLink="/dashboard">
+          <!-- <span class="material-icons">home_outlined</span> -->
+          <mat-icon mat-list-icon class="icon-dashboard"></mat-icon>
+          <span class="icont-bottom-title"  *ngIf="!isExpanded">Dashboard</span>
+          <p matLine *ngIf="isExpanded"><a class="color_textnave">Dashboard</a></p>
+          </a>
+          <a *ngIf="UsersRoleData?.customerId == 5" mat-list-item title="Pump  dashboard" (click)="toggleActive($event);pumpStatus()" routerLinkActive="list-item-active" routerLink="/dashboard">
+            <!-- <span class="material-icons">home_outlined</span> -->
+            <mat-icon mat-list-icon class="pupm-icon"></mat-icon>
+            <p matLine *ngIf="isExpanded"><a class="color_textnave">Pump dashboard</a></p>
+            </a>
+            <a *ngIf="UsersRoleData?.customerId == 5" mat-list-item title="Process dashboard" (click)="toggleActive($event);processStatus()" routerLinkActive="list-item-active" routerLink="/dashboard">
+              <!-- <span class="material-icons">home_outlined</span> -->
+              <mat-icon mat-list-icon class="process-icon"></mat-icon>
+              <p matLine *ngIf="isExpanded"><a class="color_textnave">Process dashboard</a></p>
+              </a>
+              <a *ngIf="UsersRoleData?.customerId == 5" mat-list-item title="Management dashboard" (click)="toggleActive($event);managementStatus()" routerLinkActive="list-item-active" routerLink="/dashboard">
+                <!-- <span class="material-icons">home_outlined</span> -->
+                <mat-icon mat-list-icon class="management-icon"></mat-icon>
+                <p matLine *ngIf="isExpanded"><a class="color_textnave">Management dashboard</a></p>
+                </a>
+
+          <a *ngIf="UsersRoleData?.customerId != 5 && UsersRoleData?.customerId != 11" mat-list-item data-toggle="tooltip" title="Group List" (click)="toggleActive($event)" routerLinkActive="list-item-active" routerLink="/dashboard/md/groups">
+            <mat-icon mat-list-icon class="icon-dashboard-group"></mat-icon>
+            <span class="icont-bottom-title"  *ngIf="!isExpanded">Group List</span>
+            <p matLine *ngIf="isExpanded">Group List</p>
+          </a>
+        <a mat-list-item title="Device" *ngIf="UserRoleBase && UsersRoleData?.customerId != 5 && UsersRoleData?.customerId != 11" (click)="toggleActive($event)" routerLinkActive="list-item-active" routerLink="/dashboard/device">
+          <mat-icon mat-list-icon class="icon-dashboard-device"></mat-icon>
+          <span class="icont-bottom-title small-nav-menu-text" *ngIf="!isExpanded">Device</span>
+          <p matLine *ngIf="isExpanded ">Device</p>
+        </a>
+        <a mat-list-item title="Device" *ngIf="UserRoleBase && UsersRoleData?.customerId == 11  " (click)="toggleActive($event)" routerLinkActive="list-item-active" routerLink="/dashboard/device">
+          <mat-icon mat-list-icon class="icon-dashboard-device"></mat-icon>
+          <span class="icont-bottom-title small-nav-menu-text" *ngIf="!isExpanded">Asset</span>
+          <p matLine *ngIf="isExpanded ">Asset</p>
+        </a>
+        <a mat-list-item title="Parameters List" *ngIf="UserRoleBase || (UsersRoleData?.customerId == 11 && UsersRoleData?.userRoleId == 4)" (click)="toggleActive($event)" routerLinkActive="list-item-active" routerLink="/dashboard/signal">
+          <mat-icon mat-list-icon class="icon-dashboard-signal-list"></mat-icon>
+          <span class="icont-bottom-title "  *ngIf="!isExpanded">Parameters </span>
+          <p matLine *ngIf="isExpanded ">Parameters List</p>
+        </a>
+
+        <a mat-list-item title="ParameterDataView " *ngIf="(UserRoleBase || signalCompareShow)  && UsersRoleData?.customerId != 5" (click)="toggleActive($event)"  routerLinkActive="list-item-active" routerLink="/dashboard/signaldata">
+          <mat-icon mat-list-icon class="icon-dashboard-signal-data"></mat-icon>
+          <span class="icont-bottom-title"  *ngIf="!isExpanded">DataView</span>
+          <p matLine *ngIf="isExpanded "><a>ParameterDataView</a></p>
+        </a>
+        <a mat-list-item title="Compare" *ngIf="(UserRoleBase || signalCompareShow) && UsersRoleData?.customerId != 5" (click)="toggleActive($event)"  routerLinkActive="list-item-active" routerLink="/dashboard/compare">
+          <mat-icon mat-list-icon class="icon-dashboard-signal-compare"></mat-icon>
+          <span class="icont-bottom-title compare-txt" *ngIf="!isExpanded">Compare</span>
+          <p matLine *ngIf="isExpanded "><a>Compare</a></p>
+        </a>
+
+          <a mat-list-item  title="Alarm" *ngIf="UserRoleBase && UsersRoleData?.customerId != 5 && UsersRoleData?.customerId != 11" (click)="toggleActive($event)" routerLinkActive="list-item-active"  routerLink="/dashboard/alarm">
+            <mat-icon mat-list-icon class="icon-dashboard-alarm"></mat-icon>
+            <span class="icont-bottom-title small-nav-menu-text" *ngIf="!isExpanded">Alarm</span>
+            <p matLine *ngIf="isExpanded ">Alarm</p>
+          </a>
+          <a mat-list-item  title="Report" *ngIf="UserRoleBase || signalCompareShow" (click)="toggleActive($event)" routerLinkActive="list-item-active"  routerLink="/dashboard/report">
+            <mat-icon mat-list-icon class="icon-dashboard-report"></mat-icon>
+            <span class="icont-bottom-title small-nav-menu-text"  *ngIf="!isExpanded">Report</span>
+            <p matLine *ngIf="isExpanded "><a>Report</a></p>
+          </a>
+
+        <a mat-list-item  title="Certificate" *ngIf="UserRoleBase && UsersRoleData?.customerId != 5 && UsersRoleData?.customerId != 11" (click)="toggleActive($event)" routerLinkActive="list-item-active"  routerLink="/dashboard/certificate">
+          <mat-icon mat-list-icon class="icon-dashboard-certificate"></mat-icon>
+          <span class="icont-bottom-title "  *ngIf="!isExpanded">Certificate</span>
+          <p matLine *ngIf="isExpanded "><a>Certificate </a></p>
+        </a>
+        <a mat-list-item title="Map" *ngIf="UserRoleBase && UsersRoleData?.customerId != 5 && UsersRoleData?.customerId != 11" (click)="toggleActive($event)" routerLinkActive="list-item-active" routerLink="/dashboard/map">
+          <!-- <span class="material-icons">home_outlined</span> -->
+          <mat-icon mat-list-icon class="icon-dashboard-map"></mat-icon>
+          <span class="icont-bottom-title map-txt"  *ngIf="!isExpanded">Map</span>
+          <p matLine *ngIf="isExpanded "><a class="color_textnave">Map</a></p>
+          </a>
+          <a mat-list-item title="Users" *ngIf="AdminRoleBase && UsersRoleData?.customerId != 5 && UsersRoleData?.customerId != 11" (click)="toggleActive($event);clearUser()" routerLinkActive="list-item-active" routerLink="/dashboard/users">
+            <!-- <span class="material-icons">home_outlined</span> -->
+            <mat-icon mat-list-icon class="icon-dashboard-users"></mat-icon>
+            <span class="icont-bottom-title map-txt"  *ngIf="!isExpanded">Users</span>
+            <p matLine *ngIf="isExpanded"><a class="color_textnave">Users</a></p>
+            </a>
+            <a mat-list-item title="User Dashboards" *ngIf="UserRoleBase && UsersRoleData?.customerId == 11" (click)="toggleActive($event)" routerLinkActive="list-item-active" routerLink="/dashboard/userDashboards">
+              <mat-icon mat-list-icon class="icon-dashboard-user-list hydac-user-dashboard-icon-alignment"></mat-icon>
+              <span class="icont-bottom-title small-nav-menu-text hydac-user-dashboard-text" *ngIf="!isExpanded">User Dashboards</span>
+              <p matLine *ngIf="isExpanded ">User Dashboards</p>
+            </a>
+            
+
+      </mat-nav-list>
+      <!-- <div class="powered-by-div">
+        <p class="powered-by-text">Powered by</p>
+        <img class="powered-by-elpis-logo" src="../../../assets/images/elpis_logo.png" />
+      </div> -->
+      <div *ngIf="isExpanded" class="powered-by-div">
+        <p class="powered-by-text">Powered by</p>
+        <img class="powered-by-elpis-logo" src="../../../assets/images/elpis_logo.png" />
+      </div>
+    </mat-sidenav>
+    <div class="example-sidenav-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-container>
+</div>

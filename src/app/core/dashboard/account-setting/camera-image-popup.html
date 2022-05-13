@@ -1,0 +1,38 @@
+<div class="container dialogsize">
+  <div class="row scroller">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <div>
+        <h2 class="Account_settingsbutton">Edit Profile Picture</h2>
+      </div>
+      <div class="close-icon">
+        <mat-icon class="mat-icon  material-icons mat-icon-no-color" matDialogClose aria-hidden="true" type="button">
+          close </mat-icon>
+      </div>
+    </div>
+    <div class="text-center  col-sm-12 col-md-12  col-xl-6 margin50">
+      <div class="privew-img1">
+        <img class="profile_picture2" [src]="croppedImage" />
+      </div>
+      <h3 class="prvw">Preview</h3>
+    </div>
+    <div class="text-center  col-sm-12 col-md-12  col-xl-6 margin50">
+      <div *ngIf="!cropImage" class="my-container1" appDnd (fileDropped)="onFileDropped($event)" >
+        <input type="file" #fileDropRef id="fileDropRef" (change)="fileChangeEvent($event)" accept="image/*" />
+        <h3 class="uploadheight">Drop file here</h3>
+        <h3>or</h3>
+        <label for="fileDropRef">Upload Image</label>
+      </div>
+
+      <div class="image-cropper-div" *ngIf="cropImage">
+        <image-cropper class="bor1px privew-img" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+        [cropperMinWidth]="256" [resizeToWidth]="300"  [resizeToHeight]="128"   
+        [format]="imageFormat" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+      </div>
+      <label> Maximum allowed size is 8kb. </label>
+    </div>
+
+  </div>
+  <button [ngClass]="croppedImage !='' ? 'add-device-btn':'apply-btn-disable'" (click)="apply()" class="apply-btn "
+    color="primary">Apply</button>
+</div>

@@ -1,0 +1,29 @@
+
+<div class="container-fluid">
+<div class="row">
+	<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pad-t-15">
+		<h2 class="popup-title">
+			Confirmation
+		</h2>
+		<div class="cancel-delete-popup-close-icon float-right" id="close-icon">
+			<mat-icon matDialogClose >close </mat-icon>
+		</div>
+	</div>
+
+	 
+</div>
+
+<mat-divider ></mat-divider>
+</div>
+
+<div class="confirmation-popup-content-div">
+	<p class="popup-content-txt" >	{{message}}</p>
+</div>
+
+<mat-dialog-actions  class="no-pad">
+	<div class="confirmation-dialog-btn-div">
+    	<button mat-raised-button mat-dialog-close tabindex="-1" class="confirmation-dialog-btn-no">{{cancelButtonText}}</button>
+     	<button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1" class="confirmation-dialog-btn-yes">{{confirmButtonText}}</button>
+    </div>
+</mat-dialog-actions>
+ 

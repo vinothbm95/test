@@ -1,0 +1,15 @@
+<ejs-circulargauge height="{{height}}" width="{{width}}"(load)='load($event)'  id='{{ind}}' style='display:block;'>
+    <e-axes>
+        <e-axis [lineStyle]='lineStyle' [majorTicks]='majorTicks' [minorTicks]='minorTicks' radius='80%'
+            [labelStyle]='labelStyle' minimum="{{sensorMin}}" maximum="{{sensorMax}}" startAngle=210 endAngle=150 [ranges]='ranges'
+            [pointers]='pointers'>
+        </e-axis>
+    </e-axes>
+</ejs-circulargauge>
+<!-- <div class="signal-value-div">
+    <p class="signal-value">65</p>
+    -- {{pointers[0]?.value}} --
+</div> -->
+  <!-- <div class="signal-name-div">
+        <P class="signal-name">Signal 1</P>
+  </div> -->

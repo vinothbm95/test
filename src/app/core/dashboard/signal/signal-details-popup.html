@@ -1,0 +1,100 @@
+    <div class="container" *ngIf="!showSignal">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="popup-title">Parameter details </h2>     
+                <div class="delete-popup-close-icon" id="close-icon">
+                   <mat-icon matDialogClose >close </mat-icon>
+                </div>
+            </div>
+        <div class="col-12 margin-bottom-10">
+            <mat-divider ></mat-divider>
+        </div>
+    </div>    
+  
+    
+    <div class="form-fields-div col-12 no-pad">
+        <div class="row add-sigal-content-div-scroll">
+            <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+                <p  class="details-popup-title">Device ID</p>
+                <p class="details-popup-data-txt">{{tabledata?.signalModel?.deviceId}}</p>
+            </div>           
+            <div *ngFor="let header of headerdata" class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+               <p class="details-popup-title" *ngIf="!header.signalThresholdModels">{{header.title}}</p> 
+               <p *ngIf="!header.slidetogglekey  && !header.addressTypeKey && 
+                         !header.bitPositionKey && !header.signalModel && !header.signalThresholdModels" class="details-popup-data-txt">
+                         {{tabledata[header.name] == null ? "N/A" : tabledata[header.name]}}</p>
+
+                 <p *ngIf="header.signalModel" class="details-popup-data-txt"> 
+                 {{tabledata[header.key][header.name] == null ? "N/A" : tabledata[header.key][header.name] }}</p>
+                 <p *ngIf="header.bitPositionKey && tabledata?.signalBitModel != null" class="details-popup-data-txt"> 
+                    {{tabledata[header.key][header.name] == null ? "N/A" : tabledata[header.key][header.name] }}</p>
+                    <p *ngIf="header.bitPositionKey && tabledata?.signalBitModel == null" class="details-popup-data-txt"> 
+                       N/A</p>
+                <p *ngIf="header.slidetogglekey" class="details-popup-data-txt"> 
+                    <span *ngIf="tabledata[header.key][header.name] == true">Yes</span>
+                    <span *ngIf="tabledata[header.key][header.name] == false">No</span>
+                </p>
+             </div>
+
+             <div class="col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10">
+                 <div class="row">
+                     <div  class="col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10 ">
+                        <h2 class="thereshold-heading">Threshold Range</h2>
+                     </div>
+            <div class="col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12  ">
+                <div class="row bottom-line" *ngFor="let threshold of tabledata.signalThresholdModels">
+                <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+                    <p class="details-popup-title">Threshold value</p>
+                    <p class="details-popup-data-txt">{{threshold.thresholdValue}}</p>
+                </div>
+                <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+                    <p class="details-popup-title">Alert message</p>
+                    <p class="details-popup-data-txt">{{threshold?.alertMessage == null ? 'N/A': threshold?.alertMessage}}</p>
+                </div>
+                <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+                    <p class="details-popup-title">Threshold color</p>
+                    <p class="details-popup-data-txt" [style.background-color]="threshold?.thresholdColor">{{threshold.thresholdColor == null ? 'N/A':threshold?.thresholdColor}}</p>
+                </div>
+                <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+                    <p class="details-popup-title">Alert required</p>
+                    <p class="details-popup-data-txt">{{threshold?.alertRequired == true ? 'Yes':'No'}}</p>
+                </div>
+                <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+                    <p class="details-popup-title">Email</p>
+                    <p class="details-popup-data-txt">{{threshold?.isEmail == true ? 'Yes':'No'}}</p>
+                </div>
+                <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+                    <p class="details-popup-title">Audio</p>
+                    <p class="details-popup-data-txt">{{threshold?.isAudio == true ? 'Yes':'No'}}</p>
+                </div>
+                <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+                    <p class="details-popup-title">SMS</p>
+                    <p class="details-popup-data-txt">{{threshold?.isSms == true ? 'Yes':'No'}}</p>
+                </div>
+                <div class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+                    <p class="details-popup-title">isAlertRange</p>
+                    <p class="details-popup-data-txt">{{threshold?.isAlertRange == true ? 'Yes':'No'}}</p>
+                </div>
+            </div>
+            <div class="no-devices" *ngIf="tabledata.signalThresholdModels?.length == 0">
+                there is no threshold range values
+              </div>
+            </div>
+              </div>
+            </div>  
+             
+
+        <div class=" col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10 pad-b-50 ">
+            <div class="add-signal-btn-div">
+                <button  matDialogClose mat-raised-button class="buttoncolor my-mbl-select-device-btn add-device-btn edit-popup-apply-btn" color="primary">Close</button>
+            </div>
+        </div>
+  
+    </div><!--row end tag-->
+    </div><!--main 12 col end tag-->
+ 
+
+
+
+</div><!--container end tag-->
+<ngx-loading [show]="showSignal" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>  

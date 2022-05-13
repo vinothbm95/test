@@ -1,0 +1,105 @@
+<div class="content-container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="popup-title">
+                Clone Device
+            </h2>
+            <div class="delete-popup-close-icon" id="close-icon">
+                <mat-icon matDialogClose>close </mat-icon>
+            </div>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+</div>
+<div class="add-sigal-content-div-scroll">
+<div class="cpadding" [formGroup]="CloneDeviceFormgroup">
+    <div class="row">
+        <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+            <p class="clone-header mbl-mb0-p0">Device Id</p>
+        </div>
+        <div class="col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <div class="example-form" >
+                <mat-form-field class="example-full-width width-100">
+                    <input matInput [(ngModel)]="CloneModal"  formControlName="NewDeviceIdFormgroup"
+                        (ngModelChange)="valuechange($event)" maxlength="40">
+                    <mat-error *ngIf="CloneDeviceFormgroup.controls['NewDeviceIdFormgroup'].touched && !ispresent ">
+                        Enter proper Device Id
+                    </mat-error>
+                    <mat-error
+                        *ngIf="CloneDeviceFormgroup.controls.NewDeviceIdFormgroup.errors!=null && CloneDeviceFormgroup.controls.NewDeviceIdFormgroup.errors.incorrect">
+                        {{CloneModal}} already exists
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+            <p class="clone-header mbl-mb0-p0">Device Name</p>
+        </div>
+        <div class="col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <div class="example-form" >
+                <mat-form-field class="example-full-width width-100">
+                    <input matInput [(ngModel)]="DeviceNameC" formControlName="C_deviceName" maxlength="40">
+                    <mat-error *ngIf="CloneDeviceFormgroup.controls['C_deviceName'].touched ">
+                       Enter Device Name
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+            <p class="clone-header mbl-mb0-p0">Device Description</p>
+        </div>
+        <div class="col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <div class="example-form" >
+                <mat-form-field class="example-full-width width-100">
+                    <input matInput [(ngModel)]="DeviceDescriptionC" formControlName="C_devicedesc" maxlength="150">  
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+            <p class="clone-header mbl-mb0-p0">Place of Installation</p>
+        </div>
+        <div class="col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <div class="example-form" >
+                <mat-form-field class="example-full-width width-100">
+                    <input matInput [(ngModel)]="InstallationPlace" formControlName="InstallationLocation" maxlength="40">
+                    <mat-error *ngIf="CloneDeviceFormgroup.controls['InstallationLocation'].touched ">
+                       Enter Place of Installation
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+            <p class="clone-header mbl-mb0-p0">City</p>
+        </div>
+        <div class="col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <div class="example-form" >
+                <mat-form-field class="example-full-width width-100">
+                    <input matInput [(ngModel)]="InstallationCity" formControlName="InstallationCityLocation" maxlength="40">
+                    <mat-error *ngIf=" CloneDeviceFormgroup.controls['InstallationCityLocation'].invalid && CloneDeviceFormgroup.controls['InstallationCityLocation'].touched ">
+                        Enter City Name
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="">
+    <button matDialogClose class="delete-popup-cancel-btn">Cancel</button>
+    <button class="delete-popup-delete-btn" [disabled]="!CloneDeviceFormgroup.valid "
+        (click)="CloneDevice()" >Add</button>
+</div>
+
+<ngx-loading [show]="showloader" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

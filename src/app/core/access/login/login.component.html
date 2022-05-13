@@ -1,0 +1,39 @@
+<div class="row col-md-12 login-main my-row">
+   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 no-pad login-img">
+       <elpis-rms-cover-patch></elpis-rms-cover-patch>
+   </div>
+   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 no-pad">
+     <div class="container col-md-8 offset-md-2">
+       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form col-md-12">
+          <div>
+             <img class="elpis-logo x-auto d-block" src="assets/images/elpis_logo.png" alt="Card image cap">
+          </div>
+          <p class="text-secondary">Welcome back! Please login to your account.</p>
+           <mat-form-field class="form-element">
+             <input matInput placeholder="Email" formControlName="email">
+              <mat-error *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">
+                {{ getErrorEmail() }}
+              </mat-error>
+           </mat-form-field>
+            <mat-form-field  class="form-element">
+              <input type="password" matInput placeholder="Password" formControlName="password">
+              <mat-error *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
+                {{ getErrorPassword() }}
+              </mat-error>
+            </mat-form-field>
+            <!-- <div class="form-element row">
+              <div class="col-md-12 pointer">
+                <mat-radio-button value="">Use active directory authentication</mat-radio-button>
+              </div>
+            </div> -->
+            <div class="f row">
+              <div class="col-md-12 pointer">
+                <button mat-raised-button color="primary" type="submit" class="button pointer login-btn"
+                   [disabled]="!loginForm.valid" [ngClass]="loginForm.valid?'login_button':''">Login</button>
+              </div>
+            </div>
+        </form>
+     </div>
+  </div>
+    <ngx-loading [show]="showLogin" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>  
+</div>

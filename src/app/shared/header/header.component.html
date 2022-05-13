@@ -1,0 +1,160 @@
+<!-- <div style="padding-left:50px;">
+    <button mat-button [center-mat-menu]="menuTrigger">Menu
+    
+      </button>
+    <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu3">
+    <mat-menu #menu3="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+    </div>
+    </div> -->
+
+<mat-toolbar class="example-toolbar">
+
+    <div class="row rowheader col-12 pad_trh">
+        <div class="headercs col-xl-6 col-md-5 col-sm-12 col-12  pad_0 pad_10 width_50 displayflex">
+            <!-- <mat-icon style="font-size:30px;cursor:pointer" (click)="openNav()" >menu</mat-icon> -->
+            <mat-icon *ngIf="sidenavshowmobile" class="open-mbl-menu-icon mbl-header-icon" (click)="sidenavmenu()">menu</mat-icon>
+            <div class="header-logo-div header-logo-div-mbl ">
+                <img class="header-logo-img" [src]="dashboardservice.headerurl" />
+            </div>
+            <p *ngIf="rmsAct?.customerId != 5" class="mar_l10 my-sub-heading mbl-heading">Remote Monitoring System</p>
+            <p *ngIf="rmsAct?.customerId == 5" class="mar_l10 my-sub-heading mbl-heading">Remote Monitoring System <span class="skid-text">( Chemical Injection Skid )</span> </p>
+          
+        </div>
+
+        <div class=" headercs2 col-xl-6 col-md-7 col-sm-12 col-12 pad_0 width_50 ipad-displayflex">
+            
+            <div style="display: inline-flex;" class="width12">
+
+                <div class="martr" *ngIf="rmsAct?.customerId != 11">
+
+                    <span [matMenuTriggerFor]="inactiveDevice" matTooltip ="Inactive Device">
+                        <img *ngIf="dashboardservice.inactiveDeviceData?.length == 0" class="ptnimg" style="width: 70%;" src="../../../assets/images/inactive_device-02.png">
+                        <img *ngIf="dashboardservice.inactiveDeviceData?.length > 0" class="ptnimg" style="width: 70%;" src="../../../assets/images/inactive_device-03.png">
+
+                     
+
+                    </span>
+                    <mat-menu #inactiveDevice="matMenu" class="inactive-div">
+                        <p class="inactive-heading">Inactive device list</p>
+                        <div class="table-main-div">
+                            <table>
+                                <thead>
+                                 <tr>
+                                  <th scope="col">
+                                      <div class="thead-th-div">Device ID</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="thead-th-div">Device name</div>
+                                      </th>
+                       
+                                 </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let item of dashboardservice.inactiveDeviceData">
+                                   <td data-label="" [attr.data-label]="">
+                                      <div class="tbody-td-div ">{{item.deviceId}}</div>
+                                    </td>
+                                    <td data-label="" [attr.data-label]="">
+                                        <div class="tbody-td-div ">{{item.deviceName}}</div>
+                                    </td>
+                                 </tr>
+                                    <!-- <tr *ngIf="inactiveDeviceData?.length == 0">
+                                        <td >No Data</td>
+                                    </tr>       -->
+                                </tbody>
+                               </table>   
+                               <div class="no-data-inactive" *ngIf="dashboardservice.inactiveDeviceData?.length == 0">No Inactive device</div>                    
+                        </div>
+                        
+
+                    </mat-menu>
+
+
+                </div>
+
+
+
+            </div>
+
+            <div style="display: inline-flex;" *ngIf="rmsAct?.customerId == 5">
+
+                <div class="martr">
+
+                    <span [matMenuTriggerFor]="menu1">
+                        <img *ngIf="emergencystop" class="ptnimg mbl-ptnimg" style="width: 70%;" src="../../../assets/images/red_bell_not.png">
+                        <img *ngIf="!emergencystop" class="ptnimg mbl-ptnimg" src="../../../assets/images/u_yellow_bell.png">
+
+                    </span>
+                    <mat-menu #menu1="matMenu" class="pointer ">
+
+                        <!-- <div class="arrow">
+                        </div> -->
+                       
+
+                        <div *ngIf="emergencystop">
+                            <span class="imgst">
+                                <img class="emerg"
+                                    src="../../../assets/images/Petronash__Dashboard_Images/rms__emergency.png">
+                                <span class="skid"> Skid is in stop condition
+                                    <!-- <button mat-raised-button color="primary">Respond</button> -->
+                                </span>
+                            </span>
+                        </div>
+
+                        <div *ngIf="!emergencystop">
+                            <span class="imgst">
+                                <img class="emerg"
+                                    src="../../../assets/images/Petronash__Dashboard_Images/rms__off.png">
+                                <span class="skid1"> Skid is in start condition
+                                    <!-- <button mat-raised-button color="primary">Respond</button> -->
+                                </span>
+                            </span>
+                        </div>
+
+
+
+                    </mat-menu>
+
+
+                </div>
+
+
+
+            </div>
+
+
+            <div  class="licesst mbl-experydate-width" >
+                <p *ngIf="licenseAct!=null && licenseAct.isLicensed && rmsAct?.customerId != 5" class="expireDate">Expiry Date :
+                    {{licenseAct.expiryDate| date}}</p>
+                <p *ngIf="licenseAct!=null && !licenseAct.isLicensed" class="expireDate">Trail Duration : <span
+                        class="text-danger">{{trailDownCount}}</span> Hr</p>
+
+            </div>
+            <div class="headercs1">
+                <img class="img-profile" [src]="dashboardservice.profileUrl" />
+                <div class=" martr">
+
+                    <p *ngIf="rmsAct != null" class="marr10px my-sub-heading mbl-headerwidth">Hello {{rmsAct?.firstName}}</p><span
+                        [matMenuTriggerFor]="menu" class="pointer material-icons pad_5 mbl-icon-dropdown">
+                        keyboard_arrow_down</span>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item routerLink="/dashboard/accountsetting">
+                            <span>Account setting</span>
+                        </button>
+                        <!-- <button *ngIf="rmsAct?.customerId != 5" mat-menu-item>
+                            <span>Privacy Policy</span>
+                        </button> -->
+                        <button mat-menu-item (click)="logoutRms()">
+                            <span>Logout</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <span class="example-fill-remaining-space"></span> -->
+</mat-toolbar>

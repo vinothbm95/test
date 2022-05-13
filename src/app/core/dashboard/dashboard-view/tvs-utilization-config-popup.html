@@ -1,0 +1,108 @@
+<div class="container custom-mat-dialog-container">
+ 
+    <div class="row mb-4">
+   
+      <div class="col-10">
+        <h2 class="popup-title">Configuration Parameters</h2>      
+      </div>
+   
+      <div class="col-2 delete-popup-close-icon d-flex justify-content-end" id="close-icon">
+        <mat-icon matDialogClose>close</mat-icon>
+      </div>
+   
+      <div class="col-12">
+        <mat-divider></mat-divider>
+      </div>
+   
+    </div>
+   
+    
+    <form  class="row mr-t-10" [formGroup]="tvsUtilizationConfigForm" >
+      <!-- [formGroup]="petronashDashboardForm" -->
+            
+      <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+        
+        <div class="example-form">
+          
+          <mat-form-field class="example-full-width full-width">
+            
+            <mat-label>Total Working Hour</mat-label>
+            
+            <input matInput placeholder="Total Working Hour"  formControlName="totalWorkingHour">
+            
+            <mat-error *ngIf="!totalWorkingHour.valid && totalWorkingHour.touched">
+              Total Working Hour is required
+            </mat-error>
+   
+          </mat-form-field>
+   
+        </div>
+   
+      </div>
+     
+      <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+        
+        <div class="example-form">
+          
+          <mat-form-field class="example-full-width full-width">
+            
+            <mat-label>Number Of Shift</mat-label>
+            
+            <input matInput placeholder="Number Of Shift"  formControlName="noOfShift">
+            
+            <mat-error *ngIf="!noOfShift.valid && noOfShift.touched">
+             Number Of Shift is required
+            </mat-error>
+   
+          </mat-form-field>
+   
+        </div>
+   
+      </div>  
+            
+      <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+        
+        <div class="example-form">
+          
+          <mat-form-field class="example-full-width full-width">
+            
+            <mat-label>Utilization Update Interval</mat-label>
+            
+            <input matInput placeholder="Utilization Update Interval"  formControlName="utilizationUpdateInterval">
+            
+            <mat-error *ngIf="!utilizationUpdateInterval.valid && utilizationUpdateInterval.touched">
+              Utilization Update Interval is required
+            </mat-error>
+   
+          </mat-form-field>
+   
+        </div>
+   
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+        <div class="example-form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Utilization Update Interval Unit</mat-label>
+                    <mat-select formControlName="utilizationUpdateIntervalUnit">
+                      <mat-option  *ngFor="let signals of utilizationUpdateIntervalUnitData" [value]="signals">
+                        {{signals}} 
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="!utilizationUpdateIntervalUnit.valid && utilizationUpdateIntervalUnit.touched">
+                        Utilization Update Interval Unit is required
+                    </mat-error>
+                  </mat-form-field>
+           </div>
+         </div>
+
+   
+
+   
+    </form>
+   
+  </div>
+  <button  class="process-popup-apply-btn width-full pupm-reset-btn buttoncolor
+   my-mbl-select-device-btn mat-focus-indicator mat-raised-button mat-button-base mat-primary" (click)="updateConfig()">
+    Update
+  </button>
+  <ngx-loading [show]="tvsConfigShow" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

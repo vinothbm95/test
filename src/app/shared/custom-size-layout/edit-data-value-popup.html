@@ -1,0 +1,97 @@
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="popup-title">
+                Edit Data Value
+               <!-- Signal Level Configuration -->
+            </h2>
+            <div class="delete-popup-close-icon" id="close-icon">
+                <mat-icon matDialogClose >close </mat-icon>
+            </div>
+        </div>
+        <div class="col-12 margin-bottom-10">
+            <mat-divider ></mat-divider>
+        </div>
+    </div>    
+
+
+
+    <div class="form-fields-div col-12 no-pad"> 
+        <form [formGroup]="editDatapasswordForm" (ngSubmit)="editdataSubmit()"> 
+        <div class="row" *ngIf="!writeShow">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <p class="sub-text-passwpord">Enter password to write to this PLC Address</p>
+
+                <mat-form-field class="form-element example-full-width margin-top-10"
+                                            >
+                                            <input matInput placeholder="Please Enter Your Password"
+                                                [type]="hide4 ? 'password' : 'text'" formControlName="confirmPassword">
+                                            <button mat-icon-button matSuffix (click)="hide4 = !hide4"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide4">
+                                                <mat-icon>{{hide4 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error *ngIf="(!confirmPassword.valid && confirmPassword.touched)">Please enter password</mat-error>
+                        </mat-form-field>
+            </div> 
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <button [disabled]="!editDatapasswordForm.valid" class="btn btn-primary float-right margin-top-10" (click)="getSignalWriteValidate()">Submit</button>
+            </div> 
+        </div>
+        </form>
+        <!-- *ngIf="editDatavalForm.controls['confirmPassword'].valid" -->
+      <div class="row add-sigal-content-div-scroll" *ngIf="writeShow">
+        <form class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-pad" [formGroup]="editDatavalForm" (ngSubmit)="editdataSubmit()"> 
+          <div  class="col-12 mol-sm-12 col-md-6 col-xl-4 col-lg-4 pad-10 my-float-left">
+                       <p class="details-popup-title">Start range</p> 
+                       <p  class="details-popup-data-txt">{{data?.signalModel?.signalStartRange}}</p>
+          </div>
+          <div  class="col-12 mol-sm-12 col-md-6 col-xl-4 col-lg-4 pad-10 my-float-left">
+                       <p class="details-popup-title">End range</p> 
+                       <p  class="details-popup-data-txt">{{data?.signalModel?.signalEndRange}}</p>
+          </div>
+          <div  class="col-12 mol-sm-12 col-md-6 col-xl-4 col-lg-4 pad-10 my-float-left">
+            <p class="details-popup-title">Parameter data type</p> 
+            <p  class="details-popup-data-txt">{{signalDatatypeVal?.signalDataTypeName}}</p>
+          </div>
+           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pad-10 my-float-left">    
+              <!-- <div  class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10"> -->
+                            
+                                <mat-form-field class="example-full-width col-md-12 no-pad">
+                                    <input matInput placeholder="Edit Datavalue"  formControlName="dataValue" >
+                                    <!-- [readonly]="(editDatavalForm.value.confirmPassword == null || editDatavalForm.value.confirmPassword == '' || editDatavalForm.controls['confirmPassword'].errors?.MatchPassword)"
+                                        <mat-error *ngIf="(editDatavalForm.value.confirmPassword !== null && editDatavalForm.value.confirmPassword !== '' && !editDatavalForm.controls['confirmPassword'].errors?.MatchPassword)"> -->
+                                        
+                                        <!-- <div *ngIf="!dataValue.valid && dataValue.touched">Please Enter datavalue</div>
+                                        <div *ngIf="!dataValue.valid && dataValue.touched && !dataValue.errors?.min">
+                                            Please Enter min
+                                        </div>
+                                        <div *ngIf="!dataValue.valid && dataValue.touched && !dataValue.errors?.max">
+                                            Please Enter max
+                                        </div> -->
+                                        <mat-error *ngIf="(!dataValue.valid && dataValue.touched)">{{getErrorDataval()}}</mat-error>
+                                    <!-- </mat-error> -->
+                                    
+                                  </mat-form-field>
+                         
+              </div>
+               <div class=" col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 no-pad ">
+                <div class="popup-bottom-btn-div" >
+                    <button matDialogClose class="delete-popup-cancel-btn" >Cancel</button>
+                    <button [disabled]="!editDatavalForm.valid"  mat-raised-button 
+                    (click)="pumpSlide(data)" 
+                    class="delete-popup-cancel-btn delete-popup-delete-btn  btn-primary"  color="">Write to PLC</button>
+                </div>
+               </div>
+           <!-- </div> -->
+           </form> 
+      </div>
+   
+   </div>
+</div>
+
+

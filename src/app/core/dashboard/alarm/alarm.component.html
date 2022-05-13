@@ -1,0 +1,124 @@
+<div class="contaner-root">
+  <div class="row virtual-scroll-header-alignment-device">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 dashboard ">
+         <p class="heading-txt">Alarm</p> 
+          <button (click)="AddAlarmPopup('add','')" mat-raised-button routerLinkActive="list-item-active"
+              class="buttoncolor my-mbl-select-device-btn add-device-btn float-l mbl-width100" 
+              color="primary">Add Alarm <mat-icon>library_add</mat-icon>
+          </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 padding-head mar_top10px">
+      <mat-card class=" my-Report-title-div-height mycard">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-20">
+              <div class="global-search-div">
+                   <mat-form-field class="mbl-content-width-100 my-search-width ipad-width100">
+                      <mat-icon matSuffix>search</mat-icon>
+                     <input [(ngModel)]="SearchModal" autocomplete="off" name="Search"  matInput type="search" placeholder="search here" class="search-input">
+                   </mat-form-field>
+              </div>                   
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-20 no-pad">     
+             <div class="pagination-block-top col-12 col-sm-12 col-md-12">
+                <div class="items-per-page-div ipad-width100">
+                   <mat-form-field class="chart-view-dropdown mbl-content-width-100 ipad-width100">
+                      <mat-label>Items per page</mat-label>
+                      <mat-select  [(ngModel)]="itemVal">
+                          <mat-option (click)="itemsperpage(val1.value)" #val1 [value]="'5'">5</mat-option>
+                          <mat-option (click)="itemsperpage(val2.value)" #val2 [value]="'10'">10</mat-option>
+                          <mat-option (click)="itemsperpage(val3.value)" #val3 [value]="'20'">20</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                </div>
+                <elpis-rms-pagination *ngIf="paginationShow" [config]="config"></elpis-rms-pagination>     
+            </div>
+         </div>
+       </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="contaner-root">
+  <!-- table main div start from here-->
+  <div class="table-main-div">
+     <table>
+        <thead>
+          <tr>
+            <th *ngFor="let header of TableHeader" scope="col">
+               <div class="thead-th-div">{{header.title}}</div>
+            </th>
+            <th scope="col" class="my-last-th my-last-th-width">
+                <div class="thead-th-last-sticky-div">
+                  <div class="details-th-div">preview</div>
+                  <div class="details-th-div">copy</div>
+                  <div class="edit-th-div">Edit</div>
+                  <div class="delete-th-div"> Delete</div>
+               </div>
+            </th>
+          </tr>
+       </thead>
+      <tbody>
+        <tr *ngFor="let item of alarmData | filter: SearchModal | paginate: config ? config : '' ; let i = index ">
+          <td *ngFor="let header of TableHeader" [attr.data-label]="header.title">
+            <div class="tbody-td-div ">{{item[header.key][header.name]}}</div>
+          </td>
+          <td data-label="" class="action-th my-last-td-width">
+            <div class="tbody-td-last-sticky-div ">
+              <div class="details-td-div" matTooltip="preview">
+                <button class="action-btn" (click)="AlarmDetailsPopup(item)">
+                  <span class="material-icons action-span-icon">preview</span>
+                </button>
+              </div>
+              <div class="details-td-div" matTooltip="copy">
+                <button (click)="copyRow(item)" class="action-btn">
+                  <span class="material-icons action-span-icon">copy_all</span>
+                </button>
+              </div>
+              <div class="edit-th-div" matTooltip="Edit">
+                <button (click)="AddAlarmPopup('edit',item)" class="action-btn">
+                  <span class="material-icons action-span-icon">create</span>
+                </button>
+              </div>
+              <div class="delete-th-div" matTooltip="Delete">
+                <button (click)="AlarmDeletePopup(item,i)" class="action-btn">
+                  <span class="material-icons action-span-icon">delete</span>
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--bottom pagination div starts from here-->
+    <div class="global-action-main-div-bottom">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20  padding-head ">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-20">
+            <div class="items-per-page-div-bottom ipad-width100">
+              <mat-form-field class="chart-view-dropdown mbl-content-width-100 ipad-width100">
+                <mat-label>Items per page</mat-label>
+                  <mat-select  [(ngModel)]="itemVal">
+                    <mat-option (click)="itemsperpage(val1.value)" #val1 [value]="'5'">5</mat-option>
+                    <mat-option (click)="itemsperpage(val2.value)" #val2 [value]="'10'">10</mat-option>
+                    <mat-option (click)="itemsperpage(val3.value)" #val3 [value]="'20'">20</mat-option>
+                  </mat-select>
+               </mat-form-field>
+             </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 mt-20 no-pad">
+            <div class="pagination-block col-12 col-sm-12 col-md-12">
+              <elpis-rms-pagination *ngIf="paginationShow" [config]="config"></elpis-rms-pagination>     
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--bottom pagination div End  here-->
+  </div>
+  <!-- table main div end  here-->
+  <ngx-loading [show]="showAlarm" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>  
+</div>
+
+<!--main container end -->

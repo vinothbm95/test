@@ -1,0 +1,25 @@
+<div class="content-container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="popup-title">
+                Confirmation
+            </h2>
+            <div class="delete-popup-close-icon" id="close-icon">
+                <mat-icon (click)="dialogRef.close({data:false})">close </mat-icon>
+            </div>
+        </div>
+
+    </div>
+    <mat-divider></mat-divider>
+
+</div>
+
+<div class=" popup-content-div ">
+    <p class="popup-content-txt ">Are you sure you want to {{StatusContext == 1 ? 'Inactive':'active'}} the user {{firstname}}  {{lastname}}</p>
+    <!-- {{currentdata?.name}} -->
+</div>
+
+<div class="popup-bottom-btn-div ">
+    <button (click)="dialogRef.close({data:false}) " class="delete-popup-cancel-btn ">Cancel</button>
+    <button class="delete-popup-delete-btn " (click)="activeuser() ">{{StatusContext == 1 ? 'Inactive':'active'}}</button>
+</div>

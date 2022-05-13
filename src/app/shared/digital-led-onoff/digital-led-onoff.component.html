@@ -1,0 +1,105 @@
+
+<!-- Switch ON by default div start here -->
+<div *ngIf="(signalDataType == 1) && (signalName != 'Comp. Running' && signalName != 'Comp. Auto Started' && signalName != 'Comp. Auto Stopped' && signalName != 'Air Comp. Motor Trip or MPCB OFF' && signalName != 'Instrument Air Pressure Low (PS)')" class="text-center"  [style.height.px]="divheight">
+    <img src="../../../assets/images/led-green.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch ON by default div end here -->
+
+<!-- Switch OFF by default div start here -->
+<div *ngIf="(signalDataType == 0) && (signalName != 'Comp. Running' && signalName != 'Comp. Auto Started' && signalName != 'Comp. Auto Stopped' && signalName != 'Air Comp. Motor Trip or MPCB OFF' && signalName != 'Instrument Air Pressure Low (PS)')" class="text-center"  [style.height.px]="divheight" > 
+    <img src="../../../assets/images/led-red.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch OFF by default div end here -->
+
+
+
+<!-- Switch ON by  div start here -->
+<div *ngIf="signalDataType == 1 && signalName == 'Comp. Running'" class="text-center"  [style.height.px]="divheight">
+    <img src="../../../assets/images/led-green.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch ON div end here -->
+
+
+<!-- Switch OFF div start here -->
+<div *ngIf="signalDataType == 0 && signalName == 'Comp. Running'" class="text-center"  [style.height.px]="divheight" > 
+    <img src="../../../assets/images/led-red.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch OFF div end here -->
+
+
+
+
+<!-- Switch OFF div start here -->
+
+<div *ngIf="signalDataType == 1 && signalName == 'Comp. Auto Started'" class="text-center"  [style.height.px]="divheight">
+    <img src="../../../assets/images/led-green.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch ON div end here -->
+
+<!-- Switch OFF div start here -->
+<div *ngIf="signalDataType == 0 && signalName == 'Comp. Auto Started'" class="text-center"  [style.height.px]="divheight" > 
+    <img src="../../../assets/images/led-gray.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch OFF div end here -->
+
+
+<!-- Switch OFF div start here -->
+
+<div *ngIf="signalDataType == 1 && signalName == 'Comp. Auto Stopped'" class="text-center"  [style.height.px]="divheight">
+    <img src="../../../assets/images/led-amber.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch ON div end here -->
+
+<!-- Switch OFF div start here -->
+<div *ngIf="signalDataType == 0 && signalName == 'Comp. Auto Stopped'" class="text-center"  [style.height.px]="divheight" > 
+    <img src="../../../assets/images/led-gray.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch OFF div end here -->
+
+
+
+
+
+
+<!-- Switch OFF div start here -->
+
+<div *ngIf="signalDataType == 1 && signalName == 'Air Comp. Motor Trip or MPCB OFF'" class="text-center"  [style.height.px]="divheight">
+    <img src="../../../assets/images/led-red.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch ON div end here -->
+
+<!-- Switch OFF div start here -->
+<div *ngIf="signalDataType == 0 && signalName == 'Air Comp. Motor Trip or MPCB OFF'" class="text-center"  [style.height.px]="divheight" > 
+    <img src="../../../assets/images/led-gray.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch OFF div end here -->
+
+
+
+<!-- Switch OFF div start here -->
+
+<div *ngIf="signalDataType == 1 && signalName == 'Instrument Air Pressure Low (PS)'" class="text-center"  [style.height.px]="divheight">
+    <img src="../../../assets/images/led-red.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch ON div end here -->
+
+<!-- Switch OFF div start here -->
+<div *ngIf="signalDataType == 0 && signalName == 'Instrument Air Pressure Low (PS)'" class="text-center"  [style.height.px]="divheight" > 
+    <img src="../../../assets/images/led-gray.png" class="" [style.height.px]="imgheight">
+</div>
+<!-- Switch OFF div end here -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="signal-name">signal-name</div> -->
+<!-- Artboard – 2 -->
+<!-- [ngClass]="(grid3 && ind == 3) || (grid1 && ind == 4) ? 'img-div1':'img-div'"
+  [ngClass]="(grid3 && ind == 3) || (grid1 && ind == 4) ? 'digital-switch-img1':'digital-switch-img'"-->

@@ -1,0 +1,139 @@
+
+
+
+
+   <div class="contaner-root" *ngIf="!showSignal">
+    <div class="virtual-scroll-header-alignment-device">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 dashboard heading-col">
+            <p class="signalheading-txt" *ngIf="!AddSignalShow">Parameters List</p>
+            <p class="heading-txt heading-text-width mbl-mb5" *ngIf="AddSignalShow">
+                <span class="back-arrow-button"  >
+                    <mat-icon class="back-arrow" routerLink="/dashboard/device" matTooltip ="Back">keyboard_backspace</mat-icon>
+                </span> Parameters 
+            </p>
+            <button *ngIf="AddSignalShow" (click)="AddSignalPopup()" mat-raised-button routerLinkActive="list-item-active" 
+             class="buttoncolor my-mbl-select-device-btn add-device-btn width100" color="primary">Add Parameter <mat-icon>library_add</mat-icon></button>
+        </div>
+    </div>
+    <div class="global-action-main-div">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20  padding-head ">
+           <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-20">
+             <div class="global-search-div">
+                    <mat-form-field class="my-search-width">
+                        <mat-icon matSuffix>search</mat-icon>
+                        <input [(ngModel)]="Search" autocomplete="off" name="Search"  matInput type="search" placeholder="search here" class="search-input">
+                    </mat-form-field>
+             </div>        
+         </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-20 no-pad">
+                <div class="pagination-block col-12 col-sm-12 col-md-12">
+                    <div class="items-per-page-div">
+                        <mat-form-field class="chart-view-dropdown">
+                            <mat-label>Items per page</mat-label>
+                            <mat-select  [(ngModel)]="itemVal">
+                                <mat-option (click)="itemsperpage(val1.value)" #val1 [value]="'5'">5</mat-option>
+                                <mat-option (click)="itemsperpage(val2.value)" #val2 [value]="'10'">10</mat-option>
+                                <mat-option (click)="itemsperpage(val3.value)" #val3 [value]="'20'">20</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                  </div>
+                  <elpis-rms-pagination [config]="config"></elpis-rms-pagination>       
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+    
+
+ <!-- table main div start from here---->
+<div class="table-main-div">
+
+    
+
+    <table>
+        <thead>
+         <tr>
+          <th  *ngFor="let header of TableHeader" scope="col"><div class="thead-th-div">{{header.title}}</div></th>
+          <th scope="col" class="my-last-th my-last-th-width" >
+              <div class="thead-th-last-sticky-div">
+                  <div class="details-th-div">Details</div>
+                   <div class="edit-th-div">Edit</div>
+                    <div class="delete-th-div"> Delete</div>
+             </div>
+         </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr *ngFor="let item of signalData | filter: Search | paginate: config; let i = index ">
+          <td *ngFor="let header of TableHeader "  data-label="header.title" [attr.data-label]="header.title">
+              <div class="tbody-td-div ">{{item[header.name]}}</div>
+            </td>
+          <td data-label="" class="action-th my-last-td-width">
+              <div class="tbody-td-last-sticky-div ">
+                  <div class="details-td-div"   matTooltip ="Details">
+                      <button (click)="signalDetailsPopup(item,TableHeader)" class="action-btn" >
+                          <span class="material-icons action-span-icon">
+                           assignment
+                          </span>
+                      </button>
+                  </div>
+                  <div  class="edit-th-div"  matTooltip ="Edit">
+                      <button (click)="signalEditPopup(item,TableHeader)" class="action-btn">
+                        <span class="material-icons action-span-icon">
+                            create
+                            </span>
+                      </button>
+                  </div>
+                  <div  class="delete-th-div" matTooltip ="Delete">
+                      <button (click)="signalDeletePopup(item,i,TableHeader)"   class="action-btn">
+                        <span class="material-icons action-span-icon">
+                            delete
+                            </span>
+                      </button>
+                  </div>
+             </div>
+          </td>
+         </tr>
+        </tbody>
+       </table>
+       <div >
+        <p *ngIf="signalData.length === 0" class="nodata">No records found</p>
+    </div>
+     
+
+       
+ <!--bottom pagination div starts from here-->
+ 
+ <div class="global-action-main-div-bottom">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20   padding-head ">
+       <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-20">
+          <div class="items-per-page-div-bottom width100">
+                <mat-form-field class="chart-view-dropdown">
+                    <mat-label>Items per page</mat-label>
+                    <mat-select  [(ngModel)]="itemVal">
+                        <mat-option (click)="itemsperpage(val1.value)" #val1 [value]="'5'">5</mat-option>
+                        <mat-option (click)="itemsperpage(val2.value)" #val2 [value]="'10'">10</mat-option>
+                        <mat-option (click)="itemsperpage(val3.value)" #val3 [value]="'20'">20</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+         </div>
+     </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 mt-20 no-pad">
+            <div class="pagination-block col-12 col-sm-12 col-md-12">
+                <elpis-rms-pagination [config]="config"></elpis-rms-pagination>             
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+ <!--bottom pagination div End  here-->
+</div>
+ <!-- table main div end  here---->
+</div>
+<!--main container end -->
+<ngx-loading [show]="showSignal" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>  

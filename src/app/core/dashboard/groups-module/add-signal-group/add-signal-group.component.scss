@@ -1,0 +1,475 @@
+body{
+    background-color: #f0f0f7 !important;
+}
+.contaner-root{
+    margin: 20px 20px !important;
+}
+
+.mt-20{
+    margin-top: 20px;
+}
+
+.select-heading{
+    font-family: Source Sans Pro, Bold;
+    font-size: 18px;
+    color: #3B86FF;
+    font-weight: bold;
+}
+.back-arrow{
+    color: #56556d !important;
+    opacity: 0.9;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    position: relative;
+    top: 4px;
+    left: -2px;
+}
+.mat-bg{
+    background-color: #F0F0F7;
+    min-height: 290px;
+    max-height: 460px;
+    padding: 15px;
+}
+.mr-t-10{
+    margin-top: 10px;
+}
+
+.mat-bg-3{
+    background-color: #ffffff !important;
+}
+.card-heading{
+    background-color: #ffffff;
+    font-family: Source Sans Pro, Bold;
+    font-size: 18px;
+    color: #3B86FF;
+    font-weight: bold;
+    padding: 10px 10px 10px 20px;
+}
+.pad-top{
+    padding-top: 0px;
+}
+.device-div{
+    width: 100%;
+    height: 115px;
+    background-color: #ffffff;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.device-div-selected{
+    border: 1px solid #3b86ff;
+}
+.box-shadow-card-txt{
+    -webkit-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.device-div-heading{
+    -webkit-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.no-pad{
+    padding: 0px;
+}
+
+.device-name{
+    color:#0093D6;
+    font-size: 12px;
+    padding: 6px 10px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.float-left{
+    float: left;
+    margin-top: 20px;
+}
+.pad-left-5{
+    padding-left: 12px;
+}
+.select-signal-btn-div{
+    position: relative;
+    top: 55px;
+}
+.cancel-btn{
+    color: #707070;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    font-family: Segoe UI, Regular;
+    background-color: #ffffff;
+    height: 50px;
+    border: 2px solid rgb(6 6 6 / 15%);
+}
+.apply-btn{
+    color: #FFFFFF;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    font-family: Segoe UI, Regular;
+    background-color: #3B86FF;
+    height: 50px;
+    border: 2px solid rgb(59 134 255 / 15%);
+}
+.signallist-names{
+    font-size: 12px !important;
+    width: 80px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    float: left;
+}
+.margin-bottom-50{
+   margin-bottom: 50px;
+}
+
+.signal-div {
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    .float-left {
+        margin-top: 0px;
+    }
+}
+
+.submitAllSignals {
+    background-color: #3B86FF;
+}
+::ng-deep .mat-checkbox-checked.mat-primary .mat-checkbox-background {
+    background-color: #3B86FF;
+}
+
+button:focus {
+    outline: 0px dotted !important;
+    outline: 0px auto !important;
+  }
+.signalCheckBlock {
+    min-height: 150px;
+    max-height: 180px;
+
+}
+
+.submitSignals {
+    
+        .row button {
+        
+             font-family: Segoe UI, Regular;
+             margin: 10px 0px;
+             width: 150px;
+             margin: 00px 15px;
+             float: right;
+             height: 40px;
+      
+        }
+    }
+
+.pagination-block {
+    bottom: 0;
+    .mat-paginator {
+        background: none;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+}
+
+.content-container {
+    position: relative;  
+    overflow: auto;
+    height: 500px;
+    min-height: 0;
+    margin: 8px 0px;
+    border-radius: 4px;
+    background-color: #F0F0F7;
+  }
+  #pcBlock {
+    perfect-scrollbar {
+        height: 60%;
+    }
+  }
+
+// abhi styel start
+.imgdevice{
+  width: 80%;
+  height: 55%;
+  margin: 0 auto;
+  left: 40%;
+  margin-left: 5px;
+  }
+
+//signal list popup css start from here
+
+.delete-popup-close-icon{
+    float: right;
+    width: 30px;
+    position: relative;
+}
+.popup-title{
+	color: #707070;
+    float: left;
+}
+.delete-popup-cancel-btn{
+	width: 50%;
+	float: left;
+	height: 50px;
+    background-color: #FFFFFF;
+    color: #707070;
+	border-radius: 0px;
+	position: relative;
+	bottom: -24px;
+	border: 1.5px solid #00000045;
+	font-weight: bold;
+    opacity: 0.7;
+}
+.delete-popup-delete-btn{
+	width: 50%;
+	height: 50px;
+	background-color: #3B86FF;
+    color: #ffffff;
+	border-radius: 0px;
+	position: relative;
+	bottom: -24px;
+	border: 1.5px solid #3B86FF;
+	font-weight: bold;
+}
+.popup-content-div{
+	margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+.popup-bottom-btn-div{
+	margin: -24px;
+}
+
+button:focus {
+	outline: 0px dotted !important;
+	outline: 0px auto !important;
+}
+//signal list popup css end here
+
+.tabview-device-div-scroll{
+    height: 280px;
+    overflow-y: hidden;
+    min-height: 150px;
+    max-height: 400px;
+}
+.pad-0{
+    padding: 0px;
+}
+.float-l{
+    float: left !important;
+}
+.float-r{
+    float: right;
+}
+.new-hr{
+    float: left;
+    width: 100%;
+    height: 1.5px;
+    background-color: #bebebf69;
+}
+.pad-bottom-20{
+    padding-bottom: 20px;
+}
+
+::ng-deep .customModalContainer  {
+    mat-dialog-container {
+        padding: 0px;
+    }    
+}
+
+
+
+.mbl-popup-div-content{
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    position: relative;
+    bottom: 14px !important;
+}
+
+.signalCheckBlock-mbl {
+    min-height: 263px;
+    max-height: 263px;
+    overflow-x: hidden;
+    overflow-y: hidden
+}
+.popup-title{
+	color: #707070;
+    float: left;
+}
+
+.popup-content-div{
+	margin-bottom: 25px;
+    margin-top: 25px;
+}
+.popup-content-txt{
+    color: #3B86FF;
+    position: relative;
+    font-weight: 500;
+    top: 15px;
+}
+.popup-bottom-btn-div{
+	margin: -24px;
+}
+.confirm-dialog-txt{
+    padding: 20px 25px !important; 
+    position: relative;
+    top: 45px;
+    color: #3b86ff;
+    font-weight: 500;
+}
+.confirmation-dialog-btn-div{
+    width: 100%;
+    float: left;
+    position: relative;
+    top: 53px;
+
+}
+.pad-15{
+    padding: 15px;
+}
+.pad-t-15{
+padding-top: 15px;
+
+}
+.confirmation-dialog-btn-yes{
+float: left;
+width: 50%;
+margin: 0px !important;
+background-color: #3B86FF;
+height: 50px;
+border-radius: 0px;
+position: relative;
+border: 1.5px solid #0000001c;
+font-weight: bold;
+
+}
+.confirmation-dialog-btn-no{
+float: left;
+width: 50%;
+margin: 0px !important;
+height: 50px;
+background-color: #FFFFFF;
+color: #707070;
+border-radius: 0px;
+position: relative;
+border: 1.5px solid #0000001c;
+font-weight: bold;
+
+}
+.confirm-txt{
+    width: 100%;
+
+}
+.confirmation-popup-content-div{
+    position: relative;
+    top: 15px;
+    width: 100%;
+    padding-left: 15px;
+}
+
+@media only screen and (max-width: 700px) {
+    .item-per-page-mbl-view{
+        width: 100% !important;
+    }
+    .pagination-main-div-mbl {
+        position: relative;
+        left: -7% !important;
+        bottom: 15px;
+        float: left;
+        width: 280px;
+    }
+ 
+}
+@media only screen and (max-width: 600px) {
+    
+.item-per-page-mbl-view{
+    width: 100% !important;
+}
+.select-heading{
+    margin-bottom: 0px;
+}
+.pagination-main-div-mbl{
+    position: relative;
+    left: -8% !important;
+    bottom: 15px;
+    float: left;
+    width: 280px;
+}
+.cancel-delete-popup-close-icon{
+    float: right;
+    width: 30px;
+    position: relative;
+    top: 14px;
+    left: 5px;
+}
+.popup-title{
+    color: #707070;
+    float: left;
+    top: 10px;
+    position: relative;
+}
+.confirm-dialog-txt{
+    padding: 10px 25px !important; 
+    position: relative;
+    top: 45px;
+    color: #3b86ff;
+    font-weight: 500;
+}
+
+::ng-deep .mat-paginator-page-size {
+    position: relative;
+    right: 80px !important;
+}
+::ng-deep .mat-paginator-range-actions {
+    right: 62px;
+    position: relative;
+}
+    .tabview-device-div-scroll{
+        height: 400px;
+        overflow-y: scroll;
+    }
+    .select-signal-btn-div {
+        position: relative;
+        top: 34px !important;
+    }
+
+    .submitSignals {
+
+        .row button {
+            width: 98%;
+            font-family: Segoe UI, Regular;
+            margin: 10px 5px;
+            float: right;
+        }
+    }
+    
+
+}
+
+@media only screen and (max-width: 768px) {
+  
+  .mat-bg{
+        background-color: #F0F0F7;
+        min-height: 400px !important;
+        
+    }
+    .select-signal-btn-div{
+        position: relative;
+     
+      
+    }
+    .margin-top-50{
+        margin-top: 50px !important;
+    }
+
+}
+
+

@@ -1,0 +1,84 @@
+<div class="container custom-mat-dialog-container">
+ 
+    <div class="row mb-4">
+   
+      <div class="col-10">
+        <h2 class="popup-title">Select Date </h2>      
+      </div>
+   
+      <div class="col-2 delete-popup-close-icon d-flex justify-content-end" id="close-icon">
+        <mat-icon matDialogClose>close</mat-icon>
+      </div>
+   
+      <div class="col-12">
+        <mat-divider></mat-divider>
+      </div>
+   
+    </div>
+   
+    
+    <form  class="row mr-t-10"  [formGroup]="PetronashDateForm" >
+       
+      <!-- [formGroup]="petronashDashboardForm" -->
+            
+      <div class="col-12 col-sm-12 col-md-12 col-xl-6 col-lg-6 my-float-left">
+        
+        <div class="example-form">
+          <mat-form-field class="example-full-width width-full">
+            <input type="text" #fromDateVal formControlName="fromDate" placeholder="Form Date" aria-label="Number" (dateInput)="fromDateChange(fromDateVal.value)"
+             matInput [matDatepicker]="formdate"
+             value=""  (click)="formdate.open()" />
+             <!--  -->
+            <mat-datepicker-toggle color="primary"  matSuffix [for]="formdate"></mat-datepicker-toggle>
+  
+            <mat-datepicker #formdate color="primary"></mat-datepicker>
+            <mat-error *ngIf="!fromDate.valid && fromDate.touched">
+              From date is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+   
+      </div>
+     
+      <div class="col-12 col-sm-12 col-md-12 col-xl-6 col-lg-6 my-float-left">
+        
+        <div class="example-form">
+          <mat-form-field class="example-full-width width-full">
+            <input type="text" #toDateVal placeholder="To Date" aria-label="Number" (dateInput)="toDateChange(toDateVal.value)"
+            matInput [matDatepicker]="todate" formControlName="toDate"
+            value=""  (click)="todate.open()" />
+            <!-- formControlName="toDate" -->
+            <mat-datepicker-toggle matSuffix [for]="todate" color="primary"></mat-datepicker-toggle>
+  
+            <mat-datepicker #todate  color="primary"></mat-datepicker>
+            <mat-error *ngIf="!toDate.valid && toDate.touched">
+             To date is required
+            </mat-error>
+          </mat-form-field> 
+        </div>
+  
+   
+      </div>  
+            
+    
+   
+      <!-- <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 my-float-left">
+   
+        <button (click)="getDateRange()" class="pupm-reset-btn buttoncolor my-mbl-select-device-btn mat-focus-indicator mat-raised-button mat-button-base mat-primary">
+          Apply
+        </button>
+   
+      </div> -->
+
+    </form>
+   
+  </div>
+  <button (click)="getDateRange()" [disabled]="!PetronashDateForm.valid" class="pupm-reset-btn buttoncolor 
+   my-mbl-select-device-btn mat-focus-indicator process-popup-apply-btn width-full mat-raised-button mat-button-base mat-primary">
+    Apply
+  </button>
+
+
+
+  

@@ -1,0 +1,35 @@
+<div class="control-section">
+    <div id="tooltip-container">
+        <ejs-circulargauge height="{{height}}" width="{{width}}"  (load)='load($event)' id='{{ind}}'  class="activity-gauge-height"  style="display: block;" #tooltipContainer='' 
+            >
+            <!-- <ejs-circulargauge (load)='load($event)' id='' (tooltipRender)='tooltipRender($event)' (dragEnd)='dragEnd($event)' style="display: block;" #tooltipContainer='' enablePointerDrag='true'
+            [tooltip]='tooltip' [title]='title' [titleStyle]='titleStyle'> -->
+            <e-axes>
+                <e-axis radius='90%' minimum="{{sensorMin}}" maximum="{{sensorMax}}" startAngle=270 endAngle=90 [minorTicks]='minorTicks'
+                    [majorTicks]='majorTicks'  [labelStyle]='labelStyle' [lineStyle]="lineStyle">
+                    <e-pointers>
+                        <e-pointer value="{{seriesVal}}" radius='60%' [cap]='cap' [animation]='animation' color='#33BCBD'>
+                        </e-pointer>
+                    </e-pointers>
+                    <e-ranges>
+                        <ng-container *ngFor="let item of threshold; let i = index">  
+                        <e-range *ngIf="i == 0" start="{{sensorMin}}" end="{{threshold[i].thresholdValue}}" [startWidth]="rangeWidth" [endWidth]="rangeWidth" radius='100%' color="{{item.thresholdColor}}">
+                        </e-range>
+                        <e-range *ngIf="i != 0" start="{{threshold[i - 1].thresholdValue}}" end="{{threshold[i].thresholdValue}}" radius='100%' [startWidth]="rangeWidth" [endWidth]="rangeWidth" color="{{item.thresholdColor}}">
+                        </e-range>
+                       
+                        </ng-container>
+                    </e-ranges>
+                </e-axis>
+            </e-axes>
+        </ejs-circulargauge>
+
+        <!-- <div class="signal-value-div">
+            <p class="signal-value">30</p>
+        
+        </div> -->
+          <!-- <div class="signal-name-div">
+                <P class="signal-name">Signal 1</P>
+          </div> -->
+    </div>
+</div>

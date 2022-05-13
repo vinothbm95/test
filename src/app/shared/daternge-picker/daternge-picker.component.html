@@ -1,0 +1,52 @@
+
+   <!-- <mat-label>Signal topic</mat-label> -->
+   <form *ngIf="!noValidation" class="form-group" [formGroup]="myForm">   
+      <mat-form-field class="example-full-width">
+      <mat-label>Select date range</mat-label>
+      <input  autocomplete="off" matInput formControlName="fromToDate" placeholder="Select date range" 
+      class=""    
+      ngxDaterangepickerMd
+   (click)="getData()"
+   [showCustomRangeLabel]="true"
+   [alwaysShowCalendars]="true"
+   [ranges]="ranges"
+   [linkedCalendars]="true"
+   [showClearButton]="true"
+   [timePicker]="true"
+   [timePickerSeconds]="true"
+   [timePickerIncrement]="1"
+   [timePicker24Hour]="true" 
+   (ngModelChange)="ngModelChange($event)"
+   [maxDate]="maxDate"
+    />
+    <!-- [isInvalidDate] = "isInvalidDate" -->
+    <!-- [maxDate]="maxDate" -->
+
+
+   <mat-error *ngIf="myForm.hasError('required', 'fromToDate')">
+      date is required
+    </mat-error>
+    </mat-form-field>
+    <!-- <small *ngIf="myForm.hasError('required', 'uname')">Field is required!</small> -->
+    <!-- <small *ngIf="myForm.hasError('required', 'uname')">Field is required!</small> -->
+   </form>
+  
+      <mat-form-field *ngIf="noValidation" class="example-full-width">
+      <mat-label>Select date range</mat-label>
+      <input  autocomplete="off" matInput placeholder="Select date range" 
+      class=""    
+      ngxDaterangepickerMd
+    
+   [showCustomRangeLabel]="true"
+   [alwaysShowCalendars]="true"
+   [ranges]="ranges"
+   [linkedCalendars]="true"
+   [showClearButton]="true"
+   [timePicker]="true"
+   [timePickerSeconds]="true"
+   [timePickerIncrement]="1"
+   [timePicker24Hour]="true" 
+   (ngModelChange)="ngModelChange($event)"
+    />
+  
+    </mat-form-field>

@@ -1,0 +1,89 @@
+
+    <div class="content-container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="popup-title">
+                    Add Parameter to {{currentGroupModel.name}} group 
+                </h2>
+                <div class="delete-popup-close-icon" id="close-icon">
+                    <mat-icon matDialogClose >close </mat-icon>
+                </div>
+            </div>
+        </div>
+        <mat-divider ></mat-divider>
+    </div>
+    <div class="popup-content-div">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20">
+            <mat-card class="mat-bg pad-top select-device-pad-b">
+                <div class="row ">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-pad">
+                        <div class="card-heading box-shadow-card-txt ">
+                            Select Device
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                        <div class="row tabview-device-div-scroll">
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-2"
+                              *ngFor="let device of deviceList; let i = index ">
+                              <div class="device-div"  (click)="signalData(device,i)">
+                                <p class="device-name">{{device.deviceName}}</p>
+                                     <img class="imgdevice" src="assets/images/device1.png" width="50%" height="50%"
+                                     alt="Device">
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20">
+            <mat-card class="mat-bg mat-bg-3 pad-top">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-heading box-shadow-card-txt">
+                        Select Parameter List
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 signalCheckBlock">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  p-0 float-left">
+                            <div *ngIf="signalDeviceName; else selectBlock " class="mt-20">
+                                <div class="col-6 col-sm-6 col-md-10 col-lg-11 float-left p-0">
+                                    <strong>{{ signalDeviceName | uppercase }}</strong>
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-2 col-lg-1 float-left p-0">
+                                    <mat-checkbox color='primary'
+                                    (change)="allSignals($event)" 
+                                    [checked]="allSignalsChecked" class="float-r">
+                                    <span class="signallist-names" class="float-r">ALL</span>
+                                </mat-checkbox>
+                                </div>
+                                <div class="new-hr">
+                                </div>
+                            </div>
+                            <ng-template #selectBlock>
+                                <div class=" col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pad-0 mt-20 float-l">
+                                    <p>
+                                        <strong>Please Select Device</strong>
+                                    </p>
+                                </div>
+                            </ng-template>
+                        </div>
+                        <perfect-scrollbar>
+                            <div class="scrollableSignals">
+                                <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 float-left pad-left-5"
+                                    *ngFor="let signalDetails of signalModel; let i = index">
+                                    <mat-checkbox color='primary' [checked]="signalDetails.isSelected"
+                                        (change)="signalChange($event, i)">
+                                        <span class="signallist-names">{{signalDetails.signalModel.signalName}}</span>
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                        </perfect-scrollbar>
+                    </div>
+                    <ngx-loading [show]="signalLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <div class="popup-bottom-btn-div" >
+        <button matDialogClose class="delete-popup-cancel-btn" (click)="clearSignals()">Cancel</button>
+        <button matDialogClose class="delete-popup-delete-btn" (click)="submitSignals(signalModel)">Submit</button>
+    </div>

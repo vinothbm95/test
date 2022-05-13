@@ -1,0 +1,270 @@
+<div class="container-fluid signal-data">
+  <div class="row virtual-scroll-header-alignment-device">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <h3 class="Signalh3">ParameterDataView</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <form class="row pad-15" [formGroup]="signalDataForm" (ngSubmit)="signalDataSubmit()">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+       <div class="row signal-datahead pad_form_wtop">
+        <div class="col-12 col-sm-12 col-md-12 col-xl-3 col-lg-3">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Select device</mat-label>
+              <input type="text"  placeholder="Please enter device name" aria-label="Number" matInput value="" formControlName="deviceName"
+                [matAutocomplete]="auto1" [(ngModel)]="selectDeviceName" />
+              <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+                <mat-option (click)="getDeviceName()" *ngFor="let option1 of filteredOptions1 | async" [value]="option1" [ngClass]="{'no-data': option1 === 'No device'}">
+                  {{ option1 }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="!deviceName.valid && deviceName.touched">
+                Device name is required
+              </mat-error>
+            </mat-form-field>  
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-xl-3 col-lg-3">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Select Parameter</mat-label>
+              <input type="text"  placeholder="Select" aria-label="Number" matInput value="" formControlName="signalName"
+                [matAutocomplete]="auto2"  [(ngModel)]="selectSignalName" />
+              <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+                <mat-option (click)="getSignalName()" *ngFor="let option1 of filteredOptions2 | async" [value]="option1" [ngClass]="{'no-data': option1 === 'No Parameter'}">
+                  {{ option1 }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="!signalName.valid && signalName.touched">
+                Parameter name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-xl-6 col-lg-6 col-md-12 ipd-mb12">
+          <button  mat-raised-button color="" type="submit" (click)="signalDataApply()"
+           class="btn btn-primary float_r apply_button mbl-width100" [disabled]="!signalDataForm.valid">
+            Apply
+          </button>
+        </div>
+       </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+  <div class="row" *ngIf="showContent">
+    <div class="col-xl-4 col-md-6 col-sm-12 pad_r30 responsiveweb pad0_mart30px">
+      <div class="devis_card">
+        <div class="spare_text">{{deviceNameval}}</div>
+        <div class="">  <div>
+            <elpis-rms-progress-bar 
+            [progresscolor]="signalDetails?.signalThresholdModels[0]?.thresholdColor" 
+            [progressdata]="signalDataModels?.dataValue"
+            [signallist]="signalDetails?.signalModel?.signalUnit"
+            [signal]="signalDetails?.signalModel?.signalName"
+            [sensorMin]="signalDetails?.signalModel?.sensorMin" 
+            [sensorMax]="signalDetails?.signalModel?.sensorMax" 
+            [heightsetting]="true">
+          </elpis-rms-progress-bar>
+            <div class="progress_text">{{signalDataModels?.dataValue}}</div>
+            <div class="col-12 date_text pad_0">{{signalDataModels?.timeReceived}}</div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6 col-sm-12 pad_r30 responsiveweb pad0_mart30px">
+      <div class="devis_card">
+        <div class="Signaltext">Parameter Details</div>
+        <hr />
+        <div class="col-md-12 pad_0" >
+          <div class="width-50 height-30 float_left pad_0 signaldetaltex padt5">
+            Start range
+          </div>
+          <div class="width-50 height-30 float_right pad_0 padt5 signaldetaltex2">
+           : &nbsp;&nbsp; {{signalDetails?.signalModel?.signalStartRange}}
+          </div>
+        </div>
+
+        <div class="col-md-12 pad_0">
+          <div class="width-50 height-30 float_left pad_0 signaldetaltex padt5">
+            End Range
+          </div>
+          <div class="width-50 height-30 float_right pad_0 padt5 signaldetaltex2">
+           : &nbsp;&nbsp; {{signalDetails?.signalModel?.signalEndRange}}
+          </div>
+        </div>
+
+        <div class="col-md-12 pad_0">
+          <div class="width-50 height-30 float_left pad_0 signaldetaltex padt5">
+            Type
+          </div>
+          <div class="width-50 height-30 float_right pad_0 padt5 signaldetaltex2">
+           : &nbsp;&nbsp;  --
+          </div>
+        </div>
+
+        <div class="col-md-12 pad_0">
+          <div class="width-50 height-30 float_left pad_0 signaldetaltex padt5">
+            Unit
+          </div>
+          <div class="width-50 height-30 float_right pad_0 padt5 signaldetaltex2">
+           : &nbsp;&nbsp; {{signalDetails?.signalModel?.signalUnit}}
+          </div>
+        </div>
+
+        <div class="col-md-12 pad_0">
+          <div class="width-50 height-30 float_left pad_0 signaldetaltex padt5">
+            Display Type
+          </div>
+          <div class="width-50 height-30 float_right pad_0 padt5 signaldetaltex2">
+           : &nbsp;&nbsp; --
+          </div>
+        </div>
+
+        <div class="col-md-12 pad_0">
+          <div class="width-50 height-30 float_left pad_0 signaldetaltex padt5">
+            Group
+          </div>
+          <div class="width-50 height-30 float_right pad_0 padt5 signaldetaltex2">
+           : &nbsp;&nbsp; --
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="col-xl-4 col-md-6 col-sm-12 pad_r30 responsiveweb pad0_mart30px">
+      <div class="devis_card">
+        <div class="Signaltext">Threshold</div>
+        <hr />
+        <div class="col-md-12 pad_0 tabcardval">
+          <div class="col-md-6 float_left pad_0 max_w50 signaldetaltex signal-val-width padt5">
+            Value
+          </div>
+          <div class="col-md-6 float_left pad_0 padt5 max_w50 signaldetaltex2">
+            Color
+          </div>
+        </div>
+        <div class="threshold-val-div-scroll col-12 col-sm-12 " *ngIf="signalDetails?.signalThresholdModels?.length > 0">
+        <div class="col-md-12 pad_0 tabcardval2" *ngFor="let threshold of signalDetails?.signalThresholdModels">
+          <div class="col-md-6 float_left pad_0 max_w50 signaldetaltex  padt5">
+            {{ threshold.thresholdValue }}
+          </div>
+          <div class="col-md-6 float_left pad_0 padt5 max_w50 signaldetaltex2">
+            <div class="circle" [style.borderColor]="threshold.thresholdColor" ></div>
+          </div>
+        </div>
+        </div>
+
+        <div class="no-threshoold-text" *ngIf="signalDetails?.signalThresholdModels?.length == 0">No thresholds</div>
+
+      </div>
+    </div>
+
+  </div>  
+
+
+
+
+
+   <div class="row " *ngIf="showContent">
+  <form class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  " [formGroup]="signalDateForm" (ngSubmit)="signalDateSubmit()">
+  <div class=" row  signal-datahead pad_form_wtop venu margin-0">
+    <div class="col-sm-7">
+      <div class="example-form">
+        <elpis-rms-daternge-picker [noValidation]="false" [myForm]="signalDateForm" (dateRangeEvent)="customdate($event)"></elpis-rms-daternge-picker>
+       </div>
+    </div>
+    <div class="col-sm-5">
+      <button  mat-raised-button color="" type="submit" (click)="signalDateApply()"
+      class="btn btn-primary float_r apply_button mbl-width100" [disabled]="!signalDateForm.valid">
+        Apply
+      </button>
+    </div>
+  </div>
+</form>
+   </div>
+<div class="row" *ngIf="showContent">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 ">
+    <div class="pad_r30 responsiveweb responsiveweb2 pad0_mart30px mar_r30 devis_cardtab mbl-mb15">
+      <div class="disflex">
+        <div class="width70">List Of Data</div>
+        <div class="width20">SPARE</div>
+        <div class="width10" *ngIf="signalDateRangeData?.length > 0">
+          <span [matMenuTriggerFor]="menu" class="material-icons pointer card-dots">
+            more_horiz
+          </span>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="exportMenu " class="outline-none">Export </button>
+          </mat-menu>
+          <mat-menu #exportMenu="matMenu">
+            <button mat-menu-item (click)="exportTo('csv')" class="outline-none">Csv</button>
+            <button mat-menu-item (click)="exportTo('xlsx')" class="outline-none">Excel</button>
+          </mat-menu>
+        </div>
+      </div>
+      <table class="table table_width signal-data-view-table">
+        <thead class="tabcard">
+          <tr>
+            <th scope="col" class="text_alignc">Value</th>
+            <th scope="col" class="text_alignc">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text_alignc"  *ngFor="let data of signalDateRangeData | paginate: config ? config : '' ">
+            <td>{{ data.dataValue }}</td>
+            <td class="text_alignc">{{data.timeReceived}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="table-pagination-item-per-page-main-div">
+      <div class="items-per-page-div ">
+        <mat-form-field class="chart-view-dropdown mbl-content-width-100 ipad-width100">
+            <mat-label>Items per page</mat-label>
+            <mat-select  [(ngModel)]="itemVal">
+                <mat-option (click)="itemsperpage(val1.value,$event)" #val1 [value]="'100'">100</mat-option>
+                <mat-option (click)="itemsperpage(val2.value,$event)" #val2 [value]="'500'">500</mat-option>
+                <mat-option (click)="itemsperpage(val3.value,$event)" #val3 [value]="'1000'">1000</mat-option>
+            </mat-select>
+        </mat-form-field>
+     </div>
+      <div class="pagination-div">
+        <elpis-rms-pagination *ngIf="paginationShow" [config]="config"></elpis-rms-pagination> 
+      </div>
+    </div>
+    </div>
+
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+      <div class="devis_cardtab  pad0_mart30px responsiveweb2">
+        <div class="disflex">
+          <div class="width80">List Of Data</div>
+
+          <div class="width20a">
+          </div>
+        </div>
+        <div class="chart-div" elpisRmsStopProp *ngIf="isSignalDataPresnet && categories.length > 0">
+          <elpis-rms-areaspline-chart elpisRmsStopProp [categories]="categories" [data]="data"></elpis-rms-areaspline-chart>
+        </div>
+        <div class="chart-div" *ngIf="isSignalDataPresnet && categories.length === 0">
+          <h2 style="text-align:center;">data is not there Please select proper range date</h2>
+        </div>
+       
+      </div>
+    </div>
+</div> 
+</div>
+
+<div class="container" *ngIf="!showContent">
+  <h2 style="text-align: center;">Select Device and Parameter</h2>
+</div>
+
+
+<ngx-loading [show]="loader" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

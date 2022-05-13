@@ -1,0 +1,75 @@
+.example-full-width{  
+	width: 100%;
+}
+
+::ng-deep .md-drppicker .btn, .md-drppicker .btn:focus, .md-drppicker .btn:hover {
+    background-color: #3b86ff !important;
+	width: 20%;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: sans-serif;
+	text-transform: none !important;
+}
+::ng-deep .md-drppicker .clear svg {
+    color: #eb3232;
+    fill: currentColor;
+    position: absolute !important;
+    left: 0% !important;
+    // top: 5px !important;
+    display: none;
+}
+::ng-deep .md-drppicker .clear{
+width:80%;
+}
+::ng-deep .md-drppicker .btn.btn-default {
+    color: #000;
+    // background-color: #dcdcdc;
+    text-align: right;
+    font-size: 14px;
+    padding-right: 20px;
+}
+::ng-deep .md-drppicker .ranges ul li button.active {
+    background-color: #3b86ff !important;
+    color: #fff;
+}
+::ng-deep .md-drppicker td.active, .md-drppicker td.active:hover {
+    background-color: #3b86ffdb !important;
+    border-color: transparent;
+    color: #fff;
+}
+
+.daterange-input{
+	border: none;
+    border-bottom: 1.5px solid gray;
+}
+::ng-deep .md-drppicker.double {
+    width: 600px !important;
+}
+@media only screen and (max-width: 425px) {
+
+::ng-deep .md-drppicker.double {
+    width: 280px !important;
+    left: 0 !important;
+}
+
+}
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 640px)
+ and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape)
+  {
+    ::ng-deep .md-drppicker.double {
+    width: 510px !important;
+    left: -1px !important;
+}
+  }
+  @media only screen 
+  and (min-device-width: 667px) 
+  and (max-device-width: 737px) 
+  {
+      ::ng-deep .md-drppicker.double {
+          width: 575px !important;
+          left:-10px !important;
+        }
+  }

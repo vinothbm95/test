@@ -1,0 +1,234 @@
+<div class="">
+  <div class="add-sigal-content-div-scroll">
+  <div class="">
+    <div class="col-12">
+      <h2 *ngIf="statusVal == 'add'" class="popup-title">
+        Add alarm
+      </h2>
+      <h2 *ngIf="statusVal == 'edit'" class="popup-title">
+        Edit alarm
+      </h2>
+      <div class="delete-popup-close-icon" id="close-icon">
+        <mat-icon matDialogClose>close </mat-icon>
+      </div>
+    </div>
+    <div class="col-12 margin-bottom-10 float-left">
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+  <div class=" no-pad">
+    <!-- <perfect-scrollbar >   -->
+    <form [formGroup]="addAlarmForm" (ngSubmit)="onSubmit()"
+     class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 form-fields-div">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Alarm Name</mat-label>
+              <input matInput placeholder="Alarm Name" 
+                formControlName="alarmName">
+              <mat-error *ngIf="!alarmName.valid && alarmName.touched">
+                Alarm name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Alarm Description</mat-label>
+              <input matInput placeholder="Alarm Description" 
+                formControlName="alarmDescription">
+              <mat-error *ngIf="!alarmDescription.valid && alarmDescription.touched">
+                Alarm description is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Select Device " aria-label="Number" matInput formControlName="deviceName"
+                [matAutocomplete]="autoDeviceOne" />
+              <mat-autocomplete #autoDeviceOne="matAutocomplete">
+                <mat-option *ngFor="let device of filteredDeviceOne | async" [value]="device.deviceName"
+                  (onSelectionChange)="deviceSelection(device, 'deviceName', $event ,1)"
+                  [ngClass]="_deviceSelection(device.deviceName)">
+                  {{ device.deviceName }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Select Parameter " aria-label="Number" matInput formControlName="signalName"
+                [matAutocomplete]="autoSignalOne"  />
+              <mat-autocomplete #autoSignalOne="matAutocomplete">
+                <mat-option *ngFor="let signal of filteredSignalOne | async" [value]="signal.signalName"
+                  (onSelectionChange)="signalSelection(signal, 'signalName', $event)"
+                  [ngClass]="_signalSelection(signal.signalName) ">
+                  {{ signal.signalName }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+        <div *ngIf="alarmDetails" class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+            <p  class="details-popup-title">Start/Min Range</p>
+            <p *ngIf="statusVal == 'add'" class="details-popup-data-txt">{{signalDetails?.signalModel?.signalStartRange}}</p>
+            <p *ngIf="statusVal == 'edit'" class="details-popup-data-txt">{{tabledata?.signalModel?.signalStartRange}}</p>
+          </div>
+        </div>
+        <div *ngIf="alarmDetails" class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10">
+          <div class="example-form">
+            <p  class="details-popup-title">End/Max Range</p>
+            <p *ngIf="statusVal == 'add'" class="details-popup-data-txt">{{signalDetails?.signalModel?.signalEndRange}}</p>
+            <p *ngIf="statusVal == 'edit'" class="details-popup-data-txt">{{tabledata?.signalModel?.signalEndRange}}</p>
+          </div>
+        </div>
+        <div *ngIf="alarmDetails && signalDetails?.signalThresholdModels?.length > 0" class="col-12 col-sm-12 col-md-6 col-xl-6 col-lg-6 margin-top-10 " formArrayName="emailThreshold">
+          <!-- add alarm list  -->
+          <div class="col-md-12 row no-pad" *ngFor="let item of  emailThreshold().controls; let i=index; let first = first; let last = last"
+           [formGroupName]="i">
+            <div class="example-form col-12 col-sm-12 col-md-6 col-xl-6 col-lg-6">
+              <mat-form-field class="example-full-width">
+                <mat-label>email</mat-label>
+                <input matInput placeholder="email" name="emailId{{i}}" formControlName="emailId">
+                <mat-error *ngIf="!emailThreshold().controls[i].get('emailId').valid && emailThreshold().controls[i].get('emailId').touched">
+                  Email is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+                <!--equal dropdown start-->
+                <div class="example-form col-12 col-sm-12 col-md-6 col-xl-3 col-lg-3">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                        <mat-label> Comparision</mat-label>
+                        <mat-select formControlName="comparer" >
+                          <mat-option  *ngFor="let signals of symbolsarr" [value]="signals">
+                            {{signals}} 
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
+                </div>
+                <!--equal dropdown end-->
+            <div class="example-form col-12 col-sm-12 col-md-6 col-xl-3 col-lg-3">
+              <mat-form-field class="example-full-width">
+                <input type="text" placeholder="Select threshold range" aria-label="Number" matInput formControlName="threshold"
+                  [matAutocomplete]="autoEmailThreshold" (click)="emailFilter(i)" />
+                <mat-autocomplete #autoEmailThreshold="matAutocomplete">
+                  <mat-option *ngFor="let signal of fiteredSignalEmailThreshold | async" [value]="signal.thresholdValue" 
+                    [ngClass]="_signalSelection(signal.thresholdValue) ">
+                    {{ signal.thresholdValue}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div  class="example-form col-12 col-sm-12 col-md-6 col-xl-10 col-lg-10">
+              <div class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Alert message</mat-label>
+                    <input matInput placeholder="Alert message" name="alertMessage{{i}}" formControlName="alertMessage">
+                    <mat-error *ngIf="!emailThreshold().controls[i].get('alertMessage').valid && emailThreshold().controls[i].get('alertMessage').touched">
+                      Alert message is required
+                  </mat-error>
+                  </mat-form-field>
+                </div>
+          </div>
+            <div class="example-form col-12 col-sm-12 col-md-6 col-xl-2 col-lg-2">
+              <span *ngIf="last" class="material-icons signal-add-icon "  (click)="AddemailThreshold()" matTooltip ="Add">
+                 add_circle_outline
+              </span>
+              <span *ngIf="!last"   class="material-icons signal-remove-icon" (click)="removeEmail(i)"   matTooltip ="Remove">
+                    remove_circle_outline
+              </span>
+            </div>
+          </div>
+          
+<!-- add alarm list  -->
+        </div>
+        <div *ngIf="alarmDetails && signalDetails?.signalThresholdModels?.length > 0" class="col-12 col-sm-12 col-md-6 col-xl-6 col-lg-6 margin-top-10 " formArrayName="phoneThreshold">
+         
+<!-- add alarm list  -->
+          <div class="row col-md-12 " *ngFor="let item of  phoneThreshold().controls; let i=index; let first = first; let last = last"
+          [formGroupName]="i">
+            <div class="example-form col-12 col-sm-12 col-md-6 col-xl-6 col-lg-6">
+              <mat-form-field class="example-full-width">
+                <mat-label>phone number</mat-label>
+                <input matInput placeholder="phone number" formControlName="phoneNo">
+                <mat-error *ngIf="!phoneThreshold().controls[i].get('phoneNo').valid && phoneThreshold().controls[i].get('phoneNo').touched">
+                 Phone number is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+                <!--equal dropdown start-->
+                <div class="example-form col-12 col-sm-12 col-md-6 col-xl-3 col-lg-3">
+                  <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                        <mat-label> Comparision</mat-label>
+                        <mat-select formControlName="comparer">
+                          <mat-option  *ngFor="let signals of symbolsarr" [value]="signals">
+                            {{signals}} 
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
+                </div>
+                <!--equal dropdown end-->
+            <div class="example-form col-12 col-sm-12 col-md-6 col-xl-3 col-lg-3">
+              <mat-form-field class="example-full-width">
+                <input type="text" placeholder="Select threshold range" aria-label="Number" matInput formControlName="threshold"
+                  [matAutocomplete]="autoPhoneThreshold" (click)="phoneFilter(i)" />
+                  <mat-autocomplete #autoPhoneThreshold="matAutocomplete">
+                    <mat-option *ngFor="let signal of fiteredSignalPhoneThreshold | async" [value]="signal.thresholdValue" 
+                    [ngClass]="_signalSelection(signal.thresholdValue) ">
+                      {{ signal.thresholdValue}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div  class="example-form col-12 col-sm-12 col-md-6 col-xl-10 col-lg-10">
+              <div class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Alert message</mat-label>
+                  <input matInput placeholder="Alert message" name="alertMessage{{i}}" formControlName="alertMessage">
+                  <mat-error *ngIf="!phoneThreshold().controls[i].get('alertMessage').valid && phoneThreshold().controls[i].get('alertMessage').touched">
+                    Alert message is required
+                </mat-error>
+                </mat-form-field>
+                </div>
+            </div>
+            <div class="example-form col-12 col-sm-12 col-md-6 col-xl-2 col-lg-2">
+               <span *ngIf="last" class="material-icons signal-add-icon "  (click)="AddPhoneThreshold()" matTooltip ="Add">
+                  add_circle_outline
+                </span>
+                <span *ngIf="!last"   class="material-icons signal-remove-icon" (click)="removePhone(i)"   matTooltip ="Remove">
+                    remove_circle_outline
+                </span>
+            </div>
+          </div>
+<!-- add alarm list  -->
+        </div>
+        <div class="no-threshold-text" *ngIf="signalDetails?.signalThresholdModels?.length == 0">No Parameter threshold</div>
+      </div>
+    </form>
+      <div class=" col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10 pad-b-50 ">
+        <div class="add-signal-btn-div">
+          <button  mat-raised-button [disabled]="!addAlarmForm.valid" 
+            class="buttoncolor my-mbl-select-device-btn add-device-btn add-signal-register-btn"
+            color="primary" (click)="alarmSubmit()">Submit</button>
+            <button   matDialogClose mat-raised-button
+            class="buttoncolor my-mbl-select-device-btn add-device-btn cancel-alarem add-signal-cancel-btn"
+            color="primary">Cancel</button>
+        </div>
+      </div>
+    <!-- </perfect-scrollbar>   -->
+  </div>
+</div>
+  <ngx-loading [show]="showAlarm" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading> 
+</div>
+ 

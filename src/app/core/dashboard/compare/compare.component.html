@@ -1,0 +1,205 @@
+<div class="signal-data ">
+   <div class="container-fluid">
+      <div class="row virtual-scroll-header-alignment-device">
+         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <h3 class="Signalh3">COMPARE</h3>
+          </div>
+      </div>
+      <!-- compare-datahead pad_form_wtop -->
+  <div class="row ">
+    <!-- mainForm -->
+    <form class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" [formGroup]="compareForm" (ngSubmit)="onSubmit()">
+     <div class="row dropdown-row">
+       <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 no-pad">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-2 float_left">
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Select Device 1" aria-label="Number" matInput formControlName="firstDevice"
+            [matAutocomplete]="autoDeviceOne" />
+          <mat-autocomplete #autoDeviceOne="matAutocomplete">
+            <mat-option *ngFor="let device of filteredDeviceOne | async" [value]="device.deviceName"
+              (onSelectionChange)="deviceSelection(device, 'firstDevice', $event ,1)"
+              [ngClass]="_deviceSelection(device.deviceName)">
+              {{ device.deviceName }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-2 float_left">
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Select Parameter 1" aria-label="Number" matInput formControlName="firstSignal"
+            [matAutocomplete]="autoSignalOne" [(ngModel)]="selectSignalName" />
+          <mat-autocomplete #autoSignalOne="matAutocomplete">
+            <mat-option *ngFor="let signal of filteredSignalOne | async" [value]="signal.signalName"
+              (onSelectionChange)="signalSelection(signal, 'firstSignal', $event)"
+              [ngClass]="_signalSelection(signal.signalName) ">
+              {{ signal.signalName }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-2 float_left">
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Select Device 2" aria-label="Number" matInput formControlName="secondDevice"
+            [matAutocomplete]="autoDeviceTwo" />
+          <mat-autocomplete #autoDeviceTwo="matAutocomplete">
+            <mat-option *ngFor="let device of filteredDeviceTwo | async" [value]="device.deviceName"
+              (onSelectionChange)="deviceSelection(device,'secondDevice', $event,2)"
+              [ngClass]="_deviceSelection(device.deviceName)">
+              {{ device.deviceName }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-2 float_left">
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Select Parameter 2 " aria-label="Number" matInput formControlName="secondSignal"
+            [matAutocomplete]="autoSignalTwo" [(ngModel)]="selectSignalTwoName" />
+          <mat-autocomplete #autoSignalTwo="matAutocomplete">
+            <mat-option *ngFor="let signal of filteredSignalTwo | async" [value]="signal.signalName"
+              (onSelectionChange)="signalSelection(signal, 'secondSignal', $event)"
+              [ngClass]="_signalSelection(signal.signalName)">
+              {{ signal.signalName }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+          </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 float_left">
+              <elpis-rms-daternge-picker [noValidation]="false" [myForm]="compareForm" (dateRangeEvent)="customdate($event)"></elpis-rms-daternge-picker>
+             </div>
+      </div>
+      <!-- compar_sing_width -->
+       <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-2">
+        <button [disabled]="compareForm.invalid" type="submit" class="btn btn-primary float_r apply_button full-btn-width">
+          APPLY
+        </button>
+       </div>
+     </div>
+    </form>
+  </div>
+
+  <div class="row" *ngIf="showContent">
+    <div  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mr-t-25 mbl-mb15">
+      <div class="compare-table-grid-card ">
+      <div class="disflex">
+        <div class="width70">List Of Data</div>
+        <div class="width20">SPARE</div>
+        <div class="width10">
+          <span [matMenuTriggerFor]="menu" class="material-icons pointer card-dots">
+            more_horiz
+          </span>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="exportMenu">Export </button>
+          </mat-menu>
+
+          <mat-menu #exportMenu="matMenu">
+            <button mat-menu-item (click)="exportTo('csv')">Csv</button>
+            <button mat-menu-item (click)="exportTo('xlsx')">Excel</button>
+          </mat-menu>
+        </div>
+      </div>
+      <div *ngIf="mainTableData?.length > 0; else noRecordsFound" class="display-flex" >
+        <table class="table table_width ">
+          <thead class="tabcard">
+            <tr>
+              <th scope="col" class="">Value</th>
+              <th scope="col" class="">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="" *ngFor="let item of signalOneDataTable  | paginate: config ? config : ''">
+              <td>{{ item.dataValue }}</td>
+              <td class="table-second-td-pad-l">{{item.timeReceived | date : 'long'}}</td>
+            </tr>
+          </tbody>
+          <tbody class="no-records-table" *ngIf="signalOneDataTable?.length == 0">
+            no records
+          </tbody>
+          <div *ngIf="signalOneDataTable?.length > 0" class="table-pagination-item-per-page-main-div">
+            <div class="items-per-page-div ">
+              <mat-form-field class="chart-view-dropdown mbl-content-width-100 ipad-width100">
+                  <mat-label>Items per page</mat-label>
+                  <mat-select  [(ngModel)]="itemVal">
+                      <mat-option (click)="itemsperpage(val1.value,$event)" #val1 [value]="'100'">100</mat-option>
+                      <mat-option (click)="itemsperpage(val2.value,$event)" #val2 [value]="'500'">500</mat-option>
+                      <mat-option (click)="itemsperpage(val3.value,$event)" #val3 [value]="'1000'">1000</mat-option>
+                  </mat-select>
+              </mat-form-field>
+           </div>
+            <div class="pagination-div">
+              <elpis-rms-pagination *ngIf="paginationShow" [config]="config"></elpis-rms-pagination> 
+            </div>
+          </div>
+        </table>
+        <table class="table table_width">
+          <thead class="tabcard">
+            <tr>
+              <th scope="col" class="">Value</th>
+              <th scope="col" class="">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="" *ngFor="let item of signalTwoDataTable  | paginate: config1 ? config1 : ''">
+              <td>{{ item.dataValue }}</td>
+              <td class="table-second-td-pad-l">{{item.timeReceived | date : 'long'}}</td>
+            </tr>
+          </tbody>
+          <tbody class="no-records-table" *ngIf="signalTwoDataTable?.length == 0">
+            no records
+          </tbody>
+          <div *ngIf="signalTwoDataTable?.length > 0" class="table-pagination-item-per-page-main-div">
+            <div class="items-per-page-div ">
+              <mat-form-field class="chart-view-dropdown mbl-content-width-100 ipad-width100">
+                  <mat-label>Items per page</mat-label>
+                  <mat-select  [(ngModel)]="itemVal">
+                      <mat-option (click)="itemsperpage1(val1.value,$event)" #val1 [value]="'100'">100</mat-option>
+                      <mat-option (click)="itemsperpage1(val2.value,$event)" #val2 [value]="'500'">500</mat-option>
+                      <mat-option (click)="itemsperpage1(val3.value,$event)" #val3 [value]="'1000'">1000</mat-option>
+                  </mat-select>
+              </mat-form-field>
+           </div>
+            <div class="pagination-div">
+              <elpis-rms-pagination *ngIf="paginationShow" [config]="config1"></elpis-rms-pagination> 
+            </div>
+          </div>
+        </table>
+
+
+    
+
+      </div>
+      <ng-template #noRecordsFound>
+        <p class="text-center mt-10">No records found</p>
+      </ng-template>
+     </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  mr-t-25 ">
+      <div class="compare-graph-grid-card">
+      <div class="devis_cardtab">
+        <div class="disflex">
+          <div class="width80">List Of Data</div>
+          <div class="width20a">
+          </div>
+        </div>
+        <div class="chart-div" elpisRmsStopProp
+          *ngIf="signalDataPresent && (signalOneDataTable?.length>0 || signalTwoDataTable?.length>0)">
+          <elpis-rms-datetime-chart elpisRmsStopProp [series]="chartSeries"></elpis-rms-datetime-chart>
+        </div>
+        <div class="chart-div" *ngIf="signalOneDataTable?.length===0 && signalTwoDataTable?.length===0">
+          <h3 style="text-align:center">Data is not there Please select proper range data</h3>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+
+  <div class="row text-center mx-auto" *ngIf="!showContent">
+    <div class="col-md-12 col-sm-12">
+      <h3 style="text-align: center;margin-top: 170px;">Select devices and Parameter </h3>
+    </div>
+  </div>
+
+ </div><!--main container end tag-->
+</div>
+
+<ngx-loading [show]="loader" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

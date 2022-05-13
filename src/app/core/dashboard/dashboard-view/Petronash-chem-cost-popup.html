@@ -1,0 +1,62 @@
+<div class="container">
+
+  <div class="row mb-4">
+
+    <div class="col-10">
+      <h2 class="popup-title">Chemical Cost</h2>      
+    </div>
+
+    <div class="col-2 delete-popup-close-icon d-flex justify-content-end" id="close-icon">
+      <mat-icon matDialogClose>close</mat-icon>
+    </div>
+
+    <div class="col-12">
+      <mat-divider></mat-divider>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-8">
+      <p class="text-secondary details-popup-data-txt">Current month injection rate</p>
+    </div>
+
+    <div class="col-4">
+      <p class="font-weight-bold text-primary text-right">{{chemicalCostData?.thisMonthInjectionRate}}</p>
+    </div>
+
+  </div>
+
+  <mat-divider class="mb-3"></mat-divider>
+
+  <div class="row">
+
+    <div class="col-8">
+      <p class="text-secondary details-popup-data-txt">Current month chemical cost</p>
+    </div>
+
+    <div class="col-4">
+      <p class="font-weight-bold text-primary text-right">{{chemicalCostData?.thisMonthChemCost}}</p>
+    </div>
+
+  </div>
+
+  <mat-divider class="mb-3"></mat-divider>
+
+  <div class="row">
+
+    <div class="col-8">
+      <p class="text-secondary details-popup-data-txt">Current year chemical cost</p>
+    </div>
+
+    <div class="col-4">
+      <p class="font-weight-bold text-primary text-right">{{chemicalCostData?.thisYearChemCost}}</p>
+    </div>
+
+  </div>
+
+
+</div>
+
+  

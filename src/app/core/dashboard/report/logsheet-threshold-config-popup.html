@@ -1,0 +1,45 @@
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="popup-title">Logsheet Threshold Config</h2>
+            <div class="delete-popup-close-icon" id="close-icon">
+                <mat-icon matDialogClose >close </mat-icon>
+            </div>
+        </div>
+        <div class="col-12 margin-bottom-10">
+            <mat-divider ></mat-divider>
+        </div>
+    </div>    
+
+<div class="form-fields-div col-12 no-pad">
+    <!-- <perfect-scrollbar >   -->
+    <div class="row logsheet-threshold-content-div-scroll">
+             <div  class="col-12 mol-sm-12 col-md-4 col-xl-4 col-lg-4 margin-top-10" *ngFor="let item of logSheetSignals">
+                <div class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>{{getDescription(item)}}</mat-label>
+                      <input  matInput placeholder="{{getDescription(item)}}"  [(ngModel)]="item.threshold?.length == 0 ? null:item.threshold"
+                      (blur)="onFocusOut(item)"> 
+                    </mat-form-field>
+                  </div>
+             </div>
+    </div>
+    <div class="row">
+        <div class=" col-12 mol-sm-12 col-md-12 col-xl-12 col-lg-12 margin-top-10 pad-b-50 ">
+            <div class="add-signal-btn-div">
+                <button  mat-raised-button class="buttoncolor details-close-btn-mbl
+                 my-mbl-select-device-btn add-device-btn edit-popup-apply-btn" (click)="popupSubmit()"  color="primary">Submit</button>
+
+                 
+            </div>
+        </div>
+    </div>
+
+    <!-- </perfect-scrollbar>   -->
+    </div> <!-- Popup body end tag-->
+    <ngx-loading [show]="logSheetShow" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+</div> <!-- Container end tag-->
+

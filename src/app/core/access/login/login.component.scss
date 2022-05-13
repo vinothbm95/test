@@ -1,0 +1,98 @@
+.fill-remaining-space {
+	/* This fills the remaining space, by using flexbox. 
+     Every toolbar row uses a flexbox row layout. */
+	flex: 1 1 auto;
+}
+
+.container {
+	padding: 10px;
+}
+
+.form {
+	width: 100%;
+    margin-top: 35%;
+}
+
+.form-element {
+	padding: 5px 0px 25px 2px;
+	width: 100%;
+}
+
+.button {
+	width: 100%;
+}
+
+button:focus {
+	outline: none !important;
+}
+
+.elpis-logo {
+	width: 50%;
+}
+
+.login-main {
+	padding: 0px;
+}
+
+.elpis-logo {
+	width: 50%;
+}
+
+.login-main {
+	padding: 0px;
+}
+
+.login_button {
+	background: #43425D !important;
+	color: #fff !important;
+}
+
+.signup_button {
+	background: #fff !important;
+	color: #43425D !important;
+	border: solid 1px #43425D;
+	box-shadow: none;
+}
+
+.login_button:hover {
+	background: #43425D !important;
+	color: #fff !important;
+}
+
+.signup_button:hover {
+	background: #43425D !important;
+	color: #fff !important;
+}
+
+.my-row {
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.no-pad {
+	padding: 0px;
+}
+
+.forgotpassword-txt {
+	top: -5px;
+	position: relative;
+}
+
+.login-btn {
+	height: 38px;
+}
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #3B86FF !important;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+    background-color: #3B86FF !important;
+}
+//media query
+@media only screen and (max-width: 600px) {
+	.login-img {
+		display: none;
+	}
+	.login-btn {
+		margin-bottom: 20px;
+	}
+}

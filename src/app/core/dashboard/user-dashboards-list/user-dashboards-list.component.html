@@ -1,0 +1,129 @@
+
+
+
+<div class="contaner-root">
+    <div class="row virtual-scroll-header-alignment-device">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 dashboard ">
+           <p class="heading-txt">User Dashboards</p> 
+            <!-- <button (click)="AddAlarmPopup('add','')" mat-raised-button routerLinkActive="list-item-active"
+                class="buttoncolor my-mbl-select-device-btn add-device-btn float-l mbl-width100" 
+                color="primary">Add Alarm <mat-icon>library_add</mat-icon>
+            </button> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 padding-head mar_top10px">
+        <mat-card class=" my-Report-title-div-height mycard">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-20">
+                <div class="global-search-div">
+                    <mat-form-field class="mbl-content-width-100 my-search-width ipad-width100">
+                        <mat-icon matSuffix>search</mat-icon>
+                       <input [(ngModel)]="SearchModal" autocomplete="off" name="Search"  matInput type="search" placeholder="search here" class="search-input">
+                     </mat-form-field>
+                </div>                   
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-20 no-pad">     
+               <div class="pagination-block-top col-12 col-sm-12 col-md-12">
+                <div class="items-per-page-div ">
+                    <mat-form-field class="chart-view-dropdown mbl-content-width-100 ipad-width100">
+                        <mat-label>Items per page</mat-label>
+                        <mat-select  [(ngModel)]="itemVal">
+                            <mat-option (click)="itemsperpage(val1.value)" #val1 [value]="'5'">5</mat-option>
+                            <mat-option (click)="itemsperpage(val2.value)" #val2 [value]="'10'">10</mat-option>
+                            <mat-option (click)="itemsperpage(val3.value)" #val3 [value]="'20'">20</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+               </div>
+                  <elpis-rms-pagination *ngIf="paginationShow" [config]="config"></elpis-rms-pagination>     
+              </div>
+           </div>
+         </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="contaner-root">
+    <!-- table main div start from here-->
+    <div class="table-main-div" *ngIf="!showAlarm">
+       <table>
+          <thead>
+            <tr>
+              <th *ngFor="let header of StudentProjectListTableHeader" scope="col">
+                <div class="thead-th-div">{{header?.title}}</div>
+              </th>
+              <th scope="col">
+                <div class="thead-th-div">View</div>
+              </th>
+            </tr>
+         </thead>
+        <tbody>
+            <tr *ngFor="let item of StudentProjectListTableData | filter: SearchModal | paginate: config ? config : '' ; let i = index ">
+                <td *ngFor="let header of StudentProjectListTableHeader "  data-label="header.title" [attr.data-label]="header.title">
+                   <div  *ngIf="header.name != 'isUsed' && header.name != 'firstName'"  class="tbody-td-div ">{{item[header.name]}}</div>
+                   <div *ngIf="header.name == 'isUsed'"  class="tbody-td-div ">
+                    <!-- [ngClass]="item?.deviceStatus ? 'active':'inactive'" -->
+                        <span class="" > {{item[header.name]}}</span>
+                   </div>
+                   <div *ngIf="header.name == 'firstName'"  class="tbody-td-div ">
+                     <span class="" > {{item[header.name]}} {{item?.lastName}}</span>
+                </div>
+                </td>
+                <td  data-label="" [attr.data-label]="">
+                  <div  class="tbody-td-div ">
+                    <button class="action-btn" (click)="studentView(item?.userAccountId)"><mat-icon class="icon-eye">remove_red_eye</mat-icon></button>
+                  </div>
+              
+          </tr>
+        </tbody>
+      </table>
+      <!--bottom pagination div starts from here-->
+      <div class="global-action-main-div-bottom">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 no-pad padding-head ">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-20">
+                <div class="items-per-page-div-bottom">
+                    <mat-form-field class="chart-view-dropdown mbl-content-width-100">
+                      <mat-label>Items per page</mat-label>
+                       <mat-select [(ngModel)]="itemVal">
+                          <mat-option (click)="itemsperpage(val1.value)" #val1 [value]="'5'">5</mat-option>
+                          <mat-option (click)="itemsperpage(val2.value)" #val2 [value]="'10'">10</mat-option>
+                          <mat-option (click)="itemsperpage(val3.value)" #val3 [value]="'20'">20</mat-option>
+                       </mat-select>
+                    </mat-form-field>
+                 </div>  
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 mt-20 no-pad">
+                <div class="pagination-block-bottom col-12 col-sm-12 col-md-12">     
+                    <elpis-rms-pagination *ngIf="paginationShow" [config]="config"></elpis-rms-pagination>               
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--bottom pagination div End  here-->
+    </div>
+    <!-- table main div end  here-->
+   
+  </div>
+  
+  <ngx-loading [show]="showAlarm" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,899 @@
+<div class="contaner-root ">
+
+  
+
+  <div class="row rmg virtual-scroll-header-alignment-device">
+
+    <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12">
+      <p class="report" [hidden]="reports">Reports</p>
+      <p class="report" [hidden]="isCustomReport">Custom report</p>
+      <!-- <p class="report" [hidden]="deviceCard">Devices report</p>
+      <p class="report" [hidden]="signalsCard">Signal report</p>
+      <p class="report" [hidden]="alaramCard">Alarm report</p> -->
+      <p *ngIf="rmsAct.customerId == 1 " class="report" [hidden]="isLogsheet">Log Sheet
+        <button  *ngIf="rmsAct.userRoleId == 1 "  (click)="logsheetThresholdConfigPopup()" 
+        matTooltip="Logsheet Threshold Config" class="logsheet-threshold-config"><mat-icon>settings</mat-icon></button> 
+      </p>
+      <p class="report" [hidden]="isStatusReport">Device Status Report</p>
+
+
+    </div>
+
+    <!-- *ngIf="adminRole" -->
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 " style="padding: 0px 15px ;">
+      <mat-card class=" my-Report-title-div-height custome-height-mat-card">
+
+        <div class="row aligncntr head-row">
+          <div class=" col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-6 col-12 mbl-drop-down-width ">
+            <div class="pad5">
+              <button mat-raised-button color="primary" class=" mr-t-5 select_report custom-report-dropdown width100 mbl-ml0"
+                [matMenuTriggerFor]="menu">
+
+                <span class="select_report_text" [hidden]="reports"> Select Report </span>
+                <span class="select_report_text" [hidden]="isCustomReport"> Custom Parameter report </span>
+                <!-- <span class="select_report_text" [hidden]="deviceCard">Devices report</span>
+                <span class="select_report_text" [hidden]="signalsCard">Signal report</span>
+                <span class="select_report_text" [hidden]="alaramCard">Alarm report</span> -->
+                <span  *ngIf="rmsAct.customerId == 1 " class="select_report_text" [hidden]="isLogsheet">Log Sheet</span>
+                <span class="select_report_text" [hidden]="isStatusReport">Device Status Report</span>
+   
+                <mat-icon>expand_more</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" class="providers-menu">
+                <button mat-menu-item (click)="customReportView()">Custom Parameter report</button>
+                <!-- <button mat-menu-item (click)="devicesReport()">Devices report</button>
+                <button mat-menu-item (click)="signalReport()">Signal report</button>
+                <button mat-menu-item (click)="alaramReport()">Alarm report</button> -->
+                <button  *ngIf="rmsAct.customerId == 1 " mat-menu-item (click)="LogReport() ">Log Sheet</button>
+                <button mat-menu-item (click)="DeviceStatusReport() ">Device Status Report</button>
+ 
+              </mat-menu>
+
+
+            </div>
+          </div>
+
+          <div class=" col-xl-10 col-lg-9 col-md-12 col-sm-12 col-xs-6 col-12 " [formGroup]="CustomeReportForm" [hidden]="isCustomReport" >
+            
+         <div class="row">
+          <div class=" col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12 col-12  ">
+            <div class="pad5" >
+              <mat-form-field class="width100 ipad-width100">
+                <mat-label>Select Devices</mat-label>
+                <mat-select formControlName="devicelform" [(ngModel)]="selecteddevicename"
+                  (selectionChange)="loadsignal($event)">
+                  <mat-option *ngFor="let customeReportList of Devicedata" [value]="customeReportList.deviceId">
+                    {{customeReportList.deviceName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="CustomeReportForm.controls['devicelform'].touched ">Please select a device</mat-error>
+
+  
+
+              </mat-form-field>
+            </div>
+          </div>
+          <div class=" col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12 col-12  ">
+            <div class="pad5" >
+              <mat-form-field class="width100 ipad-width100">
+                <mat-label>Select Parameter</mat-label>
+                <mat-select [(ngModel)]="selectedsignalname" multiple style="margin-left: 10px;"
+                  formControlName="signalform">
+                  <mat-option *ngFor="let signallist of petronashsignals" [value]="signallist">
+                    {{signallist.signalName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="CustomeReportForm.controls['signalform'].touched ">Please select a Parameter</mat-error>
+
+          
+
+              </mat-form-field>
+            </div>
+          </div>
+         
+          <div class="  col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12 col-12   ">
+           <form  >
+            <elpis-rms-daternge-picker [noValidation]="false" [myForm]="CustomeReportForm" (dateRangeEvent)="customdate($event)"></elpis-rms-daternge-picker>
+           </form>
+          </div>
+          <div class=" col-xl-2 col-lg-6 col-md-6 col-sm-6 col-xs-12 col-12  ">
+            <div>
+              <button mat-raised-button class="btncl mbl-width100 mr-t-5" (click)="parameterspopup()" [disabled]="!CustomeReportForm.valid">Add
+                Parameters</button>
+            </div>
+          </div>
+        </div>
+          </div>
+          
+          <!-- ////////////////device status report////////////////////////// -->
+          <div class=" col-xl-10 col-lg-9 col-md-12 col-sm-12 col-xs-6 col-12 " [formGroup]="isStatusReportForm"
+            [hidden]="isStatusReport">
+            <div class="row">
+              <div class=" col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-12  ">
+                <div class="pad5">
+                  <mat-form-field class="width100 ipad-width100">
+                    <mat-label>Select Devices</mat-label>
+                    <mat-select #select [(ngModel)]="selectedStatusDeviceName" multiple style="margin-left: 10px;"
+                      formControlName="deviceform">
+                      <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                          (change)="toggleAllSelection()">Select All</mat-checkbox>
+                      </div>
+                      <mat-option (click)="optionClick()" *ngFor="let StatusDeviceList of Devicedata"
+                        [value]="StatusDeviceList">
+                        {{StatusDeviceList.deviceName}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="isStatusReportForm.controls['deviceform'].touched ">Please select a device
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="  col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 col-12   ">
+                <form>
+                  <elpis-rms-daternge-picker [noValidation]="false" [myForm]="isStatusReportForm"
+                    (dateRangeEvent)="customdate($event)"></elpis-rms-daternge-picker>
+                </form>
+              </div>
+              <div class=" col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-12  float-right ">
+                <div>
+                  <button mat-raised-button class="btncl mbl-width100 generate-btn mr-t-5" [disabled]="!isStatusReportForm.valid" 
+                                     (click)="GetStatusGeport()">Generate
+                    Report</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- //////////////////logsheet page/////////////////////// -->
+
+          <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12" [formGroup]="cng" [hidden]="isLogsheet">
+            <div class="row">
+
+            <div class=" col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-12  ">
+              <div class="pad5 " >
+                <mat-form-field class="width100 ipad-width100">
+                  <mat-label>Select Devices</mat-label>
+                  <mat-select formControlName="devicelform1" [(ngModel)]="selectedcngdevice">
+                    <mat-option *ngFor="let customeReportList of Cngdevice" (click)="getLogsheetSignals(customeReportList)" [value]="customeReportList">
+                      {{customeReportList.deviceName}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="cng.controls['devicelform1'].touched ">Please select a device</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div class=" col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 col-12  ">
+              <form >
+              <elpis-rms-daternge-picker [noValidation]="false" [myForm]="cng" (dateRangeEvent)="customdate($event)"></elpis-rms-daternge-picker>
+                </form>
+            </div>
+  
+            <div class=" col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-12  ">
+              <div>
+                <button mat-raised-button class="btncl width100 mr-t-5 generate-btn" (click)="logsheetreport()" [disabled]="!cng.valid || logSheetSignalsData?.length == 0">Generate
+                  Report</button>
+                
+               
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+        <loading *ngIf="isLoading">{{ isLoading }}</loading>
+
+        <div class="row">
+
+          <div class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-10 col-lg-10 " [hidden]="deviceCard">
+
+            <div class="row">
+
+              <div class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-6 col-lg-6  ">
+                <form class="example-form">
+                  <mat-form-field class="example-full-width">
+
+                    <mat-select [formControl]="toppings" placeholder="Select Devises" multiple>
+                      <mat-option class="mat_pseudo_checkbox_color" *ngFor="let topping of deviseslist"
+                        [value]="topping">
+                        {{topping}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </form>
+
+              </div>
+              <div class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-6 col-lg-6  ipad-plr">
+                <button mat-raised-button color="primary" class="apply_report_btn select_report mbl-width92">Apply
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- deviceCard select button -->
+
+          <!-- signalReport select button -->
+          <div class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-10 col-lg-10 " [hidden]="signalsCard">
+            <div class="row">
+              <div class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-12 col-lg-12 paddinglr0">
+                <button mat-raised-button color="primary" class="apply_report_btn select_report mbl-width">Select Parameters
+                  <mat-icon>add_box</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- signalReport select button -->
+        </div>
+      </mat-card>
+
+      <!--custom report table html start-->
+      <mat-card class="mar_t20" [hidden]="isCustomReport">
+
+      
+        <div class="parsy" *ngFor="let item of reportdata">
+
+          <div class="tablecd" style="overflow-x: auto;">
+            <div class="row">
+              <div class="col-10 col-sm-11 col-md-11 col-xl-11 col-lg-11">
+                <p class="reportmdel">{{item.signalModel.signalName}}
+                </p>
+              </div>
+     
+              <div class="col-2 col-sm-1 col-md-1 col-xl-1 col-lg-1 mbl-plr0">
+                <div class="width10">
+                  <span [matMenuTriggerFor]="menu" class="material-icons pointer card-dots">
+                    more_horiz
+                  </span>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item [matMenuTriggerFor]="exportMenu">Export </button>
+                  </mat-menu>
+
+                  <mat-menu #exportMenu="matMenu">
+                    <button mat-menu-item (click)="exportexcel(item)">CSV</button>
+                    <button mat-menu-item (click)="exportTopdf(item, reportChart)">PDF</button>
+                  </mat-menu>
+                </div>
+              </div>
+
+
+
+            </div>
+
+            <table>
+              <!-- <div class="tablesc"> -->
+
+              <thead>
+                <th class="trcl mbl-width100px" scope="col" *ngFor="let rptname of Header">
+                  <div class="thead-th-div">{{rptname.title}}</div>
+                </th>
+                <th class="trcl" scope="col">
+                  <div class="thead-th-div"></div>
+                </th>
+
+              </thead>
+              <tbody>
+                <tr>
+                  <td *ngFor="let rtpname of Header" class="mbl-width100px mbl-pt20" >
+                    <div class="tbody-td-div ">{{item.signalModel[rtpname.name]}}</div>
+                  </td>
+                  <td data-label="" class="action-th my-last-td-width float-right">
+                    <div class="spnst clr" (click)="openreportmodel(item)">
+                      <p>More Details <span class="material-icons-outlined ics">
+                          chevron_right </span>
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+
+              <!-- </div> -->
+
+            </table>
+          </div>
+
+
+
+     
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 graphcd">
+            <div class="devis_cardtab  pad0_mart30px responsiveweb2">
+              <div class="disflex">
+                <div class="width80">Graph</div>
+
+              </div>
+              <div class="chart-div">
+                <elpis-rms-datetime-chart [yAxisLabel]="item.signalModel.signalUnit" [series]="item.chartSeries"
+                  #reportChart>
+                </elpis-rms-datetime-chart>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- </mat-card> -->
+        </div>
+
+
+
+        <!-- table main div end  here-->
+      </mat-card>
+
+
+      <mat-card class="mar_t21" [hidden]="isLogsheetpage">
+        <div class="logs">
+          <div class="row  logh">
+            <div class="col-5 col-sm-5 col-md-5 col-xl-5 col-lg-5">
+              <div class="logmar">
+                <h4>Name : <span class="update-tag-date">{{Cngdevicename}}</span>
+                </h4>
+              </div>
+            </div>
+
+            <div class="col-3 col-sm-3 col-md-3 col-xl-3 col-lg-3">
+              <div class="logmar">
+                <h4>From : <span class="update-tag-date">{{CngSdate}}</span>
+                </h4>
+              </div>
+            </div>
+            <div class="col-3 col-sm-3 col-md-3 col-xl-3 col-lg-3">
+              <div class="logmar">
+                <h4>To : <span class="update-tag-date">{{CngEdate}}</span>
+                </h4>
+              </div>
+            </div>
+            <div class="col-1 col-sm-1 col-md-1 col-xl-1 col-lg-1  logal">
+              <div class="width10">
+                <span [matMenuTriggerFor]="menu2" class="material-icons pointer card-dots">
+                  more_horiz
+                </span>
+                <mat-menu #menu2="matMenu">
+                  <button mat-menu-item [matMenuTriggerFor]="exportMenu1">Export </button>
+                </mat-menu>
+                <mat-menu #exportMenu1="matMenu">
+                  <button mat-menu-item (click)="exportcng()">CSV</button>
+                  <button mat-menu-item (click)="exportcngpdfreport()">PDF</button>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mar22">
+
+            <table class="dispt">
+              <div class="row" style="position: sticky;
+              z-index: 1;
+              top: 0;">
+
+                <thead class="header  widths1 marginlft txtfont">
+                  <tr class="header  widths1 bckclr">
+                    <td class="header  widths2" colspan="1" rowspan="3">Time (Hrs) Suction</td>
+                    <td class="header  widths1" colspan="9">Pressure Bar (g)</td>
+                    <td class="header  widths1" colspan="2">Temperature in Deg C</td>
+                    <td class="header  widths1" colspan="2">Level</td>
+                    <td class="header  widths1" colspan="9">Power Details</td>
+                    <td class="header  widths1 " rowspan="3">HMR</td>
+                    <td class="header  widths1" colspan="4">Flow Meter Reading</td>
+                  </tr>
+
+                  <tr class="header  widths1 bckclr">
+                    <td class="header  widths1" rowspan="2">Suction Pr.</td>
+                    <td class="header  widths1" rowspan="2">I stage</td>
+                    <td class="header  widths1" rowspan="2">II Stage</td>
+                    <td class="header  widths1" rowspan="2">Low Oil</td>
+                    <td class="header  widths1" rowspan="2">High Oil</td>
+                    <td class="header  widths1" rowspan="2">Medium Bank</td>
+                    <td class="header  widths1" rowspan="2">High Bank</td>
+                    <td class="header  widths1" rowspan="2">Water </td>
+                    <td class="header  widths1" rowspan="2">Air </td>
+                    <td class="header  widths1" rowspan="2">Oil </td>
+                    <td class="header  widths1" rowspan="2">Water </td>
+                    <td class="header  widths1" rowspan="2">Oil </td>
+                    <td class="header  widths1" rowspan="2">Water </td>
+                    <td class="header  widths1" rowspan="2">R Phase Volts </td>
+                    <td class="header  widths1" rowspan="2">Y Phase Volts </td>
+                    <td class="header  widths1" rowspan="2">B Phase Volts </td>
+                    <td class="header  widths1" rowspan="2">Average Line-Neutral Volts </td>
+                    <td class="header  widths1" rowspan="2">R-Y Phase Volts </td>
+                    <td class="header  widths1" rowspan="2">Y-B Phase Volts </td>
+                    <td class="header  widths1" rowspan="2">B-R Phase Volts </td>
+                    <td class="header  widths1" rowspan="2">Average Line-Line Volts </td>
+                    <td class="header  widths1" rowspan="2">Total KW (KW) </td>
+                    <td class="header  widths1" colspan="2">Inlet Flow Meter Reading </td>
+                    <td class="header  widths1" colspan="2">Outlet Flow Meter Reading </td>
+                  </tr>
+                  <tr class="header  widths1 bckclr">
+                    <!-- <td class="header  widths1" colspan="2"></td> -->
+                    <td class="header  widths1">Flow </td>
+                    <td class="header  widths1">Totalizer </td>
+                    <td class="header  widths1">Flow </td>
+                    <td class="header  widths1">Totalizer </td>
+                  </tr>
+                  <tr class="header  widths1 bckclr">
+                    <td class="header  widths2">Std Values </td>
+                    <td class="header  widths1">30-250 </td>
+                    <td class="header  widths1">30-250 </td>
+                    <td class="header  widths1">30-250 </td>
+                    <td class="header  widths1">50-70 </td>
+                    <td class="header  widths1">100-130 </td>
+                    <td class="header  widths1">250 </td>
+                    <td class="header  widths1">250 </td>
+                    <td class="header  widths1">1.5-2.5 </td>
+
+                    <td class="header  widths1">7 </td>
+                    <td class="header  widths1">Max. 70° </td>
+                    <td class="header  widths1">Max. 60° </td>
+                    <td class="header  widths1">70% </td>
+                    <td class="header  widths1">Full </td>
+                    <td class="header  widths1">410 </td>
+                    <td class="header  widths1">410 </td>
+                    <td class="header  widths1">410 </td>
+                    <td class="header  widths1">410 </td>
+                    <td class="header  widths1">410 </td>
+                    <td class="header  widths1">410 </td>
+                    <td class="header  widths1">410 </td>
+                    <td class="header  widths1">410 </td>
+                    <td class="header  widths1 " colspan="6"> </td>
+                  </tr>
+                </thead>
+              </div>
+              <div class="row">
+                <tbody class="header  widths1 marginlft">
+                  <tr class="header  widths1" *ngFor="let cng of Cngdevicedata">
+                    <td class="header  widths2" >{{cng.timeReceived}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.suctionPressure)">{{getLogSheetData(cng.suctionPressure)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.stage1)">{{getLogSheetData(cng.stage1)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.stage2)">{{getLogSheetData(cng.stage2)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.pressureLowOil)">{{getLogSheetData(cng.pressureLowOil)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.pressureHighOil)">{{getLogSheetData(cng.pressureHighOil)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.pressureMediumBank)">{{getLogSheetData(cng.pressureMediumBank)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.pressureHighBank)">{{getLogSheetData(cng.pressureHighBank)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.pressureWater)">{{getLogSheetData(cng.pressureWater)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.pressureAir)">{{getLogSheetData(cng.pressureAir)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.temperatureOil)">{{getLogSheetData(cng.temperatureOil)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.temperatureWater)">{{getLogSheetData(cng.temperatureWater)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.levelOil)">{{getLogSheetData(cng.levelOil)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.levelWater)">{{getLogSheetData(cng.levelWater)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.rPhaseVolt)">{{getLogSheetData(cng.rPhaseVolt)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.yPhaseVolt)">{{getLogSheetData(cng.yPhaseVolt)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.bPhaseVolt)">{{getLogSheetData(cng.bPhaseVolt)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.avgLineNeutralVolt)">{{getLogSheetData(cng.avgLineNeutralVolt)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.ryPhaseVolt)">{{getLogSheetData(cng.ryPhaseVolt)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.ybPhaseVolt)">{{getLogSheetData(cng.ybPhaseVolt)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.brPhaseVolt)">{{getLogSheetData(cng.brPhaseVolt)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.avgLineToLineVolt)">{{getLogSheetData(cng.avgLineToLineVolt)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.totalKw)">{{getLogSheetData(cng.totalKw)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.hourMinSecRun)">{{getLogSheetData(cng.hourMinSecRun)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.inletFlow)">{{getLogSheetData(cng.inletFlow)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.inletTotal)">{{getLogSheetData(cng.inletTotal)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.outletFlow)">{{getLogSheetData(cng.outletFlow)}}</td>
+                    <td class="header  widths1" [style.background-color]="getLogSheetBg(cng.outletTotal)">{{getLogSheetData(cng.outletTotal)}}</td>
+                  </tr>
+                </tbody>
+              </div>
+            </table>
+          </div>
+        </div>
+      </mat-card>
+      <!--custom report table html end-->
+
+            <!-- ////device status report page starts here //////// -->
+
+            <mat-card *ngFor="let item of StatusModel;let i = index " [hidden]="isStatusReport">
+
+              <div class="row">       
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 ">
+                <div class="reportname">{{item.allData[0].deviceName}} Device Status</div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6  float-right">               
+                <button class="floatright" mat-button [matMenuTriggerFor]="GrapghType">
+                  <mat-icon>more_vert</mat-icon>
+                
+                </button>
+                
+                <mat-menu #GrapghType="matMenu" >
+                  <button mat-menu-item (click)="bargraph(item)" >Bar Graph</button>
+                  <button mat-menu-item (click)="piechart(item)">Pie Chart</button>          
+                </mat-menu>
+              </div>
+            </div>
+              <div class="row">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 ">
+                <div class="pad_r30 ">
+                       
+                  <table class=" my-custom table  ">
+                    
+                    <thead class="tabcard">
+                      <tr>
+                        <th scope="col" class="">
+                          <div class="thead-th-div-custom">
+                            Time
+                          </div>
+                          </th>
+                        <th scope="col" class="">
+                          <div class="thead-th-div-custom">
+                             Value
+                            </div>  
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr class="" *ngFor="let element of item.allData[0].deviceStatusDataModels | paginate: {itemsPerPage:10, currentPage: item.allData[0].deviceName,id: item.allData[0].deviceName};let j = index">
+                        <td>
+                          <div class="tbody-td-div-custome">
+                            {{element.timeReceived}}
+                          </div>
+                         </td>
+                        <td>
+                          <div class="tbody-td-div-custome">
+                            {{ element.isActive }}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+
+                  </table>
+
+                  <!-- <div class="pagination">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </div> -->
+
+                  <div class="chart-div" *ngIf="item.allData[0].deviceStatusDataModels.length==0">
+                    <h3 style="text-align:center">No Data</h3>
+                  </div>
+
+                  <div class="table-pagination-item-per-page-main-div" >
+                    <!-- <div class="items-per-page-div ">
+                      <mat-form-field class="chart-view-dropdown mbl-content-width-100 ipad-width100">
+                        <mat-label>Items per page</mat-label>
+                        <mat-select  [(ngModel)]="itemVal">
+                            <mat-option (click)="itemsperpage(item.allData[0].deviceId,$event)" id="{{item.allData[0].deviceId}}"  [value]="'10'">10</mat-option>
+                            <mat-option (click)="itemsperpage({{item.allData[0].deviceId}}_2.value,$event)" id="{{item.allData[0].deviceId}}_2" [value]="'500'">500</mat-option>
+                            <mat-option (click)="itemsperpage({{item.allData[0].deviceId}}_3.value,$event)" id="{{item.allData[0].deviceId}}_3" [value]="'1000'">1000</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    </div>  -->
+                     <div class="pagination-div">
+                      <!-- <elpis-rms-pagination *ngIf="paginationShow" [index]="item.allData[0].deviceName" [config]=" getPaginate(item,i)"></elpis-rms-pagination>  -->
+                      <pagination-controls  (pageChange)="item.allData[0].deviceName = $event" [id]= "item.allData[0].deviceName" class="my-pagination"></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+      
+              </div>    
+      
+      
+      <!-- 
+              <tbody>
+                <tr  *ngFor="let element of item.allData[0].deviceStatusDataModels | paginate: config ? config : ''">
+                  <td>{{element.timeReceived}}</td>
+                  <td>{{ element.isActive }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="item.allData[0].deviceStatusDataModels.length > 0" class="table-pagination-item-per-page-main-div">
+              <div class="items-per-page-div ">
+                <mat-form-field class="chart-view-dropdown mbl-content-width-100 ipad-width100">
+                    <mat-label>Items per page</mat-label>
+                    <mat-select  [(ngModel)]="itemVal">
+                        <mat-option (click)="itemsperpage(val1.value,$event)" #val1 [value]="'10'">10</mat-option>
+                        <mat-option (click)="itemsperpage(val2.value,$event)" #val2 [value]="'50'">50</mat-option>
+                        <mat-option (click)="itemsperpage(val3.value,$event)" #val3 [value]="'100'">100</mat-option>
+                    </mat-select>
+                </mat-form-field>
+             </div>
+              <div class="pagination-div">
+                <elpis-rms-pagination *ngIf="paginationShow"  [config]="config"></elpis-rms-pagination> 
+              </div>
+            </div> -->
+            
+              <!-- /////////////////item.allData[0].deviceStatusDataModels -->
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 " *ngIf="item.allData[0].graphModel?.isLineChart" >
+      
+                
+                <div class="">
+                  <div class="chart-div" *ngIf=" item.allData[0].deviceStatusDataModels?.length > 0">
+                    <elpis-rms-step-line-chart [yAxisLabel]="'Device Status'" [categories]=" item.allData[1]"
+                      [data]=" item.allData[2]"></elpis-rms-step-line-chart>
+                  </div>
+                  <div class="chart-div" *ngIf="item?.length === 0">
+                    <h2 class="pump-status-trend-empty-txt">No Data</h2>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"  *ngIf="item.allData[0].graphModel?.isPieChart">
+                <elpis-rms-pie-chart  [series]="pieseries">
+                </elpis-rms-pie-chart>
+                <!-- chjdhfdfdhfdhjdf -->
+              </div> 
+         
+            </div>
+      
+      
+      
+            </mat-card>
+      
+            <!-- //////////////device status report page ends///////////// -->
+
+      <mat-card [hidden]="deviceCard" class="mar_t20" *ngFor="let item of deviceDetails">
+        <div class="headreport row height-custom">
+          <div class="col-12 col-sm-6 col-xs-6 col-md-6 col-xl-6 col-lg-6">
+            <div class="mar20 Device">Device Name :<span class="Devicename colordiv_sig">{{item.deviceName}}</span>
+            </div>
+          </div>
+          <div *ngIf="item.isalarm" class="col-12 col-sm-6 col-xs-6 col-md-6 col-xl-6 col-lg-6">
+            <button mat-raised-button color="primary" class="alarm_report_btn mar10re select_report mbl-width92"
+              (click)="addAlaramList(item)">Add Alarm List
+            </button>
+          </div>
+        </div>
+        <div class="row Devicechaidcard ">
+          <div class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-6 col-lg-6 mbl-plr0">
+            <div class="Devicechaihead mbl-plr0">
+              <div class="col-12 pad_0">
+                <div class="mar20 boxshadow Device colorDeviceDetails mbl-mb12 ipad-mb10">Device Details</div>
+              </div>
+
+              <div class="row mar20 mbl-mal0">
+
+                <div class="col-12  device_detailspad row">
+                  <div class="col-12 col-sm-4  col-md-4 col-lg-4 col-xl-4  pad_0 ">
+                    <div class="devicedetails">Device id</div>
+                    <div class="pad-10 devicedetlist"> {{item.deviceId}}</div>
+                  </div>
+                  <div class="col-12 col-sm-4  col-md-4 col-lg-4 col-xl-4 pad_0 ">
+                    <div class="devicedetails">Device name</div>
+                    <div class="pad-10 devicedetlist"> {{item.deviceName}}</div>
+                  </div>
+                  <div class="col-12 col-sm-4  col-md-4 col-lg-4 col-xl-4 pad_0 ">
+                    <div class="devicedetails">Description</div>
+                    <div class="pad-10 devicedetlist"> {{item.deviceDescription}}</div>
+                  </div>
+                  <div class="col-12 col-sm-6  col-md-6 col-lg-6 col-xl-6 pad_0 ">
+                    <div class="devicedetails">Enable Email</div>
+                    <div class="pad-10 devicedetlist"> {{item.enableEmail}}</div>
+                  </div>
+                  <div class="col-12 col-sm-6  col-md-6 col-lg-6 col-xl-6 pad_0 ">
+                    <div class="devicedetails">IsBaseStation</div>
+                    <div class="pad-10 devicedetlist"> {{item.isBaseStation}}</div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-6 col-lg-6 mbl-plr0">
+            <div class="Devicechaihead ipad-mb10">
+              <div class="col-12 pad_0 ipad-mb10">
+                <div class="mar20 boxshadow Device colorDeviceDetails mbl-mb12">Parameters List</div>
+              </div>
+
+              <div class="row mar20 ipad-ml0">
+                <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2  mar20" *ngFor="let signalList of item.signalList">
+                  {{signalList?.signalName}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- addAlaram IN Device -->
+          <div *ngIf="item.addAlaram" class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-12 col-lg-12 mar_top20 mbl-plr0">
+            <div class="Devicechaihead overflowhid">
+
+              <div class="headreport row ">
+                <div class="col-12 col-sm-6 col-xs-6 col-md-6 col-xl-6 col-lg-6">
+                  <div class="mar20 Device">Alarm List </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xs-6 col-md-6 col-xl-6 col-lg-6">
+                  <button mat-raised-button color="primary" class="alarm_report_btn mar10re select_report mbl-width95"
+                    (click)="removeAlaramList(item)">remove Alarm List
+                  </button>
+                </div>
+              </div>
+              <div class="row mar20 mbl-alarmtab-height">
+
+                <table class="table table_width ml5 ipad-ml15">
+                  <thead class="tabcard">
+                    <tr>
+                      <th scope="col" class="text_alignc width100px">Last 30 days</th>
+                      <th scope="col" class="text_alignc width100px">Last 60 days</th>
+                      <th scope="col" class="text_alignc width100px">Date Range</th>
+                      <th scope="col" class="text_alignc width100px"> Offline Device time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="text_alignc tabcardtrbg width100px" *ngFor="let alaram of item.alarmlist">
+                      <td class="width100px">{{ alaram.last30days }}</td>
+                      <td class="text_alignc width100px">{{ alaram.last60days }}</td>
+                      <td class="width100px">{{ alaram.dateRange }}</td>
+                      <td class="width100px">{{ alaram.OfflineDevicetime }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </mat-card>
+
+      <!-- Signals  -->
+      <mat-card class="mar_t20" [hidden]="signalsCard" *ngFor="let item of SignalReport">
+        <div class="headreport row header-height">
+          <div class="col-8 col-sm-8 col-xs-8 col-md-8 col-xl-8 col-lg-8">
+            <div class="mar20 Device">Device Name :<span class="Devicename colordiv_sig">{{item.deviceName}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-12 col-lg-12">
+          <div class="Devicechaihead mar_t20 marginbot20">
+            <div class="headreport row header-height mb10">
+              <div class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-12 col-lg-12">
+                <div class="mar20 Device colorDeviceDetails">Device Details</div>
+              </div>
+
+            </div>
+
+            <div class="row mar20">
+
+              <div class="col-12  device_detailspad row mbl-p0">
+                <div class=" col-md-4 col-xl-2 col-lg-2 col-xs-12 pad_0 ">
+                  <div class="devicedetails">Device id</div>
+                  <div class="pad-10 devicedetlist"> {{item.deviceId}}</div>
+                </div>
+                <div class=" col-md-4 col-xl-2 col-lg-2 col-xs-12 pad_0 ">
+                  <div class="devicedetails">Device name</div>
+                  <div class="pad-10 devicedetlist"> {{item.deviceName}}</div>
+                </div>
+                <div class=" col-md-4 col-xl-2 col-lg-2 col-xs-12 pad_0 ">
+                  <div class="devicedetails">Description</div>
+                  <div class="pad-10 devicedetlist"> {{item.deviceDescription}} </div>
+                </div>
+                <div class=" col-md-4 col-xl-4 col-lg-4 col-xs-12 pad_0 ">
+                  <div class="devicedetails">Enable Email</div>
+                  <div class="pad-10 devicedetlist"> {{item.enableEmail}} </div>
+                </div>
+                <div class=" col-md-4 col-xs-12 col-xl-2 col-lg-2 pad_0 ">
+                  <div class="devicedetails">IsBaseStation</div>
+                  <div class="pad-10 devicedetlist"> {{item.isBaseStation}}</div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="Devicechaihead mar_t20 marginbot20 padding_bot20" *ngFor="let item1 of item.SignalDetails">
+            <div class="headreport row heightauto mbl-mb12 ipad-height ">
+              <div class="col-12 col-sm-12 col-xs-8 col-md-8 col-xl-8 col-lg-8">
+                <div class="mar20 Device">Parameters Name :<span
+                    class="Devicename colordiv_sig">{{item1.signalName}}</span></div>
+              </div>
+
+              <!--  -->
+              <div class="col-12 col-sm-12 col-xs-4 col-md-4 col-xl-4 col-lg-4">
+                <button mat-raised-button color="primary" class="Select_Signals_Details_btn mar10re select_report mbl-m0 mbl-btn-width"
+                  (click)="openDialog()">Select Parameters Details<span class="material-icons">
+                    edit
+                  </span>
+                </button>
+
+                <!-- Add Alarm List  in Signals start  button -->
+                <button *ngIf="item1.signalalarm" mat-raised-button color="primary"
+                  class="alarm_report_btn mar10re select_report  mbl-mt10 mbl-btn-width" (click)="signalAddAlaram(item1)">Add Alarm List
+                </button>
+                <!-- Add Alarm List  in Signals start  button -->
+
+              </div>
+            </div>
+            <div class="row mar20 mbl-mal0">
+              <div class="col-12  device_detailspad row">
+                <div class="col-md-4 col-xl-2 col-lg-2  col-xs-12 col-half-offset pad_0 col-offset-1 ">
+                  <div class="devicedetails">Name</div>
+                  <div class="pad-10 devicedetlist"> {{item1.signalName}}</div>
+                </div>
+                <div class="col-md-4 col-xl-2 col-lg-2 col-xs-12 col-half-offset pad_0 ">
+                  <div class="devicedetails">Description</div>
+                  <div class="pad-10 devicedetlist">{{item1.signalDescription}}</div>
+                </div>
+                <div class="col-md-4 col-xl-2 col-lg-2 col-xs-12 col-half-offset pad_0 ">
+                  <div class="devicedetails">start Range</div>
+                  <div class="pad-10 devicedetlist"> {{item1.startRange}} </div>
+                </div>
+                <div class="col-md-4 col-xl-2 col-lg-2 col-xs-12 col-half-offset pad_0 ">
+                  <div class="devicedetails">End Range</div>
+                  <div class="pad-10 devicedetlist">{{item1.startRange}} </div>
+                </div>
+                <div class="col-md-4 col-xl-2 col-lg-2 col-xs-12 col-half-offset pad_0 ">
+                  <div class="devicedetails">Unit</div>
+                  <div class="pad-10 devicedetlist"> {{item1.Unit}}</div>
+                </div>
+                <div class="col-md-4 col-xl-2 col-lg-2 col-xs-12 col-half-offset pad_0 ">
+                  <div class="devicedetails">ParameterDataDecimalPoint</div>
+                  <div class="pad-10 devicedetlist"> {{item1.Signaldatadecimalpoint}}</div>
+                </div>
+
+
+              </div>
+
+
+
+            </div>
+            <!-- Add Alarm List  in Signals start  -->
+
+            <div *ngIf="item1.sigAddAlaram"
+              class="col-12 col-sm-12 col-xs-12 col-md-12 col-xl-12 col-lg-12 mar_top20 padding_bot20">
+              <div class="Devicechaihead overflowhid">
+
+                <div class="headreport row ">
+                  <div class="col-12 col-sm-6 col-xs-6 col-md-6 col-xl-6 col-lg-6">
+                    <div class="mar20 Device">Alarm List </div>
+                  </div>
+                  <div class="col-12 col-sm-6 col-xs-6 col-md-6 col-xl-6 col-lg-6">
+                    <button mat-raised-button color="primary" class="alarm_report_btn mar10re select_report  mbl-width95"
+                      (click)="signalRemoveAlaramList(item1)">remove Alarm List
+                    </button>
+                  </div>
+                </div>
+                <div class="row mar20  mbl-mb2">
+
+                  <table class="table table_width">
+                    <thead class="tabcard">
+                      <tr>
+                        <th scope="col" class="text_alignc width100px">Device Name</th>
+                        <th scope="col" class="text_alignc width100px">Parameter Name</th>
+                        <th scope="col" class="text_alignc width100px">When Alarm Triggered</th>
+                        <th scope="col" class="text_alignc width100px">Real Value</th>
+                        <th scope="col" class="text_alignc width100px">Parameter Value</th>
+                        <th scope="col" class="text_alignc width100px">Reset Timeing Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="text_alignc tabcardtrbg width100px" *ngFor="let signalalaram of item1.signalalarmlist">
+                        <td>{{ signalalaram.devicename }}</td>
+                        <td class="text_alignc width100px">{{ signalalaram.signalname }}</td>
+                        <td class="width100px">{{ signalalaram.whenalarmtriggered }}</td>
+                        <td class="width100px">{{ signalalaram.realvalue }}</td>
+                        <td class-="width100px">{{ signalalaram.signalvalue }}</td>
+                        <td class="width100px">{{ signalalaram.resettime }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+            <!-- Add Alarm List  in Signals end  -->
+          </div>
+        </div>
+      </mat-card>
+      <!-- Signals  -->
+
+      <!-- Alaram  -->
+      <mat-card class="mar_t20" [hidden]="alaramCard">
+        <!-- *ngFor="let item of sdeviceDetails" -->
+        <div class="headreport row ">
+          <div class="col-12 col-sm-6 col-xs-6 col-md-6 col-xl-6 col-lg-6">
+            <div class="mar20 Device ipad-pt16">Device Name :<span class="Devicename">name 1</span></div>
+          </div>
+          <!-- *ngIf="item.isalarm" -->
+          <div class="col-12 col-sm-6 col-xs-6 col-md-6 col-xl-6 col-lg-6">
+            <button mat-raised-button color="primary" class="alarm_report_btn mar10re select_report mbl-width92">Add Alarm List
+            </button>
+          </div>
+        </div>
+      </mat-card>
+      <!-- Alaram  -->
+    </div>
+
+
+
+  </div>
+</div>
+
+<ngx-loading [show]="reportloading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

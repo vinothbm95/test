@@ -1,0 +1,868 @@
+body{
+    background-color: #f0f0f7 !important;
+}
+.contaner-root{
+    margin: 20px 20px !important;
+}
+
+.mt-20{
+    margin-top: 20px;
+}
+
+.select-heading{
+    font-family: Source Sans Pro, Bold;
+    font-size: 24px;
+    color: #3B86FF;
+    font-weight: bold;
+}
+.back-arrow{
+    color: #56556d !important;
+    opacity: 0.9;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    position: relative;
+    top: 4px;
+    left: -2px;
+}
+.apply-btn-grid{
+    width: 100px !important;
+    height: 35px !important;
+    text-align: center !important;
+    margin-left: 15px !important;
+}
+.sidebarMenuInner{
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    height: 80vh;
+}
+.dashboard-name-input-width{
+    width: 100%;
+    margin-top: 0px !important;
+}
+.assign-user-dropdown-width{
+    width: 100%;
+    float: left !important;
+  
+}
+::ng-deep g.highcharts-exporting-group {
+    display: none !important;
+  }
+.checkbox-text{
+    font-size: 14px;
+    position: relative;
+    top: 3px;
+    font-weight: 500;
+    color: #0c0c0cc7;
+}
+.mat-bg{
+    background-color: #F0F0F7;
+    min-height: 425px;
+    padding: 15px;
+}
+.mr-t-10{
+    margin-top: 10px;
+}
+.first-row-signals-list{
+   height: 500px;
+   overflow-y: scroll;
+}
+.second-row-signals-list{
+    // height: 150px;
+    margin-bottom: 50px;
+    // overflow-y: scroll;
+ }
+ .cards-scroll-container{
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: scroll;
+ }
+.comparatorData-width{
+    width: 90px !important;
+    margin: 4px 5px;
+}
+.comparatorData-width1{
+    width: 90px !important;
+    margin: 0px 5px;
+}
+.threshold-add-icon{
+	color: #10ff00;
+	cursor: pointer;
+	position: relative;
+	top: 10px;
+    // left: 180px;
+    font-size: 34px;
+    border: 0px;
+}
+.threshold-remove-icon{
+	color:red;
+	cursor: pointer;
+	position: relative;
+	top: 10px;
+    // left: 180px;
+    font-size: 34px;
+}
+.mr-t-15{
+    margin-top: 15px;
+}
+.mat-bg-2{
+    background-color: #F0F0F7;
+    // min-height: 700px;
+    min-height: 300px;
+    max-height: auto;
+}
+.mat-bg-3{
+    background-color: #ffffff !important;
+}
+.card-heading{
+    background-color: #ffffff;
+    font-family: Source Sans Pro, Bold;
+    font-size: 18px;
+    color: #3B86FF;
+    font-weight: bold;
+    padding: 10px 10px 10px 20px;
+}
+.pad-top{
+    padding-top: 0px;
+}
+.device-div{
+    width: 100%;
+    height: 115px;
+    background-color: #ffffff;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.device-div-selected{
+    border: 3px solid #3b86ff;
+}
+.box-shadow-card-txt{
+    -webkit-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.device-div-heading{
+    -webkit-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.no-pad{
+    padding: 0px;
+}
+
+.device-name{
+    color:#0093D6;
+    font-size: 12px;
+    padding: 6px 10px;
+    font-weight: 500;
+}
+.float-left{
+    float: left;
+    margin-top: 20px;
+}
+.float-l{
+    float: left;
+}
+.pad-left-5{
+    padding-left: 12px;
+}
+.select-signal-btn-div{
+    position: relative;
+    top: 55px;
+}
+.cancel-btn{
+    color: #707070;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    font-family: Segoe UI, Regular;
+    background-color: #ffffff;
+    height: 50px;
+    border: 2px solid rgb(6 6 6 / 15%);
+}
+.apply-btn{
+    color: #FFFFFF;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    font-family: Segoe UI, Regular;
+    background-color: #3B86FF;
+    height: 50px;
+    border: 2px solid rgb(59 134 255 / 15%);
+}
+.signallist-names{
+    font-size: 12px !important;
+}
+.margin-bottom-50{
+   margin-bottom: 50px;
+}
+
+
+.signal-div {
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    .float-left {
+        margin-top: 0px;
+    }
+}
+
+.submitAllSignals {
+    background-color: #3B86FF;
+}
+// for checkboxes color deep is used 
+::ng-deep .mat-checkbox-checked.mat-primary .mat-checkbox-background {
+    background-color: #3B86FF;
+}
+
+::ng-deep .mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+    background-color: #3B86FF;
+}
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: #3B86FF;
+}
+
+//Venus' dashboard css starts
+
+
+  .signal1 {
+    color: #4D4F5C;
+    font-weight: bold;
+  }
+  .buttoncolor {
+  background-color: #3B86FF;
+  }
+
+// Venus' dasboard css ends
+button:focus {
+    outline: 0px dotted !important;
+    outline: 0px auto !important;
+  }
+.signalCheckBlock {
+    min-height: 260px;
+    max-height: 260px;
+
+}
+
+.submitSignals {
+        .f {
+            margin-top: 20px;
+        }
+        .row button {
+        
+             font-family: Segoe UI, Regular;
+             margin: 10px 0px;
+             width: 150px;
+             margin: 00px 15px;
+             float: right;
+             height: 40px;
+      
+        }
+
+        mat-form-field {
+            float: right;
+        }
+    }
+
+.pagination-block {
+
+    bottom: 0;
+    .mat-paginator {
+        background: none;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+}
+
+.content-container {
+    position: relative;  
+    overflow: auto;
+    min-height: 0;
+    margin: 8px 0px;
+    border-radius: 4px;
+    background-color: #F0F0F7;
+  }
+
+  perfect-scrollbar {
+      height: 100%;
+  }
+
+// abhi styel start
+.imgdevice{
+  width: 80%;
+  height: 55%;
+  margin: 0 auto;
+  left: 40%;
+  margin-left: 15px;
+  }
+
+.float-right{
+    float: right;
+}
+//signal list popup css start from here
+
+.delete-popup-close-icon{
+    float: right;
+    width: 30px;
+    position: relative;
+    // right: -10px;
+}
+.popup-title{
+	color: #707070;
+    float: left;
+}
+.popup-content-div{
+	margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+.popup-bottom-btn-div{
+	margin: -24px;
+}
+
+button:focus {
+	outline: 0px dotted !important;
+	outline: 0px auto !important;
+}
+//signal list popup css end here
+.mr-b-50{
+    margin-bottom: 50px !important;
+}
+
+.tabview-device-div-scroll{
+    height: 280px;
+    overflow-y: scroll;
+}
+.pad-0{
+    padding: 0px;
+}
+.float-l{
+    float: left !important;
+}
+.float-r{
+    float: right;
+}
+.new-hr{
+    float: left;
+    width: 100%;
+    height: 1.5px;
+    background-color: #bebebf69;
+}
+.pad-bottom-20{
+    padding-bottom: 20px;
+}
+.clear_submit_btn_div{
+    position: absolute;
+    // bottom: 0px;
+    bottom: -18px;
+}
+::ng-deep .customModalContainer  {
+    mat-dialog-container {
+        padding: 0px !important;
+    }    
+}
+
+
+.mbl-popup-div-content{
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    position: relative;
+    bottom: 14px !important;
+}
+
+.signalCheckBlock-mbl {
+    min-height: 263px;
+    max-height: 263px;
+    overflow-x: hidden;
+    overflow-y: hidden
+}
+
+.popup-content-div{
+	margin-bottom: 25px;
+    margin-top: 25px;
+}
+.popup-content-txt{
+    color: #3B86FF;
+    position: relative;
+    font-weight: 500;
+    top: 15px;
+}
+.popup-bottom-btn-div{
+	margin: -24px;
+}
+.confirm-dialog-txt{
+    padding: 20px 25px !important; 
+    position: relative;
+    top: 45px;
+    color: #3b86ff;
+    font-weight: 500;
+}
+.confirmation-dialog-btn-div{
+    width: 100%;
+    float: left;
+    position: relative;
+    top: 53px;
+
+}
+.pad-15{
+    padding: 15px;
+}
+.pad-t-15{
+padding-top: 15px;
+
+}
+.confirmation-dialog-btn-yes{
+float: left;
+width: 50%;
+margin: 0px !important;
+background-color: #3B86FF;
+height: 50px;
+border-radius: 0px;
+position: relative;
+border: 1.5px solid #0000001c;
+font-weight: bold;
+
+}
+.confirmation-dialog-btn-no{
+float: left;
+width: 50%;
+margin: 0px !important;
+height: 50px;
+background-color: #FFFFFF;
+color: #707070;
+border-radius: 0px;
+position: relative;
+border: 1.5px solid #0000001c;
+font-weight: bold;
+
+}
+.confirm-txt{
+    width: 100%;
+
+}
+.confirmation-popup-content-div{
+    position: relative;
+    top: 15px;
+    width: 100%;
+    padding-left: 15px;
+}
+
+  .multi-range-cg-pos{
+    position: relative;
+    top: -25px;
+  }
+  .range-custom-cg-pos{
+    position: relative;
+    top: -25px;
+  }
+.userDisplay {
+    float: right;  
+    margin-top: 10px;
+    color: #A0A0A0;
+}
+
+::ng-deep .select-device-checkbox-list .mat-checkbox-layout .mat-checkbox-label{
+    white-space: nowrap; 
+    width: 90px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+::ng-deep .select-device-layout-1 .grid-2{
+    position: absolute;
+    width: 49.8% !important;
+    margin-top: 10px;
+    top: 708px !important;
+    height: 350px;
+    float: left;
+    margin: 0px 10px;
+}
+
+::ng-deep .select-device-layout-3 .layoutgrid-4{
+    width: 23.9% !important;
+    margin: 0px 5px;
+    float: left;
+    height: 350px;
+    margin-bottom: 10px;
+    position: absolute;
+    right: 296px !important;
+    top: 703px !important;
+}
+::ng-deep .select-device-layout-3 .layoutgrid-5{
+    width: 23.5% !important;
+    margin: 0px 12px;
+    float: left;
+    height: 350px;
+    margin-bottom: 10px;
+    right: -12px !important;
+    top: 703px !important;
+    position: absolute;
+}
+
+
+@media only screen and (max-width: 700px) {
+    .item-per-page-mbl-view{
+        width: 100% !important;
+    }
+    .pagination-main-div-mbl {
+        position: relative;
+        left: -7% !important;
+        bottom: 15px;
+        float: left;
+        width: 280px;
+    }
+ 
+}
+@media only screen and (max-width: 600px) {
+    
+
+
+.item-per-page-mbl-view{
+    width: 100% !important;
+}
+.select-heading{
+    margin-bottom: 0px;
+}
+.pagination-main-div-mbl{
+
+
+    position: relative;
+    left: -8% !important;
+    bottom: 15px;
+    float: left;
+    width: 280px;
+}
+.cancel-delete-popup-close-icon{
+    float: right;
+    width: 30px;
+    position: relative;
+    top: 14px;
+    left: 5px;
+}
+.popup-title{
+    color: #707070;
+    float: left;
+    top: 10px;
+    position: relative;
+}
+.confirm-dialog-txt{
+    padding: 10px 25px !important; 
+    position: relative;
+    top: 45px;
+    color: #3b86ff;
+    font-weight: 500;
+}
+::ng-deep .mat-paginator-page-size {
+    position: relative;
+    right: 80px !important;  
+}
+::ng-deep .mat-paginator-page-size {
+    position: relative;
+    right: 80px !important;
+}
+::ng-deep .mat-paginator-range-actions {
+    right: 62px;
+    position: relative;
+}
+    .tabview-device-div-scroll{
+        height: 400px;
+        overflow-y: scroll;
+    }
+    .select-signal-btn-div {
+        position: relative;
+        top: 34px !important;
+    }
+
+    .submitSignals {
+
+        .row button {
+            width: 98%;
+            font-family: Segoe UI, Regular;
+            margin: 10px 5px;
+            float: right;
+        }
+    }
+    
+
+}
+
+
+
+//grid seletion css start
+
+#sidebarMenu {
+	height: 90vh;
+	position: fixed;
+	right: 0px;
+	top: 95px;
+	z-index: 99;
+	width: 300px;
+	margin-top: -10px;
+	 transform: translateX(350px);
+	transition: transform 205ms ease-in-out;
+	background:#ffffff;
+	box-shadow: -5px 0px 8px 0px rgba(0,0,0,0.35);
+  -webkit-box-shadow: -5px 0px 8px 0px rgba(0,0,0,0.35);
+  -moz-box-shadow: -5px 0px 8px 0px rgba(0,0,0,0.35);
+  }
+  .sidebarMenuInner{
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    height: 80vh;
+   
+  }
+  .sidebarMenuInner li{
+	list-style: none;
+	color: #000000;
+	font-weight: bold;
+	padding: 10px;
+	height: 102px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+  ::ng-deep .sidebarMenuActive{
+	background: #0087c36b !important;
+	border-left: 10px solid #007bff;
+	box-shadow: 0px 1px 4px 2px rgb(0 0 0 / 25%);
+	-webkit-box-shadow: 0px 1px 4px 2px rgb(0 0 0 / 25%);
+	-moz-box-shadow: 0px 1px 4px 2px rgb(0 0 0 / 25%);
+  }
+  .sidebarMenuInner li:nth-child(odd){
+	background: #f0f1f6 ;
+  }
+  .sidebarMenuInner li span{
+	display: block;
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.50);
+  }
+  .sidebarMenuInner li a{
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: bold;
+	cursor: pointer;
+	text-decoration: none;
+  }
+
+  
+  input[type=checkbox] {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	display: none;
+  }
+  .sidebarIconToggle {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	cursor: pointer;
+	position: absolute;
+	z-index: 99;
+	height: 100%;
+	width: 100%;
+	top: 13px;
+	right: 4px;
+	height: 45px;
+	width: 30px;
+  }
+  .spinner {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	position: absolute;
+	height: 3px;
+	width: 100%;
+	background-color: #3B86FF;
+  }
+  .horizontal {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	position: relative;
+	float: left;
+	margin-top: 3px;
+  }
+  .diagonal.part-1 {
+	position: relative;
+	transition: all 0.3s;
+	box-sizing: border-box;
+	float: left;
+  }
+  .diagonal.part-2 {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	position: relative;
+	float: left;
+	margin-top: 3px;
+  }
+  input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	opacity: 0;
+  }
+  input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	transform: rotate(135deg);
+	margin-top: 8px;
+  }
+  input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	transform: rotate(-135deg);
+	margin-top: -9px;
+  }
+  .grid-menu-icon{
+	position: relative;
+	  bottom: 5px;
+	  right: 5px;
+  }
+  .close-icon{
+	font-size: 24px;
+	font-weight: bold;
+	color: #43425D;
+	position: relative;
+	top: 0px;
+	right: 4px;
+	height: 28px;
+  }
+  .select-grid-heading{
+	color: #3B86FF !important;
+	font-size: 20px;
+	width: 80%;
+	float: left;
+	margin-bottom: 0px;
+	position: relative;
+	top: 16px;
+	left: 15px;
+	font-weight: bold;
+  }
+  .select-grid-heading-div{
+	height: 46px;
+  }
+  .grid-layout-div{
+	width: 130px;
+	float: left;
+  }
+  .grid-layout-apply-btn-div{
+	width: 130px;
+	float: left;
+	padding-left: 10px;
+  }
+  .grid-apply-btn{
+	  width: 100px;
+	  height: 35px;
+	  text-align: center;
+	  margin-left: 15px;
+  }
+  .grid-text{
+	margin-bottom: 0px;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 10px 15px;
+  }
+  .sidebarMenuInner .ps__rail-y.ps--clicking .ps__thumb-y, .ps__rail-y:focus>.ps__thumb-y, .ps__rail-y:hover>.ps__thumb-y {
+	background-color: #999;
+	width: 14px !important;
+  }
+  .sidebarMenuInner .ps__thumb-y {
+	-webkit-transition: background-color .2s linear,width .2s ease-in-out;
+	right: 7px !important;
+	transition: background-color .2s linear,width .2s ease-in-out;
+	width: 6px;
+  }
+  .custom-add-signal-btn{
+	  margin-right: 50px !important;
+  }
+  // grid selectio css end 
+@media only screen and (max-width: 768px) {
+  .mat-bg{
+        background-color: #F0F0F7;
+        min-height: 400px !important;
+        
+    }
+    .select-signal-btn-div{
+        position: relative;
+      
+    }
+    .margin-top-50{
+        margin-top: 50px !important;
+    }
+    .clear_submit_btn_div {
+        position: unset;
+     }
+
+}
+
+.overflowhidden
+{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+}
+
+
+@media only screen and (max-width: 425px)
+{
+  
+.sidebarIconToggle
+{
+  display:none;
+}
+
+.mbl-mt20
+{
+    margin-top:20px;
+    padding-left:0px;
+}
+::ng-deep .custom-pagination
+{
+float:left !important;
+padding-left:10px;
+}
+::ng-deep .number-of-pages
+{
+	font-size:12px !important;
+}
+::ng-deep .page-number span{
+	font-size:12px !important;
+}
+::ng-deep .pagination-main-div-mbl
+{
+    left:0px !important;
+}
+
+.float-left{
+    float: left;
+    margin-top: 20px;
+}
+
+}
+
+.displayflex{
+  display:flex;
+}
+
+//nisaraga css start 
+@media only screen and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 1) {
+    ::ng-deep .select-device-checkbox-list .mat-checkbox-layout .mat-checkbox-label{
+        white-space: nowrap; 
+        width: 60px; 
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
+    .ipad-pl0
+    {
+padding-left:0px;
+    }
+    .clear_submit_btn_div {
+        position: unset;
+    }
+
+}
+
+

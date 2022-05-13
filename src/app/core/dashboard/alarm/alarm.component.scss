@@ -1,0 +1,792 @@
+
+  .mat-card {
+	transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+	display: block;
+	position: relative;
+	border-radius: 4px;
+  }
+  .alarm {
+	color: #43425d;
+	opacity: 1;
+	font-size: 24px;
+	font-weight: bold;
+	margin-top: 8px;
+  }
+  .mycard{
+	padding: 10px 15px 0px 15px !important;
+  }
+  .contaner-root {
+	margin: 20px 20px !important;
+  }
+
+  ::ng-deep .mat-dialog-container {
+    padding: 24px !important;
+}
+  .mar_top10px {
+	margin-top: 10px;
+  }
+
+  .signal-add-icon {
+	color: black;
+    cursor: pointer;
+    position: relative;
+    top: 7px;
+    left: 20px;
+    font-size: 32px;
+  
+   }
+   .signal-remove-icon {
+	color: black;
+    cursor: pointer;
+    position: relative;
+	top: 7px;
+    left: 20px;
+    font-size: 32px;
+   }
+.margin-r-25{
+	margin-right: 25px;
+}
+  .listmail{
+	margin-top: 5%;
+	margin-left: 19px;
+  }
+  .alsrm_details_color{
+	color: #007bff;
+  }
+  .alsrm_details{
+	font-size: 14px;
+	color: #007bff;
+	opacity: 0.8;
+	font-weight: bold;
+	margin-bottom: 3px;
+	background-color: #e1edff;
+	border-radius: 6px;
+	padding: 15px 19px;
+  }
+  
+  .cancel-alarem{
+	width: 120px !important;
+	height: 35px !important;
+  }
+  
+  body {
+	  font-family: "Source Sans Pro", Bold;
+	  line-height: 1.25;
+	}
+  
+	table {
+	  border-collapse: collapse;
+	  margin: 0;
+	  padding: 0;
+	  width: 100%;
+	  table-layout: fixed;
+	}
+	table caption {
+	  font-size: 1.5em;
+	  margin: .5em 0 .75em;
+	}
+  
+	table tr {
+	  padding: .35em;
+	}
+  .remove-alarm_mailnumber {
+	width: 46px;
+	height: 35px;
+  }
+	table th,
+	table td {
+	  // padding: .625em;
+	  // text-align: center;
+	}
+	table td{
+	  padding: 5px 0px;
+	}
+	table th {
+	  font-size: .85em;
+	  letter-spacing: .1em;
+	  padding: 0px !important;
+	  text-align: left !important;
+	  padding: 10px 10px 10px 10px;
+	}
+	tr:nth-child(even) {
+	  background-color: #F5F6FA;
+  }
+  table thead tr {
+	  background-color: #F5F6FA;
+  }
+  .dashboard{
+	  color: #43425D;
+	  opacity: 1;
+	  font-size: 28px;
+	  font-weight: bold;
+  }
+  .table-main-div{
+	margin-top: 20px;
+	margin-bottom: 50px;
+	width: 100%;
+	background-color: white;
+	min-height: 450px;
+	padding: 25px 25px;
+	box-shadow: 2px 1px 4px rgb(0 0 0 / 7%);
+	border-radius: 5px;
+	position: relative;
+  }
+
+  .global-action-main-div-bottom{
+	  width: 100%;
+	  background-color: white;
+	  min-height: 70px;
+	  padding: 25px 0px 0px 0px;
+	  position: absolute;
+      bottom:0px;
+      left:0px;
+      padding-bottom:20px;
+  }
+  
+  .thead-th-div{
+	  height: 45px !important;
+	  color: #717279  !important;
+	  padding: 10px;
+	  font-size: 13px;
+  } 
+  .thead-th-last-sticky-div{
+	  width: 270px !important;
+	  height: 45px !important;
+	  padding: 10px 0px;
+	  color: #717279  !important;
+	  font-size: 13px;
+  }
+  .tbody-td-div{
+	  height: 45px !important;
+	  color: #909196 !important;
+	  font-size: 12px;
+	  padding: 10px 0px 0px 10px;
+	  font-weight: 500;
+  }
+  .tbody-td-last-sticky-div{
+	  height: 45px !important;
+	  padding: 10px 0px;
+	  color: #A3A6B4 !important;
+	  font-size: 12px;
+  }
+  .my-last-th-width{
+	  width: 267px  !important;
+  }
+  .my-last-td-width{
+	  width: 200px !important;
+  }
+  .my-last-th{
+	  position: sticky !important;
+  }
+  .my-last-td{
+	  position: sticky !important;
+  }
+  .details-th-div{
+  width: 50px;
+  float: left;
+  margin-right: 15px;
+  font-size: 14px;
+  }
+  .edit-th-div{
+	  width: 50px;
+  float: left;
+  margin-right: 15px;
+  font-size: 14px;
+  
+  }
+  .delete-th-div{
+	  width: 50px;
+  float: left;
+  margin-right: 15px;
+  font-size: 14px;
+  
+  }
+  .details-td-div{
+	  width: 50px;
+  float: left;
+  margin-right: 15px;
+  text-align: center;
+  
+  }
+  .edit-th-div{
+	  width: 50px;
+	  float: left;
+	  margin-right: 15px;
+	  text-align: center;
+  }
+  .delete-th-div{
+	  width: 50px;
+	  float: left;
+	  margin-right: 15px;
+	  text-align: center;
+  }
+  .action-btn{
+	  width: 30px;
+	  height: 30px;
+	   background-color: #3b86ff;
+	  box-shadow: 0px 3px 6px #00000012;
+	  border-radius: 4px;
+	  opacity: 1;
+	  border: none !important;
+	  color: #ffffff;
+	  position: relative;
+	  bottom: 3px;
+  }
+  .action-btn:hover{
+	  width: 30px;
+	  height: 30px;
+	  background-color: #ffffff;
+	  box-shadow: 0px 3px 6px #00000012;
+	  border-radius: 4px;
+	  opacity: 1;
+	  border: none !important;
+	  color: #5B6DF5 !important;
+	  border: 1.5px solid #5B6DF5 !important;
+	  position: relative;
+	  bottom: 3px;
+  }
+  .action-span-icon{
+	  font-size: 16px;
+	  position: relative;
+	  top: 3px;
+  }
+  button:focus {
+		  outline: 0px dotted;
+		  outline: 0px auto -webkit-focus-ring-color !important;
+  }
+  .heading-txt{
+		  width: 100px;
+		  float: left;
+		  padding: 10px;
+		  font-size: 28px;
+  }
+  .heading-col{
+		  margin-top: 25px;
+  }
+  .no-pad{
+	  padding: 0px !important;
+  }
+  .add-device-btn{
+	  background-color: #3B86FF !important;
+	  float: right;
+  }
+  .remove-device-btn{
+	  background-color: #3B86FF !important;
+  
+  }
+  .items-per-page-div{
+	  width: 50%;
+	  float: left;
+	  position: relative;
+	  bottom: 5px;
+  
+  }
+  .items-per-page-div-bottom{
+	  width: 50%;
+	  float: left;
+	  position: relative;
+	  bottom: 5px;
+  
+  }
+  
+  .global-search-div{
+	  width: 50%;
+	  float: left;
+	  position: relative;
+	  bottom: 5px;
+  
+  }
+ 
+  .margin-row{
+	  margin:20px;
+  }
+  
+
+  
+  .items-per-page-div{
+	  width: 240px;
+	  float: left;
+	  position: relative;
+	  bottom: 0px;
+	  left: 38%;
+  }
+  .global-search-div{
+	  width: 100%;
+	  float: left;
+	  position: relative;
+	  bottom: 0px;
+  
+  }
+  
+  //delete popup css start from here
+  
+  .delete-popup-close-icon{
+	  float: right;
+	  width: 30px;
+	  position: relative;
+	  right: -10px;
+  }
+  .popup-title{
+	  color: #707070;
+	  float: left;
+  }
+  
+  .delete-popup-cancel-btn{
+	  width: 50%;
+	  float: left;
+	  height: 50px;
+	  background-color: #FFFFFF;
+	  color: #707070;
+	  border-radius: 0px;
+	  position: relative;
+	  bottom: -24px;
+	  border: 1.5px solid #00000045;
+	  font-weight: bold;
+	  opacity: 0.7;
+  }
+  .delete-popup-delete-btn{
+	  width: 50%;
+	  height: 50px;
+	  background-color: #3B86FF;
+	  color: #ffffff;
+	  border-radius: 0px;
+	  position: relative;
+	  bottom: -24px;
+	  border: 1.5px solid #3B86FF;
+	  font-weight: bold;
+  }
+  .popup-content-div{
+	  margin-bottom: 25px;
+	  margin-top: 25px;
+  }
+  .popup-content-txt{
+	  color: #3B86FF;
+  }
+  .popup-bottom-btn-div{
+	  margin: -24px;
+  }
+  //delete popup css end here
+  
+  //edit popup css starts from here
+
+  .example-full-width{
+	  width: 100% !important;
+  }
+  .margin-top-10{
+	  margin-top: 10px;
+  }
+  .margin-bottom-10{
+	  margin-bottom: 10px;
+  }
+
+  .edit-popup-apply-btn{
+	  width: 120px;
+	  float: right;
+	  color: white;
+  }
+  
+  //edit popup css ends here
+  //details popup css start here
+  .details-popup-title{
+	  font-size: 12px;
+	  color: #000;
+	  opacity: 0.6;
+	  font-weight: 500;
+	  margin-bottom: 3px;
+  }
+  .details-popup-data-txt{
+	  font-size: 14px;
+	  color: #000;
+	  opacity: 0.8;
+	  font-weight: bold;
+	  margin-bottom: 3px;
+  }
+  .details-popup-apply-btn-div{
+	  width: 100%;
+	  height: 50px;
+	  position: relative;
+	  bottom: -140px;
+  
+  }
+
+  .margin-right-10{
+	  margin-right: 10px;
+  }
+  .example-full-width{
+	  width: 100%;
+  }
+  .form-fields-div{
+	min-height: 330px;
+    overflow-y: scroll;
+	overflow-x: hidden;
+	max-height: 350px ;
+  
+  }
+  .float-l{
+	  float: left !important;
+  }
+  .no-threshold-text{
+	text-align: center;
+    width: 100%;
+    padding: 50px;
+    font-weight: 600;
+    color: #423c3c;
+  }
+  .pad-b-50{
+	  padding-bottom: 30px;
+  }
+  .add-signal-cancel-btn{
+	  margin: 0px 30px;
+	  width: 120px;
+	  background-color: white !important;
+	  color: #3b86ff;
+	  border: 1.5px solid #3b86ff;
+	  height: 35px;
+  }
+  .add-signal-register-btn{
+	  width: 120px;
+	  height: 35px;
+  }
+  .add-signal-btn-div{
+	  width: 300px;
+	  float: right;
+  }
+  ::ng-deep .mat-dialog-container {
+		 overflow:  hidden !important;
+			
+  }
+  
+  ::ng-deep .my-custom-dialog-class {
+	  mat-dialog-container {
+		padding: 0;
+	  }
+	}
+  ::ng-deep .example-form .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+	  border-color: #2e73ef !important;
+  }
+  ::ng-deep .example-form .mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+	  background-color: #2e73ef !important;
+  }
+  
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+	  background-color: #2e73ef !important;
+  }
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+	  background-color: rgb(46 115 239 / 0.54) !important;
+  }
+  .mr-10{
+	  margin-right: 10px;
+  }
+  
+  .slide-toggle-no-txt{
+	  color: #757575;
+	  margin-right: 5px;
+  }
+  .slide-toggle-yes-txt{
+	  color: #757575;
+	  margin-left: 5px;
+  }
+  
+  
+  
+  ::ng-deep .mat-slide-toggle.mat-disabled {
+	  opacity: .38;
+	  float: left;
+	  margin-right: 0px;
+  }
+  
+  .h-div{
+	  position: relative;
+	  top: 0px;
+	  margin-bottom: 10px;
+  }
+  .add-signal-popup-custom-lable-alert-required{
+	  color: #0000008a;
+	  font-size: 12px;
+	  margin-top: 0px;
+	  margin-bottom: 0px;
+  
+  
+  
+  //for horizantal alignment css
+	  float: left;
+	  margin-right: 5px;
+  }
+  
+  .h-alignment{
+	  float: left !important;
+	  margin-right: 20px !important;
+  
+  }
+  //Add signal popup css end here
+  
+  @media screen and (max-width: 768px)
+    {
+  .ipad-width100
+      {
+          width: 100%;
+      }
+      .items-per-page-div
+    {
+        left:0px !important;
+        width:100% !important;
+    }
+    .mbl-content-width-100 
+        {
+    width:100% !important;
+        }
+        .items-per-page-div-bottom
+        {
+            width:100%;
+        }
+        .mycard
+        {
+            padding:16px !important;
+       
+        }
+
+    }
+  
+	/*Media query start from here */
+	@media screen and (max-width: 1024px) {
+	  table {
+		border: 0;
+	  }
+  
+	  table caption {
+		font-size: 1.3em;
+	  }
+  
+	  table thead {
+		border: none;
+		clip: rect(0 0 0 0);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+	  }
+  
+	  table tr {
+		border-bottom: 3px solid #ddd;
+		display: block;
+		margin-bottom: .625em;
+	  }
+  
+	  table td {
+		border-bottom: 1px solid #ddd;
+		display: block;
+		font-size: .8em;
+		text-align: right;
+		padding: 10px 10px 0px 10px;
+	  }
+	  .tbody-td-last-sticky-div{
+		  width: 261px !important;
+		  margin: 0 auto;
+  
+  
+	  }
+	  table td::before {
+		/*
+		* aria-label has no advantage, it won't be read inside a table
+		content: attr(aria-label);
+		*/
+		content: attr(data-label );
+		float: left;
+		font-weight: bold;
+		text-transform: uppercase;
+	  }
+  
+	  table td:last-child {
+		border-bottom: 0;
+	  }
+	  table td:last-child {
+		  text-align: center;
+		  width: 100% !important;
+	  }
+	   .tbody-td-div {
+		  height: 45px !important;
+		  color: #A3A6B4 !important;
+		  font-size: 12px;
+		   text-align: right !important;
+		   padding: 0px !important;
+  
+	  }
+  
+	}
+	@media screen and (max-width: 425px)	
+	{
+
+		.mbl-content-width-100 
+		{
+	width:100% !important;
+		}
+		.items-per-page-div
+		{
+			width:100% !important;
+		}
+		.items-per-page-div
+		{
+			left:0px !important;
+		}
+
+		::ng-deep .custom-pagination
+		{
+		float:left !important;
+		padding-left:0px !important;
+		}
+		::ng-deep .number-of-pages
+		{
+			font-size:12px !important;
+		}
+		::ng-deep .page-number span{
+			font-size:12px !important;
+		}
+		.mycard
+		{
+			padding: 10px 15px 15px 15px !important;
+		}
+		.table-main-div
+		{
+			padding: 15px 15px;
+		}
+		.items-per-page-div-bottom
+		{
+			width:100%;
+		}
+		.add-signal-cancel-btn
+		{
+			margin:0px !important;
+			width:100% !important;
+		}
+		.add-signal-register-btn
+		{
+			width:100%;
+			margin-bottom:10px;
+		}
+		.add-signal-btn-div
+		{
+			width:100% !important;
+		}
+		.form-fields-div
+		{
+			min-height: 300px;
+		}
+		.mbl-width100
+		{
+			width:100%;
+		}
+		.displayflex
+        {
+            display: flex;
+        }
+        .listmail
+        {
+            margin-left:0px;
+        }
+        .container
+        {
+            padding-left:0px;
+            padding-right:0px;
+        }
+		::ng-deep .cdk-overlay-pane
+{
+
+height:auto !important;
+
+}
+	  
+	}
+
+	@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+	::ng-deep .custom-pagination
+	{
+		margin-bottom:12px;
+	}
+	.items-per-page-div
+	{
+		left:10px;
+	}
+	.items-per-page-div-bottom
+	{
+		width:100%
+	}
+}
+@media only screen 
+  and (min-device-width: 1024px)
+  and (max-device-width: 1366px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+.table thead th
+{
+ vertical-align: middle !important;
+}
+.thead-th-div{
+height:auto !important;
+
+}
+}
+//   iphone x lanndscape
+@media only screen 
+  and (min-device-width: 769px)
+  and (max-device-width: 992px)
+  and (orientation : landscape)
+  and (-webkit-min-device-pixel-ratio: 3) {
+    .ipad-width100
+    {
+        width: 100%;
+    }
+    .items-per-page-div
+    {
+        left:0px;
+    }
+    ::ng-deep .add-sigal-content-div-scroll
+    {
+        max-height: 250px !important;
+        overflow-y: scroll;
+    }
+.form-fields-div
+  {
+    min-height: 330px;
+    overflow-y: auto;
+    overflow-x: hidden;
+     max-height: inherit ;
+  }
+  ::ng-deep .cdk-overlay-pane
+  {
+      height:auto !important;
+  }   
+    }
+    @media only screen 
+    and (min-device-width: 568px) 
+    and (max-device-width: 767px)
+    {
+      ::ng-deep .add-sigal-content-div-scroll
+      {
+          max-height: 250px !important;
+          overflow-y: scroll;
+      }
+//   ::ng-deep .cdk-overlay-pane
+//   {
+//       height:initial !important;
+//   }
+  .form-fields-div
+  {
+    min-height: 330px;
+    overflow-y: auto;
+    overflow-x: hidden;
+     max-height: inherit ;
+  }  
+  ::ng-deep .cdk-overlay-pane
+  {
+      height:auto !important;
+  }   
+  }
+  
+  
+  

@@ -1,0 +1,496 @@
+body {
+	background-color: #f0f0f7 !important;
+}
+
+.contaner-root {
+	margin: 20px 20px !important;
+}
+
+.dashboard {
+	color: #43425D;
+	opacity: 1;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 8px;
+}
+
+.back-arrow {
+    color: #56556d !important;
+    opacity: 0.9;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    position: relative;
+    top: 4px;
+    left: -2px;
+}
+
+.mt-20 {
+	margin-top: 20px;
+}
+
+.my-float-left {
+	float: left;
+}
+
+// abhi css style code start
+
+
+.buttoncolor {
+	background-color: #3B86FF;
+}
+
+.devis_card2 {
+	background: #ffffff 0% 0% no-repeat padding-box;
+	box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.07);
+	border-radius: 5px;
+	padding: 10px 15px 10px 15px;
+	margin-bottom: 10px;
+	min-height: 230px;
+
+	.cardCheckBox {
+		float: left;
+		padding: 2px 5px 0 0;
+	}
+}
+
+
+.devis_card3 {
+	background: #ffffff 0% 0% no-repeat padding-box;
+	box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.07);
+	border-radius: 5px;
+	padding: 10px 10px 10px 10px;
+	margin-bottom: 20px;
+}
+
+// abhi css style code end
+.padding-head {
+	padding: 0px 10px;
+}
+
+.mat-menu-content {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+
+button:focus {
+	outline: 0px dotted !important;
+	outline: 0px auto !important;
+}
+
+.no-devices {
+	font-size: 20px;
+	font-weight: 900;
+	position: relative;
+	top: 200px;
+	text-align: center;
+}
+
+
+.float-right {
+	float: right;
+}
+
+.my-dashboard-title-div-height {
+	height: 60px !important;
+	padding: 12px !important;
+}
+
+.device-select-div {
+	position: relative;
+	bottom: 5px;
+}
+
+.no-pad {
+	padding: 0px;
+}
+
+::ng-deep .mat-checkbox-checked.mat-primary .mat-checkbox-background {
+    background-color: #3B86FF;
+}
+
+@media only screen and (max-width: 600px) {
+	
+	.my-mbl-select-device-dropdown-div {
+		width: 100% !important;
+	}
+	.my-dashboard-title-div-height {
+		height: auto !important;
+		padding: 12px !important;
+	}
+	.chart-view-dropdown {
+		width: 100% !important;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+
+}
+
+//delete popup css start from here
+
+.delete-popup-close-icon{
+    float: right;
+    width: 30px;
+    position: relative;
+    right: -10px;
+}
+.popup-title{
+	color: #707070;
+    float: left;
+}
+.delete-popup-cancel-btn{
+	width: 50%;
+	float: left;
+	height: 50px;
+    background-color: #FFFFFF;
+    color: #707070;
+	border-radius: 0px;
+	position: relative;
+	bottom: -24px;
+	border: 1.5px solid #00000045;
+	font-weight: bold;
+    opacity: 0.7;
+}
+.delete-popup-delete-btn{
+	width: 50%;
+	height: 50px;
+	background-color: #3B86FF;
+    color: #ffffff;
+	border-radius: 0px;
+	position: relative;
+	bottom: -24px;
+	border: 1.5px solid #3B86FF;
+	font-weight: bold;
+}
+.popup-content-div{
+	margin-bottom: 25px;
+    margin-top: 25px;
+}
+.popup-content-txt{
+	color: #3B86FF;
+}
+.popup-bottom-btn-div{
+	margin: -24px;
+}
+//delete popup css end here
+
+//select device part here starts
+
+.mat-bg-3{
+    background-color: #ffffff !important;
+}
+.card-heading{
+    background-color: #ffffff;
+    font-family: Source Sans Pro, Bold;
+    font-size: 18px;
+    color: #3B86FF;
+    font-weight: bold;
+    padding: 10px 10px 10px 20px;
+}
+.pad-top{
+    padding-top: 0px;
+}
+.device-div{
+    width: 100%;
+    height: 115px;
+    background-color: #ffffff;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.device-div-selected{
+    border: 3px solid #3b86ff;
+}
+.box-shadow-card-txt{
+    -webkit-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.device-div-heading{
+    -webkit-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.device-name{
+    color:#0093D6;
+    font-size: 12px;
+    padding: 6px 10px;
+    font-weight: 500;
+}
+.float-left{
+    float: left;
+}
+.pad-left-5{
+    padding-left: 12px;
+}
+.select-signal-btn-div{
+    position: relative;
+    top: 55px;
+}
+.cancel-btn{
+    color: #707070;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    font-family: Segoe UI, Regular;
+    background-color: #ffffff;
+    height: 50px;
+    border: 2px solid rgb(6 6 6 / 15%);
+}
+.apply-btn{
+    color: #FFFFFF;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    font-family: Segoe UI, Regular;
+    background-color: #3B86FF;
+    height: 50px;
+    border: 2px solid rgb(59 134 255 / 15%);
+}
+
+//select device part ends here
+
+
+//grid seletion css start
+
+#sidebarMenu {
+	height: 90vh;
+	position: fixed;
+	right: 0px;
+	top: 95px;
+	z-index: 99;
+	width: 300px;
+	margin-top: -10px;
+	 transform: translateX(350px);
+	transition: transform 205ms ease-in-out;
+	background:#ffffff;
+	box-shadow: -5px 0px 8px 0px rgba(0,0,0,0.35);
+  -webkit-box-shadow: -5px 0px 8px 0px rgba(0,0,0,0.35);
+  -moz-box-shadow: -5px 0px 8px 0px rgba(0,0,0,0.35);
+  }
+  .sidebarMenuInner{
+	margin:0;
+	padding:0;
+	border-top: 1px solid rgba(255, 255, 255, 0.10);
+	height: 98vh;
+  }
+  .sidebarMenuInner li{
+	list-style: none;
+	color: #000000;
+	font-weight: bold;
+	padding: 10px;
+	height: 102px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+  ::ng-deep .sidebarMenuActive{
+	background: #0087c36b !important;
+	border-left: 10px solid #007bff;
+	box-shadow: 0px 1px 4px 2px rgb(0 0 0 / 25%);
+	-webkit-box-shadow: 0px 1px 4px 2px rgb(0 0 0 / 25%);
+	-moz-box-shadow: 0px 1px 4px 2px rgb(0 0 0 / 25%);
+  }
+  .sidebarMenuInner li:nth-child(odd){
+	background: #f0f1f6 ;
+  }
+  .sidebarMenuInner li span{
+	display: block;
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.50);
+  }
+  .sidebarMenuInner li a{
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: bold;
+	cursor: pointer;
+	text-decoration: none;
+  }
+
+  input[type=checkbox] {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	display: none;
+  }
+  .sidebarIconToggle {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	cursor: pointer;
+	position: absolute;
+	z-index: 99;
+	height: 100%;
+	width: 100%;
+	top: 13px;
+	right: 4px;
+	height: 45px;
+	width: 30px;
+  }
+  .spinner {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	position: absolute;
+	height: 3px;
+	width: 100%;
+	background-color: #3B86FF;
+  }
+  .horizontal {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	position: relative;
+	float: left;
+	margin-top: 3px;
+  }
+  .diagonal.part-1 {
+	position: relative;
+	transition: all 0.3s;
+	box-sizing: border-box;
+	float: left;
+  }
+  .diagonal.part-2 {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	position: relative;
+	float: left;
+	margin-top: 3px;
+  }
+  input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	opacity: 0;
+  }
+  input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	transform: rotate(135deg);
+	margin-top: 8px;
+  }
+  input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+	transition: all 0.3s;
+	box-sizing: border-box;
+	transform: rotate(-135deg);
+	margin-top: -9px;
+  }
+  .grid-menu-icon{
+	position: relative;
+	  bottom: 5px;
+	  right: 5px;
+  }
+  .close-icon{
+	font-size: 24px;
+	font-weight: bold;
+	color: #43425D;
+	position: relative;
+	top: 0px;
+	right: 4px;
+	height: 28px;
+  }
+  .select-grid-heading{
+	color: #3B86FF !important;
+	font-size: 20px;
+	width: 80%;
+	float: left;
+	margin-bottom: 0px;
+	position: relative;
+	top: 16px;
+	left: 15px;
+	font-weight: bold;
+  }
+  .select-grid-heading-div{
+	height: 46px;
+  }
+  .grid-layout-div{
+	width: 130px;
+	float: left;
+  }
+  .grid-layout-apply-btn-div{
+	width: 130px;
+	float: left;
+	padding-left: 10px;
+  }
+  .grid-apply-btn{
+	  width: 100px;
+	  height: 35px;
+	  text-align: center;
+	  margin-left: 15px;
+  }
+  .grid-text{
+	margin-bottom: 0px;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 10px 15px;
+  }
+  .sidebarMenuInner .ps__rail-y.ps--clicking .ps__thumb-y, .ps__rail-y:focus>.ps__thumb-y, .ps__rail-y:hover>.ps__thumb-y {
+	background-color: #999;
+	width: 14px !important;
+  }
+  .sidebarMenuInner .ps__thumb-y {
+	-webkit-transition: background-color .2s linear,width .2s ease-in-out;
+	right: 7px !important;
+	transition: background-color .2s linear,width .2s ease-in-out;
+	width: 6px;
+  }
+  .custom-add-signal-btn{
+	  margin-right: 50px !important;
+  }
+  // grid selectio css end 
+
+// Media css for mobile buttons
+
+@media only screen and (max-width: 4000px) and (min-width: 599px)  {
+	.Select_Devicemobile{
+		display: none;
+		position: fixed;
+	  }
+	.Select_Devicemobile_remov_btn{
+	  display: none;
+	  position: fixed;
+	}
+  }
+  @media only screen and (max-width: 767px) {
+    .my-dashboard-title-div-height
+    {
+        height:auto !important;
+    }
+    ::ng-deep .no-data-text{
+        padding-top: 12% !important; 
+    }
+    .sidebarIconToggle
+    {
+        display:none;
+    }
+}
+  @media only screen and (max-width: 600px) and (min-width: 223px)  {
+
+	.Select_Devicemobile{
+		position: fixed;
+		right: 5px;
+		top: 350px;
+		z-index: 1000;
+	  }
+  
+	.Select_Devicemobile_remov_btn{
+	  // display: none;
+	  position: fixed;
+	  right: 5px;
+	  top: 290px;
+	  z-index: 1000;
+	}
+
+	.deleteMobileBtn {
+		display: none;
+	}
+  
+  }
+  @media only screen and (max-width: 425px)
+  {
+	
+  .sidebarIconToggle
+  {
+	display:none;
+  }
+  
+  }

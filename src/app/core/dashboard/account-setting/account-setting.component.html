@@ -1,0 +1,603 @@
+<div class="row p0m0 page-height">
+    <div class="col-12 bgimage"></div>
+    <div class="position_w">
+        <div class="row ">
+            <div class="padl0 col-xl-3 col-md-5 col-sm-12 pad_r30 comresponsiveweb comresponsiveweb2 pad0_mart30px mar_r30 devis_cardtab">
+                <div class="profile_picture_w">
+                    <div>
+                        <img class="profile_picture" [src]="_service.profileUrl" />
+                        <div class="maticoncam">
+                            <span class="material-icons" (click)="cameraimagepopup()">camera_alt</span>
+                        </div>
+                    </div>
+                    <div class="text_name_admin padding_t19">
+                        <div class="profile_namew">{{Username}}</div>
+                        <div class="padding_t10">{{UsernameRole}}</div>
+                        <button mat-menu-item class="profile_text" (click)="AccountFunction()">
+                            <mat-icon class="profile_icon">settings</mat-icon>
+                            <span>Account settings</span>
+                        </button>
+                        <button mat-menu-item class="profile_text" (click)="CompanyFunction()" *ngIf="CompanyRole">
+                            <mat-icon class="profile_icon">settings_applications</mat-icon>
+                            <span>Company settings</span>
+                        </button>
+                        <button mat-menu-item class="profile_text" (click)="addUser()" *ngIf="adminRole">
+                            <mat-icon class="profile_icon">person_add_alt_1</mat-icon>
+                            <span>Add Users</span>
+                        </button>
+                        <button mat-menu-item class="profile_text" (click)="UserList()" *ngIf="adminRole">
+                            <mat-icon class="profile_icon">supervisor_account</mat-icon>
+                            <span>Users list</span>
+                        </button>
+                        <button mat-menu-item class="profile_text" (click)="ResetPassword()">
+                            <mat-icon class="profile_icon">security</mat-icon>
+                            <span>Change Password</span>
+                        </button>
+                        <button mat-menu-item class="profile_text" (click)="AboutFunction()">
+                            <mat-icon class="profile_icon">account_box</mat-icon>
+                            <span>About</span>
+                        </button>
+                        <button mat-menu-item class="profile_text" (click)="DevicePasswordFunction()">
+                            <mat-icon class="profile_icon">network_locked</mat-icon>
+                            <span>Write to device password</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-md-7 pd_r33 col-sm-12 pad0_mart30px comresponsiveweb2 cardpad">
+                <div class="devis_cardtab">
+                    <div *ngIf="Account">
+                        <div class="row p0m0">
+                            <div class="col-md-6 col-6">
+                                <h2 class="Account_settingsbutton">Account settings</h2>
+                            </div>
+                            <div *ngIf="Editbtn" class="col-md-6 col-6 compar_sing_width">
+                                <button type="button" class="btn btn-primary btn_primary_w float_r apply_button"
+                                    (click)="editAccountDeatils()">Edit Account
+                                    <mat-icon class="mr_l10pabs">edit</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+                            <div class="row width_100_pd0m15">
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>First name</mat-label>
+                                            <input matInput placeholder="First name" formControlName="FirstName"
+                                                [readonly]="IsNonEditable">
+                                            <mat-error
+                                                *ngIf="!accountForm.controls['FirstName'].valid && accountForm.controls['FirstName'].touched && !IsNonEditable ">
+                                                First name is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width ">
+                                            <input matInput placeholder="Last name" formControlName="LastName"
+                                                [readonly]="IsNonEditable">
+                                            <mat-error
+                                                *ngIf="!accountForm.controls['LastName'].valid && accountForm.controls['LastName'].touched && !IsNonEditable ">
+                                                Last name is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Telephone</mat-label>
+                                            <span matPrefix>+91 &nbsp;</span>
+                                            <input type="tel" matInput placeholder="555-555-1234"
+                                                formControlName="telePhone" [readonly]="IsNonEditable">
+                                            <mat-icon matSuffix>phone</mat-icon>
+                                            <mat-error *ngIf="!telePhone.valid && telePhone.touched">
+                                                Mobile number is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Email</mat-label>
+                                            <input matInput placeholder="user@gmail.com" formControlName="email"
+                                                [readonly]="IsNonEditable">
+                                            <mat-icon matSuffix>email</mat-icon>
+                                            <mat-error
+                                                *ngIf="!accountForm.controls['email'].valid && accountForm.controls['email'].touched">
+                                                {{ getErrorEmail() }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Designation</mat-label>
+                                            <input matInput placeholder="Developer" formControlName="designation"
+                                                [readonly]="IsNonEditable">
+                                            <mat-error *ngIf="!designation.valid && designation.touched">
+                                                Designation is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 Accsetbtn">
+                                    <button *ngIf="!IsNonEditable" mat-raised-button color=""
+                                        [disabled]="!accountForm.valid" type="submit"
+                                        class="btn btn-primary float_r  apply_button" (click)="SubmitAccountDeatils()">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div *ngIf="Company">
+                        <div class="row p0m0">
+                            <div class="col-md-6">
+                                <h2 class="Account_settingsbutton">Company settings</h2>
+                            </div>
+                            <div *ngIf="EditButton" class="col-md-6 compar_sing_width">
+                                <button type="button" class="btn btn-primary btn_primary_w float_r apply_button"
+                                    (click)="editCompanyDeatils()">Edit Account
+                                    <mat-icon class="mr_l10pabs">edit</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row compny">
+                                <div class="text-center col-xl-6 col-md-12 col-sm-12">
+                                    <div class="d-flex privew-div">
+                                        <img *ngIf="cropCompanyImage" class="m-auto" [src]="croppedImage" />
+                                    </div>
+                                    <h3 class="prvw">Preview</h3>
+                                </div>
+                                <div class="text-center col-xl-6 col-md-12 col-sm-12">
+                                    <div *ngIf="!cropCompanyImage" class="my-container" appDnd
+                                        (fileDropped)="onFileDropped($event)">
+                                        <input *ngIf="!IsNonEditableCompany" type="file" id="fileDropRef"
+                                            (change)="fileChangeEvent($event)" accept="image/*" />
+                                        <h3 class="titleheight">Drop file here</h3>
+                                        <h3>or</h3>
+                                        <label [ngClass]="!IsNonEditableCompany ? 'btncolr-blue' : 'btncolr-gray'"
+                                         class="uploadlabel" for="fileDropRef">Upload Image</label>
+                                    </div>
+                                    <div class="my-crop-img-div" *ngIf="cropCompanyImage">
+                                        <image-cropper class="bor1px" [imageChangedEvent]="imageChangedEvent"
+                                            [maintainAspectRatio]="false" [cropperMinWidth]="256" [resizeToWidth]="300"
+                                            [resizeToHeight]="128" [onlyScaleDown]="true" [format]="imageFormat"
+                                            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                                            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+                                        </image-cropper>
+                                    </div>
+                                    <label> Maximum allowed size is 8kb. </label>
+                                </div>
+                            </div>
+                        </div>
+                        <form [formGroup]="companyForm" (ngSubmit)="companySubmit()">
+                            <div class="row width_100_pd0m15">
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Company name</mat-label>
+                                            <input matInput placeholder="First name" formControlName="companyName"
+                                                [readonly]="IsNonEditableCompany">
+                                            <mat-error
+                                                *ngIf="!companyName.valid && companyName.touched && !IsNonEditableCompany">
+                                                Company name is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Telephone</mat-label>
+                                            <span matPrefix>+91 &nbsp;</span>
+                                            <input type="tel" matInput placeholder="555-555-1234"
+                                                formControlName="companyPhone" [readonly]="IsNonEditableCompany">
+                                            <mat-icon matSuffix>phone</mat-icon>
+                                            <mat-error
+                                                *ngIf="!companyPhone.valid && companyPhone.touched && !IsNonEditableCompany">
+                                                Company mobile is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Email</mat-label>
+                                            <input matInput placeholder="Email" formControlName="email"
+                                                [readonly]="IsNonEditableCompany">
+                                            <mat-icon matSuffix>email</mat-icon>
+                                            <mat-error
+                                                *ngIf="!companyForm.controls['email'].valid && companyForm.controls['email'].touched && !IsNonEditableCompany">
+                                                {{ getErrorCompanyEmail() }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop ">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Address</mat-label>
+                                            <input matInput placeholder="Please enter company address"
+                                                formControlName="companyAddress" [readonly]="IsNonEditableCompany">
+                                            <mat-error
+                                                *ngIf="!companyAddress.valid && companyAddress.touched && !IsNonEditableCompany">
+                                                Company address is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 compar_sing_width">
+                                    <button mat-raised-button color="" type="submit" (click)="applyheader()"
+                                        *ngIf="!IsNonEditableCompany" class="btn btn-primary float_r apply_button"
+                                        [disabled]="!companyForm.valid">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div *ngIf="About">
+                        <div class="col-md-6">
+                            <h2 class="Account_settingsbutton"> About </h2>
+                        </div>
+                        <div class="col-md-12">
+                            <h3> Who We Are? </h3>
+                        </div>
+                        <div class="col-md-12">
+                            <p> Elpis IT Solutions is headquartered in Bangalore, the IT hub of India . Elpis is
+                                Products and Service based company. Customer satisfaction is our No 1 goal . We are
+                                experts in Industry 4.0 Design and Implementation, Cloud Computing, Hardware Design,
+                                Software
+                                Development and Staffing . Team of top talented and experienced resource pool who can
+                                understand and offer right solutions to any complex customer problems .</p>
+                        </div>
+                    </div>
+                    <div *ngIf="addUsers">
+                        <div class="row p0m0">
+                            <div class="col-md-6">
+                                <h2 class="Account_settingsbutton">Add user</h2>
+                            </div>
+                        </div>
+                        <form [formGroup]="signupForm" (ngSubmit)="NewUserSubmit()" #AdduserFormGroup="ngForm">
+                            <div class="row width_100_pd0m15 ">
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width ">
+                                            <input matInput placeholder="First name" formControlName="firstname">
+                                            <mat-error *ngIf="!firstname.valid && firstname.touched">
+                                                {{ titleAlert }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width ">
+                                            <input matInput placeholder="Last name" formControlName="lastname">
+                                            <mat-error *ngIf="!lastname.valid && lastname.touched">
+                                                {{ titleAlert }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="form-element">
+                                            <input matInput placeholder="Email" formControlName="email">
+                                            <mat-error
+                                                *ngIf="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
+                                                {{ getErrorEmail() }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop ">
+                                    <div class="example-form">
+                                        <mat-form-field class="form-element">
+                                            <mat-label>PhoneNo</mat-label>
+                                            <span matPrefix>+91 &nbsp;</span>
+                                            <input type="tel" matInput placeholder="555-555-1234"
+                                                formControlName="phoneNo">
+                                            <mat-error
+                                                *ngIf="!signupForm.controls['phoneNo'].valid && signupForm.controls['phoneNo'].touched">
+                                                Mobile number is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="form-element">
+                                            <mat-label>Select Role</mat-label>
+                                            <mat-select formControlName="role" required>
+                                                <mat-option [disabled]="getDisableRole(role)" *ngFor="let role of roles" [value]="role.userRoleId">
+                                                    {{getRoleName(role.userRoleName)}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="role.hasError('required')">Please choose an role
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="form-element">
+                                            <mat-label>Designation</mat-label>
+                                            <input matInput type="text" placeholder="designation"
+                                                formControlName="userDesignation">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="form-element">
+                                            <input matInput placeholder="Password" [type]="hide3 ? 'password' : 'text'"
+                                                formControlName="password">
+                                            <button mat-icon-button matSuffix (click)="hide3 = !hide3"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide3">
+                                                <mat-icon>{{hide3 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-hint>Choose password of at least eight characters, one uppercase letter
+                                                & one number
+                                            </mat-hint>
+                                            <mat-error
+                                                *ngIf="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
+                                                Choose password of at least eight characters, one uppercase letter & one number
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="form-element"
+                                            *ngIf="signupForm.controls['password'].valid">
+                                            <input matInput placeholder="Confirm your password"
+                                                [type]="hide4 ? 'password' : 'text'" formControlName="confirmPassword">
+                                            <button mat-icon-button matSuffix (click)="hide4 = !hide4"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide4">
+                                                <mat-icon>{{hide4 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error
+                                                *ngIf="signupForm.controls['confirmPassword'].pristine || signupForm.controls['confirmPassword'].errors?.MatchPassword">
+                                                Password does not match</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12  adduserbtn">
+                                <div class="form-element registerPage pointer">
+                                    <button mat-raised-button color="" type="submit"
+                                        class="button btn-primary register_button float_r " (click)="onNewUserSubmit()"
+                                        [disabled]="!signupForm.valid">Add user</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div *ngIf="userList" #userList id="userList">
+                        <div class="row p0m0">
+                            <div class="col-md-6">
+                                <h2 class="Account_settingsbutton">User list</h2>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="global-search-div">
+                                    <mat-form-field>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                        <input [(ngModel)]="Search" autocomplete="off" name="Search" matInput
+                                            type="search" placeholder="search here" class="search-input">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="example-form">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>
+                                            <mat-icon class="filter-icon">filter_list</mat-icon> Active users
+                                        </mat-label>
+                                        <mat-select>
+                                            <mat-option (click)="userStatusFun(activeUser)"
+                                                *ngFor="let activeUser of activeuserDropdown" [value]="activeUser">
+                                                {{activeUser}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <!-- table main div start from here-->
+                                <div class="table-main-div">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th *ngFor="let header of TableHeader" scope="col">
+                                                    <div class="thead-th-div">{{header.title}}</div>
+                                                </th>
+                                                <th scope="col" class="my-last-th my-last-th-width">
+                                                    <div class="thead-th-last-sticky-div">
+                                                        <div class="edit-th-div">Edit</div>
+                                                        <div class="delete-th-div"> Status</div>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of getusertsdtawithrole | filter: Search | filterBy: userFilter;let i = index ">
+                                                <td *ngFor="let header of TableHeader " matTooltip={{item[header.name]}}
+                                                     [attr.data-label]=header.title>
+                                                    <div  *ngIf="header.name !== 'userRoleId'" class="tbody-td-div  overflowhidden">{{item[header.name]}}  </div>
+                                                    <div  *ngIf="header.name =='userRoleId'" class="tbody-td-div  overflowhidden">{{getRoleName(item[header.name])}}  </div>
+                                                </td>
+                                                <td data-label="" class="action-th my-last-td-width">
+                                                    <div class="tbody-td-last-sticky-div ">
+                                                        <div class="details-td-div" matTooltip="Edit">
+                                                            <button class="action-btn" (click)="editUserPopup(item,i)">
+                                                                <span class="material-icons action-span-icon">
+                                                                    create
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="delete-th-div" >
+                                                            <mat-slide-toggle
+                                                                [(ngModel)]="activeInactiveSlide[item.userAccountId]"
+                                                                (change)="inactiveUserPopup(item,i)"></mat-slide-toggle>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="no-records" *ngIf="(getusertsdtawithrole | filterBy:userFilter)?.length === 0">
+                                        No records found</div>
+                                </div>
+                                <ngx-loading [show]="show" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+                                <!-- table main div end  here-->
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="ResetPaswd">
+                        <div class="row p0m0">
+                            <div class="col-md-6">
+                                <h2 class="Account_settingsbutton">Reset Password</h2>
+                            </div>
+                        </div>
+                        <form [formGroup]="resetformgrp" (ngSubmit)="onResetPassSubmit()" #resetFormGroup="ngForm">
+                            <div class="row width_100_pd0m15 ">
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Old password</mat-label>
+                                            <input matInput placeholder="Please enter old password"
+                                                [type]="hide1 ? 'password' : 'text'" formControlName="oldPassword">
+                                            <button mat-icon-button matSuffix (click)="hide1 = !hide1"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">
+                                                <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-hint> Old password is required
+                                            </mat-hint>
+                                            <mat-error
+                                                *ngIf="!resetformgrp.controls['oldPassword'].valid && resetformgrp.controls['oldPassword'].touched ">
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label> New password</mat-label>
+                                            <input matInput placeholder="Please enter new password"
+                                                [type]="hide ? 'password' : 'text'" formControlName="password">
+                                            <button mat-icon-button matSuffix (click)="hide = !hide"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-hint>Choose a password of at least eight characters, one uppercase
+                                                letter and one number
+                                            </mat-hint>
+                                            <mat-error
+                                                *ngIf="!resetformgrp.controls['password'].valid && resetformgrp.controls['password'].touched ">
+                                                Choose a password of at least eight characters, one uppercase letter and
+                                                one number
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop"
+                                    *ngIf="resetformgrp.controls['password'].valid">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>confirm password</mat-label>
+                                            <input matInput placeholder="please enter confirm password"
+                                                [type]="hide2 ? 'password' : 'text'" formControlName="confirmPassword">
+                                            <button mat-icon-button matSuffix (click)="hide2 = !hide2"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+                                                <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error
+                                                *ngIf="resetformgrp.controls['confirmPassword'].pristine || resetformgrp.controls['confirmPassword'].errors?.MatchPassword">
+                                                Password does not match
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12  adduserbtn">
+                                <div class="form-element registerPage pointer">
+                                    <button mat-raised-button color="" type="submit"
+                                        class="button btn-primary register_button float_r "
+                                        (click)="ResetPasswordField()" [disabled]="!resetformgrp.valid">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div *ngIf="DevicePassword">
+                        <div class="row p0m0">
+                            <div class="col-md-6">
+                                <h2 class="Account_settingsbutton">Write to Device Password</h2>
+                            </div>
+                        </div>
+                        <!-- (ngSubmit)="onResetPassSubmit()" #resetFormGroup="ngForm"-->
+                        <form  [formGroup]="DevicePasswordForm" (ngSubmit)="onResetDevicePassSubmit()">
+                            <div class="row width_100_pd0m15 ">
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Set password</mat-label>
+                                            <input matInput placeholder="Please enter new password"
+                                                [type]="hide ? 'password' : 'text'" formControlName="password">
+                                            <button mat-icon-button matSuffix (click)="hide = !hide"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-hint>Choose a password of at least eight characters, one uppercase
+                                                letter and one number
+                                            </mat-hint>
+                                            <mat-error
+                                                *ngIf="!DevicePasswordForm.controls['password'].valid && DevicePasswordForm.controls['password'].touched ">
+                                                Choose a password of at least eight characters, one uppercase letter and
+                                                one number
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12 coltop"
+                                    *ngIf="DevicePasswordForm.controls['password'].valid">
+                                    <div class="example-form">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Confirm password</mat-label>
+                                            <input matInput placeholder="please enter confirm password"
+                                                [type]="hide2 ? 'password' : 'text'" formControlName="confirmPassword">
+                                            <button mat-icon-button matSuffix (click)="hide2 = !hide2"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+                                                <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error
+                                                *ngIf="DevicePasswordForm.controls['confirmPassword'].pristine || DevicePasswordForm.controls['confirmPassword'].errors?.MatchPassword">
+                                                Password does not match
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12  adduserbtn">
+                                <div class="form-element registerPage pointer">
+                                    <button mat-raised-button color="" type="submit"
+                                        class="button btn-primary register_button float_r "
+                                        (click)="setDevicePassword()" [disabled]="!DevicePasswordForm.valid">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
